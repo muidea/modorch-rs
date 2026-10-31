@@ -18,6 +18,8 @@ Cargo Feature 是加法组合，不能隔离同一依赖图中不同消费者的
 
 最低 Rust 版本为 1.85.0，已实际通过全工作区、全目标、全 Feature 编译。验证使用锁定依赖；CI 单独运行 1.85.0 编译检查，并在 stable 上运行完整检查、测试、示例和 Feature 矩阵。本次实际执行的工具链与命令结果记录于 [实现验收表](implementation.md)。
 
+为兼容新版 Clippy 对异步函数错误大小的检查，StartupError.source 改为 Box<FrameworkError>；Application::start 的 Result<ApplicationHandle, StartupError> 签名、cleanup 和 handle 字段类型保持。直接构造 StartupError 时需包装 Box::new(source)，按值匹配 source 时需先解引用；to_string、root_cause 等方法调用及标准 Error::source() 的 FrameworkError downcast 保持可用。
+
 当前实现包含三种 FailurePolicy、静态和动态 Lane，以及显式有时限的 Wait 入队 API。进程间 Transport、消息持久化和自动重试有副作用请求属于设计非目标，不随本轮扩展加入。资源强制取消、Exactly-once、跨资源事务和第三方插件沙箱不作承诺。
 
 本次开发收口扩展了 `ExecutionFailed` 的可选操作 ID、`Phase::Handle/Task`、`ComponentState::PartiallyInitialized` 和部分诊断快照字段。Handler/Task 的返回错误现在带执行边界和原始 `source`，调用方识别业务根因应使用 `root_cause()`。这些是尚未发布的 0.1 开发期 API 调整；新增字段的结构体字面量和错误穷举匹配需要同步适配，不声称对旧草图二进制兼容。

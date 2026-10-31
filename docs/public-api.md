@@ -22,7 +22,7 @@
 2. `Lifecycle::ready` 是可异步等待的就绪屏障；`Initiator::activate_ingress` 在全组件 Ready 后调用。`start` 本身不得承担无限运行循环。
 3. TaskScheduler 使用闭包接收框架创建的 CancellationToken，周期任务使用可重复构造 Future 的 TaskFactory。运行时上下文绑定 Owner，spawn 不接受调用方提供 Owner ID。
 4. 消息返回值采用 `Arc<R>`，进程内 payload 使用 `Arc<dyn Any + Send + Sync>`。外部消息 source 为 None，内部 Handler source、causation_id、operation_id 和 Span 由框架补齐。
-5. StartupError 保留主因、补偿结果和可再次清理的 ApplicationHandle。错误链保留原始 FrameworkError；停机补偿错误存于 StopIncomplete.errors。
+5. StartupError 保留主因、补偿结果和可再次清理的 ApplicationHandle。source 为 Box<FrameworkError>，缩减错误返回值体积；标准 Error::source() 仍暴露原始 FrameworkError，支持直接 downcast 和根因查询。停机补偿错误存于 StopIncomplete.errors。
 6. ShutdownOptions.timeout 约束调用者等待时间。运行中的关闭事务继续持有资源及 checkpoint，不因调用者超时或取消而中断钩子。
 
 FailurePolicy 支持 FailFast、StopDependents 和 Restart。StopDependents 停止故障组件及其传递依赖方；Restart 在旧代际完成拆卸后重建整个受影响集合，达到重试预算后执行 FailFast。健康快照暴露 ComponentHealth 的状态、代际、累计重启次数与最近故障。请求循环检测对 Concurrent 组件采用保守的组件级等待域，可能拒绝本可利用空闲并发额度完成的同步重入；调用方可改用非阻塞 Command / Event。

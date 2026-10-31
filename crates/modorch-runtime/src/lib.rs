@@ -300,7 +300,8 @@ pub struct Health {
     pub components: BTreeMap<ComponentRef, ComponentHealth>,
 }
 pub struct StartupError {
-    pub source: FrameworkError,
+    /// Box the primary error to keep startup results small while retaining cleanup ownership.
+    pub source: Box<FrameworkError>,
     pub cleanup: FrameworkResult<ShutdownReceipt>,
     pub handle: ApplicationHandle,
 }
@@ -323,7 +324,7 @@ impl std::fmt::Display for StartupError {
 }
 impl std::error::Error for StartupError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        Some(&self.source)
+        Some(self.source.as_ref())
     }
 }
 
@@ -452,7 +453,7 @@ impl Application {
                 });
             }
             return Err(StartupError {
-                source,
+                source: Box::new(source),
                 cleanup,
                 handle,
             });

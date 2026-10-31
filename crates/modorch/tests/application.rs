@@ -241,6 +241,55 @@ async fn partial_setup_rolls_back_and_preserves_primary_error() {
     assert!(log.lock().unwrap().contains(&"db:teardown".into()));
 }
 #[tokio::test]
+async fn startup_error_is_bounded_and_preserves_failed_cleanup_for_retry() {
+    assert!(std::mem::size_of::<StartupError>() <= 128);
+    let log = Log::default();
+    let mut broken = Factory::new(ComponentRef::module("broken"), &log);
+    broken.fail_setup = true;
+    broken.fail_teardown_once.store(true, Ordering::SeqCst);
+    let closed = broken.closed.clone();
+    let mut builder = ApplicationBuilder::new("startup-cleanup-retry");
+    builder.register_module(broken).unwrap();
+    let mut selection = ComponentSelection::new();
+    selection.enable_module("broken");
+    let error = builder
+        .selection(selection)
+        .build()
+        .unwrap()
+        .start()
+        .await
+        .err()
+        .expect("setup must fail");
+    let source = std::error::Error::source(&error)
+        .unwrap()
+        .downcast_ref::<FrameworkError>()
+        .expect("source must expose the original framework error");
+    assert_eq!(source.phase(), Some(Phase::Setup));
+    assert!(
+        matches!(source.root_cause(), FrameworkError::InvalidConfig(detail) if detail == "partial setup")
+    );
+    assert!(matches!(
+        &error.cleanup,
+        Err(FrameworkError::StopIncomplete { phase: Phase::Teardown, errors, .. })
+            if errors.iter().any(|error| matches!(error.root_cause(), FrameworkError::InvalidConfig(detail) if detail == "retry teardown"))
+    ));
+    assert!(!closed.load(Ordering::SeqCst));
+    assert_eq!(
+        error
+            .handle
+            .shutdown_checked(Default::default())
+            .await
+            .unwrap(),
+        ShutdownReceipt::GracefullyStopped
+    );
+    assert!(closed.load(Ordering::SeqCst));
+    assert_eq!(error.handle.health().pending.operations, 0);
+    assert!(
+        matches!(error.source.root_cause(), FrameworkError::InvalidConfig(detail) if detail == "partial setup")
+    );
+}
+
+#[tokio::test]
 async fn retries_skip_successful_teardown_checkpoints() {
     let log = Log::default();
     let a = Factory::new(ComponentRef::module("a"), &log);
