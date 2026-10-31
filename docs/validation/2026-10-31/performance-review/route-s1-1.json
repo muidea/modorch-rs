@@ -1,0 +1,7 @@
+{
+  "case": "route",
+  "requests": 64000,
+  "requests_per_second": 124871.99498617087,
+  "seconds": 0.512524846,
+  "subscriptions": 1
+}

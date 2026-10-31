@@ -1,0 +1,15 @@
+{
+  "bytes": 16777216,
+  "case": "observation",
+  "released_after_observer_drop": true,
+  "retained_after_reply_consumed": false,
+  "rss_after_observer_drop_kib": 3904,
+  "rss_after_reply_kib": 3904,
+  "rss_before_kib": 3628,
+  "external_sample": {
+    "rss_peak_kib": 316,
+    "user_seconds": 0.0,
+    "system_seconds": 0.010113000000004035,
+    "wall_seconds": 0.025782240001717582
+  }
+}

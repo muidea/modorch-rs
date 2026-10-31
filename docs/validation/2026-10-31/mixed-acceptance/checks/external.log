@@ -1,0 +1,2 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.20s
+     Running `tests/fixtures/external-app/target/debug/modorch-external-consumer`

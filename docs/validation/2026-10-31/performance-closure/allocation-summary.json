@@ -1,0 +1,26 @@
+{
+  "serial-baseline": {
+    "tb": 9062694,
+    "tbk": 200354,
+    "eb": 544,
+    "ebk": 1
+  },
+  "serial-optimized": {
+    "tb": 4479505,
+    "tbk": 128335,
+    "eb": 544,
+    "ebk": 1
+  },
+  "concurrent-baseline": {
+    "tb": 23844404,
+    "tbk": 216355,
+    "eb": 544,
+    "ebk": 1
+  },
+  "concurrent-optimized": {
+    "tb": 4859623,
+    "tbk": 123886,
+    "eb": 544,
+    "ebk": 1
+  }
+}

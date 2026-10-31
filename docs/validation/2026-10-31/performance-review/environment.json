@@ -1,0 +1,24 @@
+{
+  "timestamp_utc": "2026-10-31T04:34:23.193526+00:00",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "logical_cpus": 8,
+  "tokio_workers": 4,
+  "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+  "profile": "release",
+  "source_sha256": "74a5eedfab9f0becb94c50440de3da3401c2ae18045ff323fabcd10c3321643b",
+  "binary_sha256": "0e0eb0fb0d46547cc62ab680942fd76e6b9f5129d86addff253b73193ed2cd3d",
+  "probe_binary_sha256": "21bf1c6de8f763ef48880aee87258f468730e4bf0db8d935d319bb705adc9833",
+  "probe_source_sha256": "1efc98d427e8298cb910f1f6dc274443acd38e4b5a017e65eeb79815b301d797",
+  "notes": [
+    "Sequential runs on a shared host, 3 trials; throughput figures are short synthetic echo results, not business capacity.",
+    "I/O simulation uses Tokio sleep(1ms); CPU simulation uses a 20ms wall-clock busy loop.",
+    "The isolated variant is a host-side reference using spawn_blocking plus a 2-slot Semaphore; it is not a new framework CPU executor.",
+    "Request latency samples are capped at the first 100000 per client.",
+    "No production code changes were made for this assessment.",
+    "CPU saturation probe has four concurrent 100ms busy jobs and a barrier; protected variant uses four blocking workers for equal CPU concurrency.",
+    "DHAT runs use 8000 successful requests; allocation counts include application and Tokio overhead; wall times under Valgrind are not performance data.",
+    "Archived probe source/binary include the later saturation case. Routing, observation and mixed runs used the same corresponding functions before that case was added; the pre-saturation source digest is recorded, but its binary was not retained."
+  ],
+  "valgrind": "valgrind-3.22.0",
+  "probe_pre_saturation_source_sha256": "94edf8b8c6e87350bb1a36ee588a3b7e9e8105324c93c3e02ca6102ba2ba8bfe"
+}

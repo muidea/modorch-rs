@@ -1,0 +1,108 @@
+{
+  "passed": true,
+  "samples": 3,
+  "groups": {
+    "mixed-smoke": {
+      "samples": 1,
+      "rss_peak_kib": 5756,
+      "user_seconds_median": 0.03725499999999471,
+      "system_seconds_median": 0.027094999999999647,
+      "successful_per_active_second": 2874.146835895534,
+      "kinds": {
+        "async_io": {
+          "successful_median": 64,
+          "p95_us_median": 4096,
+          "p99_us_median": 4096,
+          "rejected_total": 0
+        },
+        "blocking_io": {
+          "successful_median": 64,
+          "p95_us_median": 8192,
+          "p99_us_median": 8192,
+          "rejected_total": 0
+        },
+        "cpu": {
+          "successful_median": 64,
+          "p95_us_median": 4096,
+          "p99_us_median": 4096,
+          "rejected_total": 0
+        },
+        "short": {
+          "successful_median": 64,
+          "p95_us_median": 512,
+          "p99_us_median": 512,
+          "rejected_total": 0
+        }
+      }
+    },
+    "dynamic-recovery-smoke": {
+      "samples": 1,
+      "rss_peak_kib": 5792,
+      "user_seconds_median": 0.09630100000000397,
+      "system_seconds_median": 0.03547900000000004,
+      "successful_per_active_second": 2862.2458965735946,
+      "kinds": {
+        "async_io": {
+          "successful_median": 128,
+          "p95_us_median": 4096,
+          "p99_us_median": 8192,
+          "rejected_total": 0
+        },
+        "blocking_io": {
+          "successful_median": 128,
+          "p95_us_median": 8192,
+          "p99_us_median": 8192,
+          "rejected_total": 0
+        },
+        "cpu": {
+          "successful_median": 128,
+          "p95_us_median": 4096,
+          "p99_us_median": 4096,
+          "rejected_total": 0
+        },
+        "short": {
+          "successful_median": 128,
+          "p95_us_median": 512,
+          "p99_us_median": 1024,
+          "rejected_total": 0
+        }
+      }
+    },
+    "overload-smoke": {
+      "samples": 1,
+      "rss_peak_kib": 7092,
+      "user_seconds_median": 0.8584789999999956,
+      "system_seconds_median": 0.17253700000000016,
+      "successful_per_active_second": 724.6450221183014,
+      "kinds": {
+        "async_io": {
+          "successful_median": 512,
+          "p95_us_median": 8192,
+          "p99_us_median": 8192,
+          "rejected_total": 0
+        },
+        "blocking_io": {
+          "successful_median": 512,
+          "p95_us_median": 262144,
+          "p99_us_median": 524288,
+          "rejected_total": 0
+        },
+        "cpu": {
+          "successful_median": 512,
+          "p95_us_median": 65536,
+          "p99_us_median": 131072,
+          "rejected_total": 0
+        },
+        "short": {
+          "successful_median": 512,
+          "p95_us_median": 1024,
+          "p99_us_median": 4096,
+          "rejected_total": 0
+        }
+      }
+    }
+  },
+  "allocations": {},
+  "baseline_supplied": false,
+  "production_slo_certified": false
+}

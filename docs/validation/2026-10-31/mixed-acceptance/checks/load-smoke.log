@@ -1,0 +1,88 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.07s
+     Running `target/debug/runtime-load --mode serial --messages 100 --producers 8 --capacity 8`
+{
+  "admission_rejections": 0,
+  "completed": 800,
+  "error": null,
+  "handler_p95_micros": 32,
+  "handler_p99_micros": 128,
+  "mode": "serial",
+  "peak_handlers": 1,
+  "pending_after_shutdown": 0,
+  "producers": 8,
+  "queue_capacity": 8,
+  "replies": 800,
+  "requests_per_second": 10767.132772703982,
+  "rss_after_kib": 7136,
+  "rss_before_kib": 6628,
+  "samples": [],
+  "seconds": 0.074300189,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 5.350271
+}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.07s
+     Running `target/debug/runtime-load --mode partitioned --messages 100 --producers 8 --capacity 8`
+{
+  "admission_rejections": 0,
+  "completed": 800,
+  "error": null,
+  "handler_p95_micros": 64,
+  "handler_p99_micros": 256,
+  "mode": "partitioned",
+  "peak_handlers": 3,
+  "pending_after_shutdown": 0,
+  "producers": 8,
+  "queue_capacity": 8,
+  "replies": 800,
+  "requests_per_second": 11767.274955352752,
+  "rss_after_kib": 7332,
+  "rss_before_kib": 6972,
+  "samples": [],
+  "seconds": 0.067985154,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 1.131013
+}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.10s
+     Running `target/debug/runtime-load --mode concurrent --messages 100 --producers 8 --capacity 8`
+{
+  "admission_rejections": 0,
+  "completed": 800,
+  "error": null,
+  "handler_p95_micros": 64,
+  "handler_p99_micros": 128,
+  "mode": "concurrent",
+  "peak_handlers": 3,
+  "pending_after_shutdown": 0,
+  "producers": 8,
+  "queue_capacity": 8,
+  "replies": 800,
+  "requests_per_second": 10529.797688759423,
+  "rss_after_kib": 7556,
+  "rss_before_kib": 7112,
+  "samples": [],
+  "seconds": 0.075974869,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 1.708877
+}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.09s
+     Running `target/debug/runtime-load --mode dynamic --messages 100 --producers 8 --capacity 8`
+{
+  "admission_rejections": 0,
+  "completed": 800,
+  "error": null,
+  "handler_p95_micros": 128,
+  "handler_p99_micros": 512,
+  "mode": "dynamic",
+  "peak_handlers": 4,
+  "pending_after_shutdown": 0,
+  "producers": 8,
+  "queue_capacity": 8,
+  "replies": 800,
+  "requests_per_second": 8606.669316660149,
+  "rss_after_kib": 7396,
+  "rss_before_kib": 6892,
+  "samples": [],
+  "seconds": 0.092951172,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 1.058629
+}

@@ -1,0 +1,137 @@
+{
+  "throughput": [
+    {
+      "mode": "serial",
+      "producers": 1,
+      "median_rps": 89282.15216719233,
+      "peak_rss_kib": 4188
+    },
+    {
+      "mode": "serial",
+      "producers": 64,
+      "median_rps": 75169.58599482683,
+      "peak_rss_kib": 4328
+    },
+    {
+      "mode": "partitioned",
+      "producers": 1,
+      "median_rps": 74875.24045615723,
+      "peak_rss_kib": 4328
+    },
+    {
+      "mode": "partitioned",
+      "producers": 64,
+      "median_rps": 122739.74443651801,
+      "peak_rss_kib": 4632
+    },
+    {
+      "mode": "concurrent",
+      "producers": 1,
+      "median_rps": 51221.22190650273,
+      "peak_rss_kib": 4236
+    },
+    {
+      "mode": "concurrent",
+      "producers": 64,
+      "median_rps": 47292.95709005406,
+      "peak_rss_kib": 4696
+    },
+    {
+      "mode": "dynamic",
+      "producers": 1,
+      "median_rps": 86873.17888038904,
+      "peak_rss_kib": 4216
+    },
+    {
+      "mode": "dynamic",
+      "producers": 64,
+      "median_rps": 113334.91236398625,
+      "peak_rss_kib": 5812
+    }
+  ],
+  "routing": [
+    {
+      "subscriptions": 1,
+      "median_rps": 124871.99498617087
+    },
+    {
+      "subscriptions": 128,
+      "median_rps": 48092.377919503124
+    },
+    {
+      "subscriptions": 1024,
+      "median_rps": 14709.30762071834
+    }
+  ],
+  "mixed": [
+    {
+      "isolated": false,
+      "cpu": {
+        "median_completed": 297,
+        "median_p99_micros": 60132
+      },
+      "io": {
+        "median_completed": 3691,
+        "median_p99_micros": 4048
+      },
+      "short": {
+        "median_completed": 325808,
+        "median_p99_micros": 66
+      }
+    },
+    {
+      "isolated": true,
+      "cpu": {
+        "median_completed": 192,
+        "median_p99_micros": 53760
+      },
+      "io": {
+        "median_completed": 2996,
+        "median_p99_micros": 8039
+      },
+      "short": {
+        "median_completed": 212050,
+        "median_p99_micros": 216
+      }
+    }
+  ],
+  "observation": {
+    "bytes": 16777216,
+    "case": "observation",
+    "released_after_observer_drop": true,
+    "retained_after_reply_consumed": true,
+    "rss_after_observer_drop_kib": 3564,
+    "rss_after_reply_kib": 19952,
+    "rss_before_kib": 3480
+  },
+  "saturation": [
+    {
+      "isolated": false,
+      "median_io_latency_micros": 101277
+    },
+    {
+      "isolated": true,
+      "median_io_latency_micros": 3480
+    }
+  ],
+  "allocations": [
+    {
+      "mode": "serial",
+      "requests": 8000,
+      "total_allocated_bytes": 9062764,
+      "allocation_blocks": 200356,
+      "bytes_per_request_including_harness": 1132.8455,
+      "allocations_per_request_including_harness": 25.0445,
+      "heap_at_exit_bytes": 544
+    },
+    {
+      "mode": "concurrent",
+      "requests": 8000,
+      "total_allocated_bytes": 23845082,
+      "allocation_blocks": 216356,
+      "bytes_per_request_including_harness": 2980.63525,
+      "allocations_per_request_including_harness": 27.0445,
+      "heap_at_exit_bytes": 544
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "case": "route",
+  "requests": 64000,
+  "requests_per_second": 43797.254153460075,
+  "seconds": 1.461278823,
+  "subscriptions": 128,
+  "external_sample": {
+    "rss_peak_kib": 3900,
+    "user_seconds": 1.2502630000000003,
+    "system_seconds": 0.7861180000000001,
+    "wall_seconds": 1.4829606370185502
+  }
+}

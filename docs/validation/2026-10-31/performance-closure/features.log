@@ -1,0 +1,22 @@
+    Checking modorch-core v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+    Checking modorch-registry v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.51s
+    Checking modorch-eventhub v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.54s
+    Checking modorch-scheduler v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.34s
+    Checking modorch-eventhub v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+    Checking modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.10s
+    Checking modorch-core v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+    Checking modorch-registry v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+    Checking modorch-config v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-config)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.59s
+    Checking modorch-observe v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.18s

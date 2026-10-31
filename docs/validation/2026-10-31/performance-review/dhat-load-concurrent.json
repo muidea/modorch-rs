@@ -1,0 +1,20 @@
+{
+  "admission_rejections": 0,
+  "completed": 8000,
+  "error": null,
+  "handler_p95_micros": 128,
+  "handler_p99_micros": 128,
+  "mode": "concurrent",
+  "peak_handlers": 1,
+  "pending_after_shutdown": 0,
+  "producers": 8,
+  "queue_capacity": 8,
+  "replies": 8000,
+  "requests_per_second": 3003.927521460555,
+  "rss_after_kib": 41692,
+  "rss_before_kib": 40204,
+  "samples": [],
+  "seconds": 2.663180101,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 112.919546
+}

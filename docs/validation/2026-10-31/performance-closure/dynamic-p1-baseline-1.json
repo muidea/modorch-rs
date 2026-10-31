@@ -1,0 +1,26 @@
+{
+  "admission_rejections": 0,
+  "completed": 173637,
+  "error": null,
+  "handler_p95_micros": 32,
+  "handler_p99_micros": 32,
+  "mode": "dynamic",
+  "peak_handlers": 1,
+  "pending_after_shutdown": 0,
+  "producers": 1,
+  "queue_capacity": 8,
+  "replies": 173637,
+  "requests_per_second": 86813.83566623733,
+  "rss_after_kib": 4280,
+  "rss_before_kib": 4092,
+  "samples": [],
+  "seconds": 2.000107456,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 0.226429,
+  "external_sample": {
+    "rss_peak_kib": 4276,
+    "user_seconds": 1.1714350000000024,
+    "system_seconds": 1.1589290000000005,
+    "wall_seconds": 2.0047591180191375
+  }
+}

@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/rangh/aispace/modorch-rs/docs/validation/2026-10-31/performance-closure/compare.py", line 72, in <module>
+    results[name] = sample(name, [probe, case, mode])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rangh/aispace/modorch-rs/docs/validation/2026-10-31/performance-closure/compare.py", line 40, in sample
+    raise RuntimeError(f'{name}: {stderr}\n{stdout}')
+RuntimeError: framework-mixed-isolated-1: 
+thread 'tokio-rt-worker' (313537) panicked at src/main.rs:50:220:
+called `Result::unwrap()` on an `Err` value: ExecutionFailed { component: ComponentRef { kind: Module, id: "cpu" }, operation_id: Some(23132), phase: Handle, detail: "queue full: Module:cpu", source: Some(Backpressure(ComponentRef { kind: Module, id: "cpu" })) }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'main' (313536) panicked at src/main.rs:56:92:
+called `Result::unwrap()` on an `Err` value: JoinError::Panic(Id(22), "called `Result::unwrap()` on an `Err` value: ExecutionFailed { component: ComponentRef { kind: Module, id: \"cpu\" }, operation_id: Some(23132), phase: Handle, detail: \"queue full: Module:cpu\", source: Some(Backpressure(ComponentRef { kind: Module, id: \"cpu\" })) }", ...)
+
+thread 'tokio-rt-worker' (313539) panicked at src/main.rs:50:176:
+called `Result::unwrap()` on an `Err` value: Closed
+
+

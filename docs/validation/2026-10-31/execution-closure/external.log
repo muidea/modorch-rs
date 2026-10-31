@@ -1,0 +1,7 @@
+   Compiling modorch-scheduler v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+   Compiling modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch-observe v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+   Compiling modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling modorch-external-consumer v0.1.0 (/home/rangh/aispace/modorch-rs/tests/fixtures/external-app)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.96s
+     Running `tests/fixtures/external-app/target/debug/modorch-external-consumer`

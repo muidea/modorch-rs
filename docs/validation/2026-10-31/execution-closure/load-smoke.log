@@ -1,0 +1,92 @@
+   Compiling modorch-scheduler v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+   Compiling modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling runtime-load v0.1.0 (/home/rangh/aispace/modorch-rs/examples/runtime-load)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.63s
+     Running `target/debug/runtime-load --mode serial --messages 100 --producers 8 --capacity 8`
+{
+  "admission_rejections": 0,
+  "completed": 800,
+  "error": null,
+  "handler_p95_micros": 32,
+  "handler_p99_micros": 64,
+  "mode": "serial",
+  "peak_handlers": 1,
+  "pending_after_shutdown": 0,
+  "producers": 8,
+  "queue_capacity": 8,
+  "replies": 800,
+  "requests_per_second": 15267.001050884934,
+  "rss_after_kib": 7132,
+  "rss_before_kib": 6804,
+  "samples": [],
+  "seconds": 0.052400599,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 0.530179
+}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.06s
+     Running `target/debug/runtime-load --mode partitioned --messages 100 --producers 8 --capacity 8`
+{
+  "admission_rejections": 0,
+  "completed": 800,
+  "error": null,
+  "handler_p95_micros": 64,
+  "handler_p99_micros": 128,
+  "mode": "partitioned",
+  "peak_handlers": 3,
+  "pending_after_shutdown": 0,
+  "producers": 8,
+  "queue_capacity": 8,
+  "replies": 800,
+  "requests_per_second": 19522.53444665792,
+  "rss_after_kib": 7376,
+  "rss_before_kib": 7008,
+  "samples": [],
+  "seconds": 0.040978286,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 0.778468
+}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s
+     Running `target/debug/runtime-load --mode concurrent --messages 100 --producers 8 --capacity 8`
+{
+  "admission_rejections": 0,
+  "completed": 800,
+  "error": null,
+  "handler_p95_micros": 32,
+  "handler_p99_micros": 128,
+  "mode": "concurrent",
+  "peak_handlers": 3,
+  "pending_after_shutdown": 0,
+  "producers": 8,
+  "queue_capacity": 8,
+  "replies": 800,
+  "requests_per_second": 16507.230548710042,
+  "rss_after_kib": 7556,
+  "rss_before_kib": 7060,
+  "samples": [],
+  "seconds": 0.048463611,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 0.956823
+}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s
+     Running `target/debug/runtime-load --mode dynamic --messages 100 --producers 8 --capacity 8`
+{
+  "admission_rejections": 0,
+  "completed": 800,
+  "error": null,
+  "handler_p95_micros": 32,
+  "handler_p99_micros": 64,
+  "mode": "dynamic",
+  "peak_handlers": 3,
+  "pending_after_shutdown": 0,
+  "producers": 8,
+  "queue_capacity": 8,
+  "replies": 800,
+  "requests_per_second": 16061.902572514471,
+  "rss_after_kib": 7316,
+  "rss_before_kib": 6876,
+  "samples": [],
+  "seconds": 0.0498073,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 0.54267
+}

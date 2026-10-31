@@ -1,0 +1,39 @@
+{
+  "admission_rejections": 0,
+  "completed": 186204,
+  "error": null,
+  "handler_p95_micros": 2,
+  "handler_p99_micros": 4,
+  "mode": "dynamic",
+  "peak_handlers": 4,
+  "pending_after_shutdown": 0,
+  "producers": 64,
+  "queue_capacity": 8,
+  "replies": 186204,
+  "requests_per_second": 93045.18116923496,
+  "rss_after_kib": 5424,
+  "rss_before_kib": 4008,
+  "samples": [],
+  "seconds": 2.001221317,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 1.080659,
+  "measurement": {
+    "command": [
+      "/tmp/modorch-optimization-base-ksxg77be/runtime-load",
+      "--mode",
+      "dynamic",
+      "--seconds",
+      "2",
+      "--producers",
+      "64",
+      "--capacity",
+      "8"
+    ],
+    "wall_seconds": 2.0179491190065164,
+    "rss_peak_kib": 5636,
+    "thread_peak": 5,
+    "user_seconds": 2.275302999999994,
+    "system_seconds": 0.7050840000000065,
+    "rss_sample_ms": 25
+  }
+}

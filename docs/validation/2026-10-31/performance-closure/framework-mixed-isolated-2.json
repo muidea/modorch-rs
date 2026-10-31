@@ -1,0 +1,42 @@
+{
+  "blocking_cpu_limit": 2,
+  "case": "mixed",
+  "cpu_work_millis": 20,
+  "executor": "framework",
+  "io_sleep_millis": 1,
+  "isolated": true,
+  "seconds_target": 2,
+  "stats": {
+    "cpu": {
+      "completed": 202,
+      "latency_samples": 202,
+      "max_micros": 41206,
+      "p50_micros": 40024,
+      "p95_micros": 40184,
+      "p99_micros": 40670
+    },
+    "io": {
+      "completed": 3999,
+      "latency_samples": 3999,
+      "max_micros": 3719,
+      "p50_micros": 1999,
+      "p95_micros": 2163,
+      "p99_micros": 2378
+    },
+    "short": {
+      "completed": 293744,
+      "latency_samples": 293744,
+      "max_micros": 1684,
+      "p50_micros": 12,
+      "p95_micros": 105,
+      "p99_micros": 164
+    }
+  },
+  "tokio_workers": 4,
+  "external_sample": {
+    "rss_peak_kib": 6980,
+    "user_seconds": 7.078665000000001,
+    "system_seconds": 1.590984000000006,
+    "wall_seconds": 2.036079259007238
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "admission_rejections": 0,
+  "completed": 127314,
+  "error": null,
+  "handler_p95_micros": 4,
+  "handler_p99_micros": 4,
+  "mode": "dynamic",
+  "peak_handlers": 4,
+  "pending_after_shutdown": 0,
+  "producers": 64,
+  "queue_capacity": 8,
+  "replies": 127314,
+  "requests_per_second": 63649.3893152208,
+  "rss_after_kib": 6196,
+  "rss_before_kib": 4340,
+  "samples": [],
+  "seconds": 2.000239144,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 0.837448,
+  "measurement": {
+    "command": [
+      "/home/rangh/aispace/modorch-rs/target/release/runtime-load",
+      "--mode",
+      "dynamic",
+      "--seconds",
+      "2",
+      "--producers",
+      "64",
+      "--capacity",
+      "8"
+    ],
+    "wall_seconds": 2.0283266689802986,
+    "rss_peak_kib": 6188,
+    "thread_peak": 5,
+    "user_seconds": 2.0217310000000026,
+    "system_seconds": 1.3747769999999946,
+    "rss_sample_ms": 25
+  }
+}

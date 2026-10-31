@@ -1,0 +1,29 @@
+[workspace]
+resolver = "3"
+members = ["crates/*", "examples/*"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+rust-version = "1.85"
+
+[workspace.dependencies]
+async-trait = "0.1"
+futures-util = "0.3"
+semver = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tokio = { version = "1", features = ["rt", "sync", "time", "macros"] }
+tokio-util = { version = "0.7", features = ["rt"] }
+toml = "0.8"
+tracing = "0.1"
+modorch-core = { path = "crates/modorch-core", version = "0.1.0" }
+modorch-registry = { path = "crates/modorch-registry", version = "0.1.0" }
+modorch-eventhub = { path = "crates/modorch-eventhub", version = "0.1.0" }
+modorch-scheduler = { path = "crates/modorch-scheduler", version = "0.1.0" }
+modorch-runtime = { path = "crates/modorch-runtime", version = "0.1.0" }
+modorch-config = { path = "crates/modorch-config", version = "0.1.0" }
+modorch-observe = { path = "crates/modorch-observe", version = "0.1.0" }
+modorch = { path = "crates/modorch", version = "0.1.0" }

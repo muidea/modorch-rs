@@ -1,0 +1,348 @@
+{
+  "timestamp_utc": "2026-10-31T04:19:18.817487+00:00",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+  "profile": "debug",
+  "source_sha256": "74a5eedfab9f0becb94c50440de3da3401c2ae18045ff323fabcd10c3321643b",
+  "source_digest_scope": "Cargo.toml/Cargo.lock; crates Rust sources/tests and manifests; runtime-load Rust source and manifest; sorted relative paths and bytes, NUL delimited",
+  "scope": "Functional smoke after observability/error-context closure; 800 matched replies per mode; no new long-duration or throughput claim",
+  "checks": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--all-features",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--offline",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "check",
+        "-p",
+        "modorch",
+        "--no-default-features",
+        "--features",
+        "",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "check",
+        "-p",
+        "modorch",
+        "--no-default-features",
+        "--features",
+        "eventhub",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "check",
+        "-p",
+        "modorch",
+        "--no-default-features",
+        "--features",
+        "scheduler",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "check",
+        "-p",
+        "modorch",
+        "--no-default-features",
+        "--features",
+        "runtime",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "check",
+        "-p",
+        "modorch",
+        "--no-default-features",
+        "--features",
+        "config-toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "check",
+        "-p",
+        "modorch",
+        "--no-default-features",
+        "--features",
+        "observability",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "check",
+        "-p",
+        "modorch",
+        "--no-default-features",
+        "--features",
+        "runtime,observability",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "minimal-app",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "stateful-initiator",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "multi-module",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "graceful-http",
+        "--locked",
+        "--offline",
+        "--",
+        "--once"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "run",
+        "--manifest-path",
+        "tests/fixtures/external-app/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--manifest-path",
+        "tests/fixtures/external-app/Cargo.toml",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "runtime-load",
+        "--locked",
+        "--offline",
+        "--",
+        "--mode",
+        "serial",
+        "--messages",
+        "100",
+        "--producers",
+        "8",
+        "--capacity",
+        "8"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "runtime-load",
+        "--locked",
+        "--offline",
+        "--",
+        "--mode",
+        "partitioned",
+        "--messages",
+        "100",
+        "--producers",
+        "8",
+        "--capacity",
+        "8"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "runtime-load",
+        "--locked",
+        "--offline",
+        "--",
+        "--mode",
+        "concurrent",
+        "--messages",
+        "100",
+        "--producers",
+        "8",
+        "--capacity",
+        "8"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "runtime-load",
+        "--locked",
+        "--offline",
+        "--",
+        "--mode",
+        "dynamic",
+        "--messages",
+        "100",
+        "--producers",
+        "8",
+        "--capacity",
+        "8"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "+1.85.0",
+        "check",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--offline",
+        "--target-dir",
+        "target/msrv"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "doc",
+        "--workspace",
+        "--all-features",
+        "--no-deps",
+        "--locked",
+        "--offline",
+        "--target-dir",
+        "target/doc-check"
+      ],
+      "environment": {
+        "RUSTDOCFLAGS": "-D warnings"
+      },
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "cargo",
+        "check",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "binary_sha256": "5e899dee020ab6635c8200d9bf008c999b8ae2e80a6d2096db3a0806487ba9dc",
+  "tests_passed": 61,
+  "document_links_checked": true
+}

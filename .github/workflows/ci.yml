@@ -1,0 +1,78 @@
+name: CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - run: cargo fmt --all -- --check
+      - run: cargo check --workspace --all-targets --all-features --locked
+      - run: cargo test --workspace --all-features --locked
+      - run: cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
+      - name: Feature combinations
+        run: |
+          for features in '' eventhub scheduler runtime config-toml observability; do
+            cargo check -p modorch --no-default-features --features "$features" --locked
+          done
+      - run: cargo doc --workspace --all-features --no-deps --locked
+        env:
+          RUSTDOCFLAGS: -D warnings
+      - name: Examples
+        run: |
+          cargo run -p minimal-app --locked
+          cargo run -p stateful-initiator --locked
+          cargo run -p multi-module --locked
+          cargo run -p graceful-http --locked -- --once
+      - name: Bounded load smoke
+        run: |
+          for mode in serial partitioned concurrent dynamic; do
+            cargo run -p runtime-load --locked -- --mode "$mode" --messages 100 --producers 8 --capacity 8
+          done
+      - run: cargo run --manifest-path tests/fixtures/external-app/Cargo.toml --locked
+      - run: cargo fmt --manifest-path tests/fixtures/external-app/Cargo.toml -- --check
+      - name: Mixed workload and resource pressure smoke
+        run: |
+          cargo build -p mixed-load -p runtime-load --release --locked
+          python3 scripts/acceptance.py --suite smoke --output validation/mixed-smoke
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mixed-smoke-results
+          path: validation/mixed-smoke/
+  msrv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.85.0
+      - run: cargo check --workspace --all-targets --all-features --locked
+
+  stability:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo build -p runtime-load -p mixed-load --release --locked
+      - name: Policy load and sustained dynamic lanes
+        run: |
+          mkdir -p validation
+          for mode in serial partitioned concurrent dynamic; do
+            target/release/runtime-load --mode "$mode" --seconds 30 --producers 64 --capacity 8 > "validation/$mode.json"
+          done
+          target/release/runtime-load --mode dynamic --seconds 900 --producers 64 --capacity 8 > validation/dynamic-soak.json
+      - name: Mixed burst idle and recovery soak
+        run: python3 scripts/acceptance.py --suite stability --soak-seconds 300 --cycles 12 --output validation/mixed-soak
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: stability-results
+          path: validation/

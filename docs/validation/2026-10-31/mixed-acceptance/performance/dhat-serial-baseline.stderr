@@ -1,0 +1,17 @@
+==467519== DHAT, a dynamic heap analysis tool
+==467519== Copyright (C) 2010-2018, and GNU GPL'd, by Mozilla Foundation
+==467519== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==467519== Command: /tmp/modorch-optimization-base-ksxg77be/runtime-load --mode serial --messages 1000 --producers 8 --capacity 8
+==467519== 
+==467519== 
+==467519== Total:     9,062,726 bytes in 200,355 blocks
+==467519== At t-gmax: 72,573 bytes in 229 blocks
+==467519== At t-end:  544 bytes in 1 blocks
+==467519== Reads:     61,572,888 bytes
+==467519== Writes:    47,404,678 bytes
+==467519== 
+==467519== To view the resulting profile, open
+==467519==   file:///usr/libexec/valgrind/dh_view.html
+==467519== in a web browser, click on "Load...", and then select the file
+==467519==   /home/rangh/aispace/modorch-rs/docs/validation/2026-10-31/mixed-acceptance/performance/dhat-serial-baseline-heap.json
+==467519== The text at the bottom explains the abbreviations used in the output.

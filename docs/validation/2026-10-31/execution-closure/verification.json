@@ -1,0 +1,46 @@
+{
+  "passed_tests": 90,
+  "breakdown": {
+    "application": 15,
+    "supervision": 6,
+    "tracing": 1,
+    "eventhub": 37,
+    "scheduler": 21,
+    "registry": 5,
+    "operations": 2,
+    "config": 1,
+    "loom": 2
+  },
+  "command": "bash docs/validation/2026-10-31/performance-closure/verify.sh docs/validation/2026-10-31/execution-closure",
+  "exit_code": 0,
+  "checks": [
+    "fmt",
+    "check",
+    "tests",
+    "clippy",
+    "features",
+    "rustdoc",
+    "examples",
+    "load-smoke",
+    "external",
+    "msrv"
+  ],
+  "source_sha256": "1dca6c66eab42a08a1471487eb2e9b4c2fa64817b17a5991e61e4bfed47bc1a5",
+  "source_digest_scope": "Concatenated bytes of sorted crates/**/*.rs, same convention as performance-closure",
+  "external_source_sha256": "9e6d879d0d2dad4b3b3f9e7f87655b4f02de5ebeda38cfa18d85a9b38ca7a9d8",
+  "rust": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+  "msrv": "rustc 1.85.0 (4d91de4e4 2025-02-17)",
+  "log_sha256": {
+    "fmt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "check": "8e35fb683f5dc0117e40aad14544439bafb569fc3b3e331c308f01f31c70f919",
+    "tests": "dbd2ab2dd5655e793251c1970d9b4740fea5b36f902025f35338c19dc67e11fd",
+    "clippy": "4a079dd8593420823dc4e140110f2c401dc3b01d03b913c002337fce3ccb0bf0",
+    "features": "25d714e7009f94a3ad443ea35d3fc64734d6bc8a36d9390f40e5cdeaa798ea7a",
+    "rustdoc": "6a8a4a7bb028d396de8177308be7fa22616203e74cfbeb8553d28e49024baece",
+    "examples": "6c90467ba85404bef45046f695e67da806ae8650052ec997daa1d98ab1d1e9c9",
+    "load-smoke": "1640ab646ba9aa66c4f16b5012a70b89eb0cdc5c82def37df097bd3ae1f11e4e",
+    "external": "50dffbebc619bd1868972a778730c4127b4d3a6439a06f26b7cbf8d25d899659",
+    "msrv": "487ee18b9d833e365853cc5ac76e1e0fe8d6a7bef028845e8abb1d476ff9e203"
+  },
+  "performance_measurements_rerun": false
+}

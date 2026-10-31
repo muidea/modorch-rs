@@ -1,0 +1,224 @@
+{
+  "admission_rejections": 0,
+  "completed": 44797881,
+  "error": null,
+  "handler_p95_micros": 2,
+  "handler_p99_micros": 4,
+  "mode": "dynamic",
+  "peak_handlers": 4,
+  "pending_after_shutdown": 0,
+  "producers": 64,
+  "queue_capacity": 8,
+  "replies": 44797881,
+  "requests_per_second": 149326.09589572725,
+  "rss_after_kib": 5520,
+  "rss_before_kib": 3936,
+  "samples": [
+    {
+      "active": 0,
+      "completed": 1667674,
+      "queued": 1,
+      "rss_kib": 5520,
+      "seconds": 10.001036042
+    },
+    {
+      "active": 1,
+      "completed": 3266534,
+      "queued": 1,
+      "rss_kib": 5520,
+      "seconds": 20.001046289
+    },
+    {
+      "active": 0,
+      "completed": 4899238,
+      "queued": 1,
+      "rss_kib": 5520,
+      "seconds": 30.000574376
+    },
+    {
+      "active": 0,
+      "completed": 6675372,
+      "queued": 0,
+      "rss_kib": 5524,
+      "seconds": 40.001337796
+    },
+    {
+      "active": 0,
+      "completed": 8198852,
+      "queued": 0,
+      "rss_kib": 5524,
+      "seconds": 50.005627988
+    },
+    {
+      "active": 0,
+      "completed": 9644556,
+      "queued": 1,
+      "rss_kib": 5524,
+      "seconds": 60.000945067
+    },
+    {
+      "active": 1,
+      "completed": 11161837,
+      "queued": 1,
+      "rss_kib": 5524,
+      "seconds": 70.001751001
+    },
+    {
+      "active": 0,
+      "completed": 12926469,
+      "queued": 0,
+      "rss_kib": 5524,
+      "seconds": 80.000530978
+    },
+    {
+      "active": 0,
+      "completed": 14484461,
+      "queued": 2,
+      "rss_kib": 5524,
+      "seconds": 90.000649584
+    },
+    {
+      "active": 0,
+      "completed": 16073932,
+      "queued": 1,
+      "rss_kib": 5528,
+      "seconds": 100.000983178
+    },
+    {
+      "active": 0,
+      "completed": 17573514,
+      "queued": 0,
+      "rss_kib": 5528,
+      "seconds": 110.000676376
+    },
+    {
+      "active": 1,
+      "completed": 19156956,
+      "queued": 1,
+      "rss_kib": 5528,
+      "seconds": 120.000923467
+    },
+    {
+      "active": 0,
+      "completed": 20629536,
+      "queued": 1,
+      "rss_kib": 5528,
+      "seconds": 130.001396161
+    },
+    {
+      "active": 0,
+      "completed": 21892275,
+      "queued": 1,
+      "rss_kib": 5528,
+      "seconds": 140.0012654
+    },
+    {
+      "active": 1,
+      "completed": 23055462,
+      "queued": 1,
+      "rss_kib": 5528,
+      "seconds": 150.003086158
+    },
+    {
+      "active": 0,
+      "completed": 24182091,
+      "queued": 0,
+      "rss_kib": 5532,
+      "seconds": 160.000633674
+    },
+    {
+      "active": 1,
+      "completed": 25480512,
+      "queued": 2,
+      "rss_kib": 5532,
+      "seconds": 170.008930194
+    },
+    {
+      "active": 0,
+      "completed": 26802561,
+      "queued": 1,
+      "rss_kib": 5532,
+      "seconds": 180.001031343
+    },
+    {
+      "active": 1,
+      "completed": 28452287,
+      "queued": 0,
+      "rss_kib": 5532,
+      "seconds": 190.001313446
+    },
+    {
+      "active": 0,
+      "completed": 30077974,
+      "queued": 1,
+      "rss_kib": 5536,
+      "seconds": 200.003229597
+    },
+    {
+      "active": 1,
+      "completed": 31374999,
+      "queued": 0,
+      "rss_kib": 5576,
+      "seconds": 210.000749011
+    },
+    {
+      "active": 1,
+      "completed": 33006295,
+      "queued": 1,
+      "rss_kib": 5576,
+      "seconds": 220.000776413
+    },
+    {
+      "active": 1,
+      "completed": 34536994,
+      "queued": 0,
+      "rss_kib": 5576,
+      "seconds": 230.005732185
+    },
+    {
+      "active": 0,
+      "completed": 35996814,
+      "queued": 1,
+      "rss_kib": 5576,
+      "seconds": 240.000472039
+    },
+    {
+      "active": 0,
+      "completed": 37177854,
+      "queued": 0,
+      "rss_kib": 5628,
+      "seconds": 250.005895189
+    },
+    {
+      "active": 1,
+      "completed": 38728419,
+      "queued": 0,
+      "rss_kib": 5628,
+      "seconds": 260.012951515
+    },
+    {
+      "active": 2,
+      "completed": 40257732,
+      "queued": 1,
+      "rss_kib": 5628,
+      "seconds": 270.005319303
+    },
+    {
+      "active": 0,
+      "completed": 41745032,
+      "queued": 0,
+      "rss_kib": 5628,
+      "seconds": 280.002046693
+    },
+    {
+      "active": 0,
+      "completed": 43269385,
+      "queued": 1,
+      "rss_kib": 5628,
+      "seconds": 290.001690833
+    }
+  ],
+  "seconds": 300.00034978,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 0.606522
+}

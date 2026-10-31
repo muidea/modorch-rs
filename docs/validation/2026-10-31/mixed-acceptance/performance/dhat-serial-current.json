@@ -1,0 +1,42 @@
+{
+  "admission_rejections": 0,
+  "completed": 8000,
+  "error": null,
+  "handler_p95_micros": 64,
+  "handler_p99_micros": 128,
+  "mode": "serial",
+  "peak_handlers": 1,
+  "pending_after_shutdown": 0,
+  "producers": 8,
+  "queue_capacity": 8,
+  "replies": 8000,
+  "requests_per_second": 5832.958734647396,
+  "rss_after_kib": 42300,
+  "rss_before_kib": 40816,
+  "samples": [],
+  "seconds": 1.371516646,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 66.740798,
+  "measurement": {
+    "command": [
+      "valgrind",
+      "--tool=dhat",
+      "--dhat-out-file=/home/rangh/aispace/modorch-rs/docs/validation/2026-10-31/mixed-acceptance/performance/dhat-serial-current-heap.json",
+      "/home/rangh/aispace/modorch-rs/target/release/runtime-load",
+      "--mode",
+      "serial",
+      "--messages",
+      "1000",
+      "--producers",
+      "8",
+      "--capacity",
+      "8"
+    ],
+    "wall_seconds": 2.441471833997639,
+    "rss_peak_kib": 43164,
+    "thread_peak": 5,
+    "user_seconds": 2.3011889999999937,
+    "system_seconds": 0.06003099999999506,
+    "rss_sample_ms": 25
+  }
+}

@@ -1,0 +1,33 @@
+Traceback (most recent call last):
+  File "/home/rangh/aispace/modorch-rs/docs/validation/2026-10-31/performance-closure/compare.py", line 63, in <module>
+    results[name] = sample(name, [binary, '--mode', mode, '--seconds', 2, '--producers', producers, '--capacity', 8])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rangh/aispace/modorch-rs/docs/validation/2026-10-31/performance-closure/compare.py", line 40, in sample
+    raise RuntimeError(f'{name}: {stderr}\n{stdout}')
+RuntimeError: serial-p64-optimized-1: 
+thread 'tokio-rt-worker' (275105) panicked at crates/modorch-eventhub/src/admission.rs:43:35:
+`async fn` resumed after completion
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+Error: "load validation failed"
+
+{
+  "admission_rejections": 11760,
+  "completed": 16292,
+  "error": "task 24 was cancelled",
+  "handler_p95_micros": 2,
+  "handler_p99_micros": 4,
+  "mode": "serial",
+  "peak_handlers": 1,
+  "pending_after_shutdown": 0,
+  "producers": 64,
+  "queue_capacity": 8,
+  "replies": 16285,
+  "requests_per_second": 126451.54689648769,
+  "rss_after_kib": 4748,
+  "rss_before_kib": 4304,
+  "samples": [],
+  "seconds": 0.128784506,
+  "shutdown": "GracefullyStopped",
+  "shutdown_millis": 0.237191
+}
+

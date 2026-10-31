@@ -1,0 +1,29 @@
+[package]
+name = "modorch"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[features]
+default = ["runtime", "eventhub", "scheduler"]
+runtime = ["dep:modorch-runtime", "eventhub", "scheduler", "modorch-observe?/runtime"]
+eventhub = ["dep:modorch-eventhub"]
+scheduler = ["dep:modorch-scheduler"]
+config-toml = ["dep:modorch-config"]
+observability = ["dep:modorch-observe"]
+
+[dependencies]
+modorch-core.workspace = true
+modorch-registry.workspace = true
+modorch-runtime = { workspace = true, optional = true }
+modorch-eventhub = { workspace = true, optional = true }
+modorch-scheduler = { workspace = true, optional = true }
+modorch-config = { workspace = true, optional = true }
+modorch-observe = { workspace = true, optional = true }
+async-trait.workspace = true
+
+[dev-dependencies]
+tracing.workspace = true
+tracing-subscriber = { version = "0.3", default-features = false, features = ["registry"] }
+tokio = { workspace = true, features = ["rt-multi-thread", "test-util"] }

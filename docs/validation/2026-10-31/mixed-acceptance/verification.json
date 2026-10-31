@@ -1,0 +1,72 @@
+{
+  "passed_tests": 94,
+  "breakdown": {
+    "application": 15,
+    "supervision": 6,
+    "tracing": 1,
+    "eventhub": 37,
+    "scheduler": 21,
+    "registry": 5,
+    "operations": 2,
+    "config": 1,
+    "loom": 2,
+    "mixed_load": 4
+  },
+  "check_command": "bash docs/validation/2026-10-31/performance-closure/verify.sh docs/validation/2026-10-31/mixed-acceptance/checks",
+  "checks": {
+    "fmt": {
+      "passed": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "check": {
+      "passed": true,
+      "log_sha256": "54c9a6213bf90196d3eb43a5e272b4af3ed03da21e79816e35a5b371a4874e84"
+    },
+    "tests": {
+      "passed": true,
+      "log_sha256": "b629761c6ba8c194e0f6f953f19d6400264ac380dae612e18c16f86e8fa28506"
+    },
+    "clippy": {
+      "passed": true,
+      "log_sha256": "4cf86278c1e6d659943a46a3d7e3da429ac15be90f0f17742e24ef85228e7d3e"
+    },
+    "features": {
+      "passed": true,
+      "log_sha256": "547e65c4942972ead7f462c73dfddbc1e4204bb44e3b8ec1e5788e1cf8815cd4"
+    },
+    "rustdoc": {
+      "passed": true,
+      "log_sha256": "81a4a3e472ecf56034e2e706bd95cf765a6b84cfc10dcbfb8827db351e179729"
+    },
+    "examples": {
+      "passed": true,
+      "log_sha256": "b2c3845ca3c0e22bb6f0db139da22b9ba37dd62ccf3f1aa9c2d1d1a223afddb6"
+    },
+    "load-smoke": {
+      "passed": true,
+      "log_sha256": "1dcf3943741c715411695e25d8f002a7ed07d0308ab1660ffdcac989755aa1bb"
+    },
+    "external": {
+      "passed": true,
+      "log_sha256": "4a908d9205eef85cddbdcf1e7b275b7d795436088e211c034ab2b47c9047db2a"
+    },
+    "msrv": {
+      "passed": true,
+      "log_sha256": "1bcfe08c53003580023151d41292f1397393d31d09a53eec7679f4d2b674a2f7"
+    },
+    "release": {
+      "passed": true,
+      "log_sha256": "39d8c1113ec3d9d1215c35a5ecc59e7f8f37c1629af9cba7e2f7c579e5f841e6"
+    }
+  },
+  "source_manifest_reference": "performance/environment.json",
+  "samples": {
+    "smoke": 3,
+    "performance_and_dhat": 68,
+    "stability": 1
+  },
+  "measured_active_seconds": 301.075876563,
+  "recoveries": 12,
+  "remote_ci_executed": false,
+  "production_slo_certified": false
+}

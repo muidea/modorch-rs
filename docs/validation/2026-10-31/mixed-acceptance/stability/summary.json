@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "samples": 1,
+  "groups": {
+    "dynamic-recovery-soak": {
+      "samples": 1,
+      "rss_peak_kib": 20528,
+      "user_seconds_median": 706.942229,
+      "system_seconds_median": 160.344375,
+      "successful_per_active_second": 84343.92117326056,
+      "kinds": {
+        "async_io": {
+          "successful_median": 1168293,
+          "p95_us_median": 8192,
+          "p99_us_median": 16384,
+          "rejected_total": 0
+        },
+        "blocking_io": {
+          "successful_median": 52646,
+          "p95_us_median": 262144,
+          "p99_us_median": 524288,
+          "rejected_total": 0
+        },
+        "cpu": {
+          "successful_median": 251812,
+          "p95_us_median": 65536,
+          "p99_us_median": 131072,
+          "rejected_total": 0
+        },
+        "short": {
+          "successful_median": 23921169,
+          "p95_us_median": 1024,
+          "p99_us_median": 2048,
+          "rejected_total": 0
+        }
+      }
+    }
+  },
+  "allocations": {},
+  "baseline_supplied": false,
+  "production_slo_certified": false
+}

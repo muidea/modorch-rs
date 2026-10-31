@@ -1,0 +1,13 @@
+# Synthetic host profile. Values are reproducibility parameters, not production SLOs.
+owners = 2
+producers_per_kind = 2
+cpu_threads = 2
+cpu_capacity = 4
+io_threads = 4
+io_capacity = 8
+task_capacity = 32
+owner_tasks = 8
+waiters = 64
+owner_waiters = 32
+idle_ms = 250
+lane_idle_ms = 50

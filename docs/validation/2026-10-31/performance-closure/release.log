@@ -1,0 +1,12 @@
+   Compiling modorch-eventhub v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+   Compiling modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling runtime-load v0.1.0 (/home/rangh/aispace/modorch-rs/examples/runtime-load)
+    Finished `release` profile [optimized] target(s) in 18.47s
+   Compiling modorch-eventhub v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+   Compiling modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling modorch-perf-review v0.0.0 (/tmp/modorch-perf-review-0zy53n_5)
+    Finished `release` profile [optimized] target(s) in 15.58s
+   Compiling modorch-perf-review v0.0.0 (/tmp/modorch-perf-review-0zy53n_5)
+    Finished `release` profile [optimized] target(s) in 4.57s

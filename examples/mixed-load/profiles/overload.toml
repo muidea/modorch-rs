@@ -1,0 +1,16 @@
+# Shared global/Owner quotas deliberately smaller than the producer population.
+owners = 4
+producers_per_kind = 4
+capacity = 2
+concurrency = 16
+cpu_threads = 1
+cpu_capacity = 1
+io_threads = 1
+io_capacity = 1
+task_capacity = 2
+owner_tasks = 1
+waiters = 64
+owner_waiters = 16
+cpu_iterations = 200000
+blocking_ms = 5
+timeout_ms = 10000

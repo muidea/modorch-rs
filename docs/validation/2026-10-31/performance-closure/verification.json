@@ -1,0 +1,29 @@
+{
+  "passed_tests": 74,
+  "breakdown": {
+    "application": 15,
+    "supervision": 6,
+    "tracing": 1,
+    "eventhub": 30,
+    "scheduler": 12,
+    "registry": 5,
+    "operations": 2,
+    "config": 1,
+    "loom": 2
+  },
+  "commands": "verify.sh",
+  "checks": [
+    "fmt",
+    "check",
+    "tests",
+    "clippy",
+    "features",
+    "rustdoc",
+    "examples",
+    "load-smoke",
+    "external",
+    "msrv"
+  ],
+  "source_sha256": "849052df557ff591c0f66c4e656334f9506870b8d8316e9efedb1b25a17b61bc",
+  "baseline_archive_sha256": "3f73a0354c6066069d449c81ed33d4c124d4b05d3acc37ad39fa12cdd96c0bc8"
+}

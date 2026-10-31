@@ -1,0 +1,19 @@
+==467735== DHAT, a dynamic heap analysis tool
+==467735== Copyright (C) 2010-2018, and GNU GPL'd, by Mozilla Foundation
+==467735== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==467735== Command: /home/rangh/aispace/modorch-rs/target/release/mixed-load --profile /home/rangh/aispace/modorch-rs/examples/mixed-load/profiles/local.toml --messages 32 --cycles 2 --timeout-ms 30000
+==467735== 
+cycle 1/2: quiesced, 0 recoveries
+cycle 2/2: quiesced, 0 recoveries
+==467735== 
+==467735== Total:     5,943,992 bytes in 33,174 blocks
+==467735== At t-gmax: 1,002,797 bytes in 2,612 blocks
+==467735== At t-end:  544 bytes in 1 blocks
+==467735== Reads:     20,107,454 bytes
+==467735== Writes:    16,671,809 bytes
+==467735== 
+==467735== To view the resulting profile, open
+==467735==   file:///usr/libexec/valgrind/dh_view.html
+==467735== in a web browser, click on "Load...", and then select the file
+==467735==   /home/rangh/aispace/modorch-rs/docs/validation/2026-10-31/mixed-acceptance/performance/dhat-mixed-current-heap.json
+==467735== The text at the bottom explains the abbreviations used in the output.

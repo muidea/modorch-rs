@@ -1,0 +1,10 @@
+    Checking modorch-scheduler v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+    Checking modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+    Checking modorch-observe v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Checking minimal-app v0.1.0 (/home/rangh/aispace/modorch-rs/examples/minimal-app)
+    Checking graceful-http v0.1.0 (/home/rangh/aispace/modorch-rs/examples/graceful-http)
+    Checking runtime-load v0.1.0 (/home/rangh/aispace/modorch-rs/examples/runtime-load)
+    Checking multi-module v0.1.0 (/home/rangh/aispace/modorch-rs/examples/multi-module)
+    Checking stateful-initiator v0.1.0 (/home/rangh/aispace/modorch-rs/examples/stateful-initiator)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.98s

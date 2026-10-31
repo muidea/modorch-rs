@@ -1,0 +1,20 @@
+# Copy and tune against real deployment CPU/memory quotas and measured business costs.
+# Zero thresholds are disabled. This template carries no production pass claim.
+tokio_workers = 4
+owners = 2
+producers_per_kind = 2
+cpu_threads = 2
+cpu_capacity = 4
+io_threads = 4
+io_capacity = 8
+task_capacity = 32
+owner_tasks = 8
+waiters = 64
+owner_waiters = 32
+payload_budget = 67108864
+timeout_ms = 5000
+max_p99_us = [0, 0, 0, 0] # short, async_io, cpu, blocking_io
+max_rejection_percent = 100 # synthetic overload is allowed; set a real business limit
+max_timer_lag_us = 0
+max_idle_rss_growth_kib = 0
+max_threads = 0

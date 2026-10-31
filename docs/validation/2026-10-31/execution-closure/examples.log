@@ -1,0 +1,18 @@
+   Compiling modorch-scheduler v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+   Compiling modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling minimal-app v0.1.0 (/home/rangh/aispace/modorch-rs/examples/minimal-app)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.70s
+     Running `target/debug/minimal-app`
+   Compiling stateful-initiator v0.1.0 (/home/rangh/aispace/modorch-rs/examples/stateful-initiator)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.91s
+     Running `target/debug/stateful-initiator`
+hello from a leased service
+   Compiling multi-module v0.1.0 (/home/rangh/aispace/modorch-rs/examples/multi-module)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.77s
+     Running `target/debug/multi-module`
+stored orders: 1
+   Compiling graceful-http v0.1.0 (/home/rangh/aispace/modorch-rs/examples/graceful-http)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.97s
+     Running `target/debug/graceful-http --once`
+http://127.0.0.1:40828

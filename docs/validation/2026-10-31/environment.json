@@ -1,0 +1,10 @@
+{
+  "utc": "2026-10-31T03:26:44.146367+00:00",
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "logical_cpus": 8,
+  "tokio_worker_threads": 4,
+  "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+  "source_sha256": "8f91e4682a458e23de623c801fd9c57c8d2adcab5ae5eec8df52d180ab4209e1",
+  "binary_sha256": "3f505a329f4c53518ea9d4fb5749f91471d5c0fcf61d2a9c2a0e76e4ee4db889",
+  "note": "Shared host, uncommitted development tree. Synthetic in-process echo; no database or network side effects."
+}

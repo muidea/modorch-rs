@@ -1,0 +1,35 @@
+{
+  "blocking_cpu_limit": 0,
+  "case": "mixed",
+  "cpu_work_millis": 20,
+  "io_sleep_millis": 1,
+  "isolated": false,
+  "seconds_target": 2,
+  "stats": {
+    "cpu": {
+      "completed": 297,
+      "latency_samples": 297,
+      "max_micros": 71193,
+      "p50_micros": 20045,
+      "p95_micros": 40161,
+      "p99_micros": 50671
+    },
+    "io": {
+      "completed": 3691,
+      "latency_samples": 3691,
+      "max_micros": 82301,
+      "p50_micros": 1989,
+      "p95_micros": 2307,
+      "p99_micros": 4048
+    },
+    "short": {
+      "completed": 325808,
+      "latency_samples": 325808,
+      "max_micros": 12760,
+      "p50_micros": 22,
+      "p95_micros": 35,
+      "p99_micros": 66
+    }
+  },
+  "tokio_workers": 4
+}

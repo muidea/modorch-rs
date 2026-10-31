@@ -1,0 +1,16 @@
+{
+  "case": "saturation",
+  "cpu_busy_millis": 100,
+  "cpu_jobs": 4,
+  "executor": "framework",
+  "io_latency_micros": 101125,
+  "io_sleep_millis": 1,
+  "isolated": false,
+  "tokio_workers": 4,
+  "external_sample": {
+    "rss_peak_kib": 4244,
+    "user_seconds": 0.39982200000000034,
+    "system_seconds": 0.003998000000009938,
+    "wall_seconds": 0.12750047698500566
+  }
+}

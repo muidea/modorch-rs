@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/rangh/aispace/modorch-rs/docs/validation/2026-10-31/performance-closure/compare.py", line 72, in <module>
+    results[name] = sample(name, [probe, case, mode])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rangh/aispace/modorch-rs/docs/validation/2026-10-31/performance-closure/compare.py", line 36, in sample
+    raise RuntimeError(f'timeout: {name}')
+RuntimeError: timeout: framework-saturation-inline-2

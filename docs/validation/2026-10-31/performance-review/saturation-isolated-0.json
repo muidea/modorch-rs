@@ -1,0 +1,9 @@
+{
+  "case": "saturation",
+  "cpu_busy_millis": 100,
+  "cpu_jobs": 4,
+  "io_latency_micros": 3480,
+  "io_sleep_millis": 1,
+  "isolated": true,
+  "tokio_workers": 4
+}

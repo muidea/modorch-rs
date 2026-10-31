@@ -1,0 +1,155 @@
+   Compiling modorch-core v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+   Compiling modorch-registry v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+   Compiling modorch-eventhub v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+   Compiling modorch-scheduler v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+   Compiling modorch-config v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-config)
+   Compiling modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch-observe v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+   Compiling modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling multi-module v0.1.0 (/home/rangh/aispace/modorch-rs/examples/multi-module)
+   Compiling graceful-http v0.1.0 (/home/rangh/aispace/modorch-rs/examples/graceful-http)
+   Compiling runtime-load v0.1.0 (/home/rangh/aispace/modorch-rs/examples/runtime-load)
+   Compiling stateful-initiator v0.1.0 (/home/rangh/aispace/modorch-rs/examples/stateful-initiator)
+   Compiling minimal-app v0.1.0 (/home/rangh/aispace/modorch-rs/examples/minimal-app)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 20.95s
+     Running unittests src/main.rs (target/debug/deps/graceful_http-a6ecebbe1aa4754f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/minimal_app-cbc4065420ae3229)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch-8fa0af4923b896a7)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/application.rs (target/debug/deps/application-ce52446e5cd9e3c2)
+
+running 15 tests
+test default_selection_is_empty_duplicates_and_unavailable_are_errors ... ok
+test applications_are_isolated_in_one_runtime ... ok
+test cancellation_of_startup_does_not_abandon_created_resources ... ok
+test lifecycle_journal_is_bounded_and_startup_errors_survive_eviction ... ok
+test only_enabled_factories_create_and_dag_orders_lifecycle ... ok
+test externally_held_service_leases_block_owner_teardown ... ok
+test initiator_can_register_an_optional_event_endpoint ... ok
+test force_shutdown_never_reports_a_graceful_stop_or_releases_busy_owners ... ok
+test forced_drain_is_interrupted_and_never_counted_as_completed ... ok
+test retries_skip_successful_teardown_checkpoints ... ok
+test partial_setup_rolls_back_and_preserves_primary_error ... ok
+test supervised_panic_triggers_failfast_shutdown_with_a_failure_receipt ... ok
+test shutdown_timeout_preserves_resources_and_accepts_only_causal_children ... ok
+test timed_out_quiesce_continues_once_and_can_flush_dependencies ... ok
+test blocking_work_keeps_its_service_and_owner_alive_after_await_is_abandoned ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/supervision.rs (target/debug/deps/supervision-77b8dbbe26421e2c)
+
+running 6 tests
+test shutdown_interrupts_restart_backoff_without_spawning_a_new_generation ... ok
+test stop_dependents_removes_only_the_dependency_closure ... ok
+test a_noncooperative_old_task_keeps_resources_alive_until_it_really_finishes ... ok
+test old_generation_faults_are_not_replayed_against_the_replacement ... ok
+test restart_waits_for_old_handlers_and_leases_and_invalidates_old_handles ... ok
+test replacement_setup_failure_is_cleaned_before_retry_and_budget_is_bounded ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/tracing.rs (target/debug/deps/tracing-8819a9a70f7f5db1)
+
+running 1 test
+test traces_preserve_task_ancestry_separate_external_roots_and_log_shutdown_outcomes ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch_config-f71b8a19fb7d1cbd)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/composition.rs (target/debug/deps/composition-89a8fe63768d16da)
+
+running 1 test
+test parses_explicit_selection_and_rejects_bad_configuration ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch_core-8ae4a47925cfc02b)
+
+running 2 tests
+test operation::model::close_and_admit_are_linearized_and_never_lose_leases ... ok
+test operation::model::owner_generation_cannot_advance_while_an_old_task_is_admitted ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/operations.rs (target/debug/deps/operations-d90549b0653373de)
+
+running 2 tests
+test shutdown_allows_children_but_zero_is_a_fixed_point ... ok
+test close_races_with_admission_without_lost_operations ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch_eventhub-531e393ca31bea6e)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/concurrency.rs (target/debug/deps/concurrency-c1b055dddd452ac9)
+
+running 30 tests
+test aborting_a_worker_completes_waiters_with_an_honest_result ... ok
+test bounded_fanout_reports_partial_delivery_and_ambiguous_requests ... ok
+test byte_budgets_and_waiter_limits_release_on_cancellation ... ok
+test dynamic_lane_sync_reentry_is_detected ... ok
+test detects_wait_cycles_between_independent_roots ... ok
+test dynamic_lanes_are_bounded_retire_when_idle_and_recreate_without_reordering ... ok
+test external_ingress_cannot_inherit_a_producer_tasks_shutdown_privileges ... ok
+test handler_cannot_deadlock_by_waiting_for_mailbox_capacity ... ok
+test handler_panic_is_supervised_and_has_no_success_receipt ... ok
+test message_metrics_distinguish_routes_kinds_targets_and_applications ... ok
+test metadata_and_subscription_bounds_reject_before_dispatch ... ok
+test handler_errors_keep_execution_identity_and_the_original_source ... ok
+test control_plane_changes_never_publish_stale_routes ... ok
+test metrics_separate_admission_deadlines_reply_timeouts_and_cancellation ... ok
+test named_destinations_and_topics_route_independently_of_lane_keys ... ok
+test partitioned_same_key_is_fifo_and_independent_shards_progress ... ok
+test patterns_are_directional_and_segment_based ... ok
+test rejects_self_and_cross_component_wait_cycles ... ok
+test serial_fifo_dynamic_subscriptions_and_typed_requests ... ok
+test queued_timeout_cancels_but_running_timeout_is_indeterminate ... ok
+test concurrent_workers_obey_strict_limit ... ok
+test waiting_admission_succeeds_after_capacity_and_timeout_never_enqueues_later ... ok
+test waiting_admission_is_cancel_safe_and_wakes_on_shutdown ... ok
+test completed_unconsumed_and_timed_out_replies_release_with_observers_alive ... ok
+test status_observers_never_retain_consumed_or_abandoned_replies ... ok
+test waiting_fanout_delivers_ready_subscribers_without_retrying_accepted_legs ... ok
+test metric_label_overflow_preserves_totals_and_existing_labels ... ok
+test bounded_mailbox_recovers_under_competing_producers_without_losing_fifo ... ok
+test concurrent_worker_handoff_allows_parallel_synchronous_handlers ... FAILED
+test contended_admission_notifications_remain_safe_across_capacity_retries ... ok
+
+failures:
+
+---- concurrent_worker_handoff_allows_parallel_synchronous_handlers stdout ----
+
+thread 'concurrent_worker_handoff_allows_parallel_synchronous_handlers' (293785) panicked at crates/modorch-eventhub/tests/concurrency.rs:1650:56:
+called `Result::unwrap()` on an `Err` value: ExecutionFailed { component: ComponentRef { kind: Module, id: "parallel" }, operation_id: Some(1), phase: Handle, detail: "invalid configuration: receiver handoff stranded a parallel worker", source: Some(InvalidConfig("receiver handoff stranded a parallel worker")) }
+
+
+failures:
+    concurrent_worker_handoff_allows_parallel_synchronous_handlers
+
+test result: FAILED. 29 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.77s
+
+error: test failed, to rerun pass `-p modorch-eventhub --test concurrency`
