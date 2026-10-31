@@ -10,6 +10,8 @@ pub struct HandlerContext {
     pub shard: usize,
     pub operation_id: OperationId,
 }
+// async-trait adds a bare #[must_use] to the already must-use boxed Future.
+#[allow(clippy::double_must_use)]
 #[async_trait]
 pub trait SerialHandler: Send {
     async fn handle(
@@ -18,6 +20,8 @@ pub trait SerialHandler: Send {
         message: MessageEnvelope,
     ) -> FrameworkResult<HandlerReply>;
 }
+// Keep this workaround scoped to the macro-generated trait methods.
+#[allow(clippy::double_must_use)]
 #[async_trait]
 pub trait ConcurrentHandler: Send + Sync {
     async fn handle(

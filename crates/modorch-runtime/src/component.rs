@@ -17,6 +17,8 @@ pub struct ShutdownContext {
     pub services: ServiceReader,
 }
 
+// async-trait adds a bare #[must_use] to the already must-use boxed Future.
+#[allow(clippy::double_must_use)]
 #[async_trait]
 pub trait Lifecycle: Send {
     async fn setup(&mut self, _ctx: &SetupContext) -> FrameworkResult<()> {
@@ -40,6 +42,8 @@ pub trait Lifecycle: Send {
         Ok(())
     }
 }
+// Keep this workaround scoped to the macro-generated trait methods.
+#[allow(clippy::double_must_use)]
 #[async_trait]
 pub trait Initiator: Lifecycle {
     fn descriptor(&self) -> ComponentDescriptor;

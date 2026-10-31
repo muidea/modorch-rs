@@ -24,7 +24,7 @@ impl WaitGraph {
                 return Err(FrameworkError::CircularWait(vec![from.0, to.0]));
             }
             if visited.insert(node.clone()) {
-                for ((a, b), _) in edges.iter() {
+                for (a, b) in edges.keys() {
                     if a == &node {
                         pending.push(b.clone());
                     }
