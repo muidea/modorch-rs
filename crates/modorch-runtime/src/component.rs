@@ -2,25 +2,57 @@ use crate::*;
 use async_trait::async_trait;
 
 #[derive(Clone)]
+/// Owner-bound runtime capabilities supplied to component lifecycle hooks.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct ComponentContext {
+    /// Component associated with this boundary; absent before routing when optional.
     pub component: ComponentRef,
+    /// Generation- and dependency-scoped service lookup capability.
     pub services: ServiceReader,
+    /// Causal message capability for trusted component child operations.
     pub event_hub: EventHub,
+    /// Current admitted tasks or their snapshot, including jobs still releasing resources.
     pub tasks: TaskScheduler,
 }
+/// ComponentContext used during resource initialization.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub type SetupContext = ComponentContext;
+/// ComponentContext used during start, readiness and ingress activation.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub type RuntimeContext = ComponentContext;
+/// ComponentContext alias for module lifecycle integration.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub type ModuleContext = ComponentContext;
+/// Services and phase available to an owned component shutdown hook.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct ShutdownContext {
+    /// Component associated with this boundary; absent before routing when optional.
     pub component: ComponentRef,
+    /// Lifecycle/execution phase associated with this boundary.
     pub phase: Phase,
+    /// Generation- and dependency-scoped service lookup capability.
     pub services: ServiceReader,
 }
 
 // async-trait adds a bare #[must_use] to the already must-use boxed Future.
 #[allow(clippy::double_must_use)]
 #[async_trait]
+/// Fallible, retry-aware component hooks supervised by the application.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub trait Lifecycle: Send {
+    /// Initialize owned resources; partial failure still enters compensation (LIFE-002).
     async fn setup(&mut self, _ctx: &SetupContext) -> FrameworkResult<()> {
         Ok(())
     }
@@ -28,12 +60,15 @@ pub trait Lifecycle: Send {
     async fn start(&mut self, _ctx: &RuntimeContext) -> FrameworkResult<()> {
         Ok(())
     }
+    /// Await the component readiness barrier before any ingress activates (LIFE-001).
     async fn ready(&mut self, _ctx: &RuntimeContext) -> FrameworkResult<()> {
         Ok(())
     }
+    /// Stop new production without releasing dependencies prematurely (LIFE-003).
     async fn begin_shutdown(&mut self, _ctx: &ShutdownContext) -> FrameworkResult<()> {
         Ok(())
     }
+    /// Await producer quiescence; timeout does not cancel the owned hook (LIFE-003).
     async fn quiesce(&mut self, _ctx: &ShutdownContext) -> FrameworkResult<()> {
         Ok(())
     }
@@ -45,37 +80,84 @@ pub trait Lifecycle: Send {
 // Keep this workaround scoped to the macro-generated trait methods.
 #[allow(clippy::double_must_use)]
 #[async_trait]
+/// Lifecycle component providing narrow shared services and optional ingress or handlers.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub trait Initiator: Lifecycle {
+    /// Return stable metadata; created instances must match their registered factory descriptor.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     fn descriptor(&self) -> ComponentDescriptor;
+    /// Publish narrow services after successful setup; duplicate typed keys reject startup.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     fn export_services(&self, _publisher: &mut ServicePublisher) -> FrameworkResult<()> {
         Ok(())
     }
+    /// Optionally return one Initiator-owned handler registration with multiple subscriptions.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     fn event_endpoint(&mut self) -> FrameworkResult<Option<HandlerRegistration>> {
         Ok(None)
     }
+    /// Activate external ingress only after all ready hooks passed (LIFE-001).
     async fn activate_ingress(&mut self, _ctx: &RuntimeContext) -> FrameworkResult<()> {
         Ok(())
     }
 }
+/// Lifecycle component encapsulating business behavior and private state.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub trait Module: Lifecycle {
+    /// Return stable metadata; created instances must match their registered factory descriptor.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     fn descriptor(&self) -> ComponentDescriptor;
     /// One component-owned execution policy, with any number of subscriptions.
     fn handlers(&mut self) -> FrameworkResult<Option<HandlerRegistration>> {
         Ok(None)
     }
 }
+/// Side-effect-free metadata/config validation and creation of selected Initiators.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub trait InitiatorFactory: Send + Sync {
+    /// Return stable metadata; created instances must match their registered factory descriptor.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     fn descriptor(&self) -> ComponentDescriptor;
+    /// Validate owner-defined configuration before any selected factory is invoked.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     fn validate_config(&self, _config: &ComponentConfig) -> FrameworkResult<()> {
         Ok(())
     }
+    /// Create a fresh instance without starting background work; resource setup belongs to Lifecycle::setup.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     fn create(&self, config: &ComponentConfig) -> FrameworkResult<Box<dyn Initiator>>;
 }
+/// Side-effect-free metadata/config validation and creation of selected Modules.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub trait ModuleFactory: Send + Sync {
+    /// Return stable metadata; created instances must match their registered factory descriptor.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     fn descriptor(&self) -> ComponentDescriptor;
+    /// Validate owner-defined configuration before any selected factory is invoked.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     fn validate_config(&self, _config: &ComponentConfig) -> FrameworkResult<()> {
         Ok(())
     }
+    /// Create a fresh instance without starting background work; resource setup belongs to Lifecycle::setup.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     fn create(&self, config: &ComponentConfig) -> FrameworkResult<Box<dyn Module>>;
 }
 pub(crate) enum Factory {

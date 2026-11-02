@@ -1,0 +1,400 @@
+{
+  "revision": "1.0.0",
+  "framework_version": "0.0.1",
+  "tests": [
+    {
+      "rule_id": "COMP-001",
+      "test_id": "CT-COMP-001",
+      "semantic_ids": [
+        "SEM-001"
+      ],
+      "contract": "contracts/component-contract.md",
+      "package": "modorch",
+      "target": "application",
+      "name": "initiator_can_register_an_optional_event_endpoint",
+      "source": "crates/modorch/tests/application.rs"
+    },
+    {
+      "rule_id": "COMP-002",
+      "test_id": "CT-COMP-002",
+      "semantic_ids": [
+        "SEM-002"
+      ],
+      "contract": "contracts/component-contract.md",
+      "package": "modorch",
+      "target": "application",
+      "name": "only_enabled_factories_create_and_dag_orders_lifecycle",
+      "source": "crates/modorch/tests/application.rs"
+    },
+    {
+      "rule_id": "DEP-001",
+      "test_id": "CT-DEP-001",
+      "semantic_ids": [
+        "SEM-003"
+      ],
+      "contract": "contracts/dependency-contract.md",
+      "package": "modorch-registry",
+      "target": "registry",
+      "name": "rejects_cycles_cross_layer_dependencies_and_invalid_capacities",
+      "source": "crates/modorch-registry/tests/registry.rs"
+    },
+    {
+      "rule_id": "DEP-002",
+      "test_id": "CT-DEP-002",
+      "semantic_ids": [],
+      "contract": "contracts/dependency-contract.md",
+      "package": "modorch-registry",
+      "target": "registry",
+      "name": "missing_dependencies_are_reported_before_instantiation",
+      "source": "crates/modorch-registry/tests/registry.rs"
+    },
+    {
+      "rule_id": "DEP-003",
+      "test_id": "CT-DEP-003",
+      "semantic_ids": [],
+      "contract": "contracts/dependency-contract.md",
+      "package": "modorch",
+      "target": "application",
+      "name": "default_selection_is_empty_duplicates_and_unavailable_are_errors",
+      "source": "crates/modorch/tests/application.rs"
+    },
+    {
+      "rule_id": "DEP-004",
+      "test_id": "CT-DEP-004",
+      "semantic_ids": [],
+      "contract": "contracts/dependency-contract.md",
+      "package": "modorch-registry",
+      "target": "registry",
+      "name": "validates_dependencies_and_orders_optional_selected_dependencies",
+      "source": "crates/modorch-registry/tests/registry.rs"
+    },
+    {
+      "rule_id": "LIFE-001",
+      "test_id": "CT-LIFE-001",
+      "semantic_ids": [
+        "SEM-009"
+      ],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "application",
+      "name": "applications_are_isolated_in_one_runtime",
+      "source": "crates/modorch/tests/application.rs"
+    },
+    {
+      "rule_id": "LIFE-002",
+      "test_id": "CT-LIFE-002",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "application",
+      "name": "startup_error_is_bounded_and_preserves_failed_cleanup_for_retry",
+      "source": "crates/modorch/tests/application.rs"
+    },
+    {
+      "rule_id": "LIFE-003",
+      "test_id": "CT-LIFE-003",
+      "semantic_ids": [
+        "SEM-010"
+      ],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "application",
+      "name": "shutdown_timeout_preserves_resources_and_accepts_only_causal_children",
+      "source": "crates/modorch/tests/application.rs"
+    },
+    {
+      "rule_id": "LIFE-004",
+      "test_id": "CT-LIFE-004",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "application",
+      "name": "force_shutdown_never_reports_a_graceful_stop_or_releases_busy_owners",
+      "source": "crates/modorch/tests/application.rs"
+    },
+    {
+      "rule_id": "LIFE-005",
+      "test_id": "CT-LIFE-005",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "supervision",
+      "name": "restart_waits_for_old_handlers_and_leases_and_invalidates_old_handles",
+      "source": "crates/modorch/tests/supervision.rs"
+    },
+    {
+      "rule_id": "LIFE-006",
+      "test_id": "CT-LIFE-006",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "supervision",
+      "name": "replacement_setup_failure_is_cleaned_before_retry_and_budget_is_bounded",
+      "source": "crates/modorch/tests/supervision.rs"
+    },
+    {
+      "rule_id": "MSG-EVT-001",
+      "test_id": "CT-MSG-EVT-001",
+      "semantic_ids": [
+        "SEM-004"
+      ],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "bounded_fanout_reports_partial_delivery_and_ambiguous_requests",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "MSG-CMD-001",
+      "test_id": "CT-MSG-CMD-001",
+      "semantic_ids": [
+        "SEM-005"
+      ],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "bounded_fanout_reports_partial_delivery_and_ambiguous_requests",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "MSG-REQ-004",
+      "test_id": "CT-MSG-REQ-004",
+      "semantic_ids": [
+        "SEM-006"
+      ],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "queued_timeout_cancels_but_running_timeout_is_indeterminate",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "MSG-EXEC-001",
+      "test_id": "CT-MSG-EXEC-001",
+      "semantic_ids": [
+        "SEM-007"
+      ],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "serial_fifo_dynamic_subscriptions_and_typed_requests",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "MSG-LANE-001",
+      "test_id": "CT-MSG-LANE-001",
+      "semantic_ids": [
+        "SEM-008"
+      ],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "dynamic_lanes_are_bounded_retire_when_idle_and_recreate_without_reordering",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "MSG-LANE-002",
+      "test_id": "CT-MSG-LANE-002",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "partitioned_same_key_is_fifo_and_independent_shards_progress",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "MSG-BOUND-001",
+      "test_id": "CT-MSG-BOUND-001",
+      "semantic_ids": [
+        "SEM-011"
+      ],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "byte_budgets_and_waiter_limits_release_on_cancellation",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "MSG-ROUTE-001",
+      "test_id": "CT-MSG-ROUTE-001",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "control_plane_changes_never_publish_stale_routes",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "MSG-WAIT-001",
+      "test_id": "CT-MSG-WAIT-001",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "handler_cannot_deadlock_by_waiting_for_mailbox_capacity",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "MSG-REPLY-001",
+      "test_id": "CT-MSG-REPLY-001",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "status_observers_never_retain_consumed_or_abandoned_replies",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "SCH-001",
+      "test_id": "CT-SCH-001",
+      "semantic_ids": [
+        "SEM-012"
+      ],
+      "contract": "contracts/scheduler-contract.md",
+      "package": "modorch-scheduler",
+      "target": "tasks",
+      "name": "tasks_have_results_bounds_and_cooperative_shutdown",
+      "source": "crates/modorch-scheduler/tests/tasks.rs"
+    },
+    {
+      "rule_id": "SCH-002",
+      "test_id": "CT-SCH-002",
+      "semantic_ids": [],
+      "contract": "contracts/scheduler-contract.md",
+      "package": "modorch-scheduler",
+      "target": "tasks",
+      "name": "timers_do_not_consume_task_slots_and_skip_overlapping_ticks",
+      "source": "crates/modorch-scheduler/tests/tasks.rs"
+    },
+    {
+      "rule_id": "SCH-003",
+      "test_id": "CT-SCH-003",
+      "semantic_ids": [],
+      "contract": "contracts/scheduler-contract.md",
+      "package": "modorch-scheduler",
+      "target": "tasks",
+      "name": "finished_ack_returns_all_permits_before_a_capacity_one_resubmission",
+      "source": "crates/modorch-scheduler/tests/tasks.rs"
+    },
+    {
+      "rule_id": "RES-001",
+      "test_id": "CT-RES-001",
+      "semantic_ids": [],
+      "contract": "contracts/resource-contract.md",
+      "package": "modorch-registry",
+      "target": "registry",
+      "name": "services_enforce_declared_dependencies_isolation_and_leases",
+      "source": "crates/modorch-registry/tests/registry.rs"
+    },
+    {
+      "rule_id": "RES-002",
+      "test_id": "CT-RES-002",
+      "semantic_ids": [],
+      "contract": "contracts/resource-contract.md",
+      "package": "modorch",
+      "target": "application",
+      "name": "externally_held_service_leases_block_owner_teardown",
+      "source": "crates/modorch/tests/application.rs"
+    },
+    {
+      "rule_id": "RES-003",
+      "test_id": "CT-RES-003",
+      "semantic_ids": [],
+      "contract": "contracts/resource-contract.md",
+      "package": "modorch-registry",
+      "target": "registry",
+      "name": "borrowed_resources_remain_host_owned_but_handles_are_generation_scoped",
+      "source": "crates/modorch-registry/tests/registry.rs"
+    },
+    {
+      "rule_id": "MSG-EXEC-001",
+      "test_id": "CT-MSG-EXEC-001-LIMIT",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "concurrent_workers_obey_strict_limit",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "MSG-WAIT-001",
+      "test_id": "CT-MSG-WAIT-001-CYCLE",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "rejects_self_and_cross_component_wait_cycles",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "MSG-WAIT-001",
+      "test_id": "CT-MSG-WAIT-001-ROOTS",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "detects_wait_cycles_between_independent_roots",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "SCH-002",
+      "test_id": "CT-SCH-002-QUEUE",
+      "semantic_ids": [],
+      "contract": "contracts/scheduler-contract.md",
+      "package": "modorch-scheduler",
+      "target": "tasks",
+      "name": "bounded_timer_queue_preserves_only_its_configured_backlog",
+      "source": "crates/modorch-scheduler/tests/tasks.rs"
+    },
+    {
+      "rule_id": "SCH-002",
+      "test_id": "CT-SCH-002-OVERLAP",
+      "semantic_ids": [],
+      "contract": "contracts/scheduler-contract.md",
+      "package": "modorch-scheduler",
+      "target": "tasks",
+      "name": "timer_overlap_has_an_explicit_limit",
+      "source": "crates/modorch-scheduler/tests/tasks.rs"
+    },
+    {
+      "rule_id": "SCH-001",
+      "test_id": "CT-SCH-001-PANIC",
+      "semantic_ids": [],
+      "contract": "contracts/scheduler-contract.md",
+      "package": "modorch-scheduler",
+      "target": "tasks",
+      "name": "task_panic_is_failure_and_never_success",
+      "source": "crates/modorch-scheduler/tests/tasks.rs"
+    },
+    {
+      "rule_id": "LIFE-002",
+      "test_id": "CT-LIFE-002-CANCEL",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "application",
+      "name": "cancellation_of_startup_does_not_abandon_created_resources",
+      "source": "crates/modorch/tests/application.rs"
+    },
+    {
+      "rule_id": "CFG-001",
+      "test_id": "CT-CFG-001",
+      "semantic_ids": [],
+      "contract": "contracts/compatibility-contract.md",
+      "package": "modorch-config",
+      "target": "composition",
+      "name": "parses_explicit_selection_and_rejects_bad_configuration",
+      "source": "crates/modorch-config/tests/composition.rs"
+    },
+    {
+      "rule_id": "OBS-001",
+      "test_id": "CT-OBS-001",
+      "semantic_ids": [],
+      "contract": "contracts/compatibility-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "metric_label_overflow_preserves_totals_and_existing_labels",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    }
+  ]
+}

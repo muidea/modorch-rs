@@ -1,0 +1,77 @@
+[
+  {
+    "id": "baseline-fmt",
+    "command": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--",
+      "--check"
+    ],
+    "status": "Passed",
+    "exit_code": 0,
+    "log": "baseline-fmt.log"
+  },
+  {
+    "id": "baseline-check",
+    "command": [
+      "cargo",
+      "check",
+      "--workspace",
+      "--all-targets",
+      "--all-features",
+      "--locked",
+      "--offline"
+    ],
+    "status": "Passed",
+    "exit_code": 0,
+    "log": "baseline-check.log"
+  },
+  {
+    "id": "baseline-clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--workspace",
+      "--all-targets",
+      "--all-features",
+      "--locked",
+      "--offline",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": "Passed",
+    "exit_code": 0,
+    "log": "baseline-clippy.log"
+  },
+  {
+    "id": "baseline-test",
+    "command": [
+      "cargo",
+      "test",
+      "--workspace",
+      "--all-features",
+      "--locked",
+      "--offline"
+    ],
+    "status": "Passed",
+    "exit_code": 0,
+    "log": "baseline-test.log"
+  },
+  {
+    "id": "baseline-doc",
+    "command": [
+      "cargo",
+      "doc",
+      "--workspace",
+      "--all-features",
+      "--no-deps",
+      "--locked",
+      "--offline"
+    ],
+    "status": "Passed",
+    "exit_code": 0,
+    "log": "baseline-doc.log"
+  }
+]

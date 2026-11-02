@@ -1,0 +1,4 @@
+   Compiling modorch-minimal-template v0.1.0 (/tmp/modorch-cleanroom-x5jk6pql/AE-005)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 28.49s
+     Running `/home/rangh/aispace/modorch-rs/target/debug/modorch-minimal-template`
+scheduled-tasks: once completed, ticks>=2, drained

@@ -1026,9 +1026,13 @@ async fn waiting_fanout_delivers_ready_subscribers_without_retrying_accepted_leg
         .await
         .unwrap()
     });
-    for _ in 0..10 {
-        tokio::task::yield_now().await;
-    }
+    tokio::time::timeout(Duration::from_secs(1), async {
+        while b.lock().unwrap().is_empty() {
+            tokio::task::yield_now().await;
+        }
+    })
+    .await
+    .expect("the ready subscriber must process the fanout independently");
     assert_eq!(*b.lock().unwrap(), vec![2]);
     let report = publish.await.unwrap();
     assert!(report.is_partial());

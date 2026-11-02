@@ -9,7 +9,7 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
@@ -42,7 +42,7 @@ jobs:
         run: |
           cargo build -p mixed-load -p runtime-load --release --locked
           python3 scripts/acceptance.py --suite smoke --output validation/mixed-smoke
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: mixed-smoke-results
@@ -50,7 +50,7 @@ jobs:
   msrv:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: dtolnay/rust-toolchain@1.85.0
       - run: cargo check --workspace --all-targets --all-features --locked
 
@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo build -p runtime-load -p mixed-load --release --locked
       - name: Policy load and sustained dynamic lanes
@@ -71,7 +71,7 @@ jobs:
           target/release/runtime-load --mode dynamic --seconds 900 --producers 64 --capacity 8 > validation/dynamic-soak.json
       - name: Mixed burst idle and recovery soak
         run: python3 scripts/acceptance.py --suite stability --soak-seconds 300 --cycles 12 --output validation/mixed-soak
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: stability-results

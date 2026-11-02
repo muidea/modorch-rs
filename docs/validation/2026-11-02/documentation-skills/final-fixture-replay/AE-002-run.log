@@ -1,0 +1,5 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling modorch-modular-template v0.1.0 (/tmp/modorch-cleanroom-x5jk6pql/AE-002)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3m 10s
+     Running `/home/rangh/aispace/modorch-rs/target/debug/modorch-modular-template`
+modular-service: hello 42, ticks>=2, drained

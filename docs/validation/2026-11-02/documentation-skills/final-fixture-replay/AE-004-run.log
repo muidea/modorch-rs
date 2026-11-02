@@ -1,0 +1,4 @@
+   Compiling modorch-minimal-template v0.1.0 (/tmp/modorch-cleanroom-x5jk6pql/AE-004)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 40.97s
+     Running `/home/rangh/aispace/modorch-rs/target/debug/modorch-minimal-template`
+request-response: completed=42, timeout=Indeterminate

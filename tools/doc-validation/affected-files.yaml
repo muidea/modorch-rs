@@ -1,0 +1,9 @@
+{
+  "rules": [
+    {"paths": ["crates/*/src/*.rs", "crates/*/Cargo.toml", "Cargo.toml"], "requires": ["rustdoc", "contracts", "examples", "compatibility", "skills", "cargo", "agent-evals"]},
+    {"paths": ["crates/modorch-eventhub/*", "docs/guides/messaging.md"], "requires": ["messaging-contract", "concurrency-tests", "skills"]},
+    {"paths": ["crates/modorch-runtime/*", "crates/modorch-scheduler/*"], "requires": ["lifecycle-contract", "scheduler-contract", "failure-tests", "skills"]},
+    {"paths": [".agents/skills/*", "tools/skill-packaging/*"], "requires": ["skill-revision", "bundle", "installation", "agent-evals"]},
+    {"paths": ["contracts/*", "docs/*", "templates/*", "examples/*", "tools/doc-validation/*"], "requires": ["links", "contract-mapping", "capability-matrix", "skills", "templates"]}
+  ]
+}

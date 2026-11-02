@@ -1,5 +1,31 @@
-//! Application ownership, lifecycle transactions and retryable checked shutdown.
+//! Validated application assembly, lifecycle compensation and supervision.
+//!
+//! # Ownership and lifecycle
+//! The host owns Tokio and signals. Factories create only selected components after
+//! build-time validation. All ready hooks finish before root admission opens and ingress
+//! activates. Shutdown waits for tracked causal work and leases before reverse teardown.
+//! Contract: COMP-002, LIFE-001 / LIFE-002 / LIFE-003 / LIFE-004 / LIFE-005.
+//!
+//! # Errors and timeouts
+//! StartupError retains a boxed primary error, compensation outcome and cleanup handle.
+//! shutdown_checked timeout limits the caller, not the owned shutdown transaction.
+//! Only incomplete checkpoints retry. Forced termination does not claim graceful release.
+//! Restart drains and tears down old generations, consumes a cumulative attempt budget,
+//! and never replays messages.
+//!
+//! # Examples
+//!
+//! ```
+//! use modorch_runtime::ApplicationBuilder;
+//! let app = ApplicationBuilder::new("empty-plan").build().unwrap();
+//! assert!(app.startup_plan().is_empty());
+//! ```
+//!
+//! # Stability
+//! Development API 0.0.1. Application-local diagnostics are independently sampled;
+//! lifecycle journal retention is bounded. Business code should import the Facade.
 #![forbid(unsafe_code)]
+#![deny(missing_docs)]
 mod component;
 mod metrics;
 pub use metrics::{DrainMetrics, RuntimeMetrics};
@@ -19,6 +45,10 @@ use std::{
 pub use supervision::{ComponentHealth, ComponentState};
 use tokio::sync::{Mutex as AsyncMutex, watch};
 
+/// Registers factories and validates an explicit composition before instantiation.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct ApplicationBuilder {
     name: String,
     factories: BTreeMap<ComponentRef, Factory>,
@@ -32,6 +62,9 @@ pub struct ApplicationBuilder {
     queue_capacities: Option<(usize, usize)>,
 }
 impl ApplicationBuilder {
+    /// Create an unstarted application builder with empty selection and bounded defaults.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn new(name: impl Into<String>) -> Self {
         Self {
             name: name.into(),
@@ -46,12 +79,18 @@ impl ApplicationBuilder {
             queue_capacities: None,
         }
     }
+    /// Register an unstarted factory; duplicate identity or wrong role is rejected.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn register_initiator(
         &mut self,
         factory: impl InitiatorFactory + 'static,
     ) -> FrameworkResult<&mut Self> {
         self.register(Factory::Initiator(Box::new(factory)))
     }
+    /// Register an unstarted factory; duplicate identity or wrong role is rejected.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn register_module(
         &mut self,
         factory: impl ModuleFactory + 'static,
@@ -77,23 +116,38 @@ impl ApplicationBuilder {
         self.factories.insert(component, factory);
         Ok(self)
     }
+    /// Replace the explicit enabled component selection before build.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn selection(mut self, selection: ComponentSelection) -> Self {
         self.selection = selection;
         self
     }
+    /// Choose explicit required-dependency resolution; optional dependencies are never auto-enabled.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn resolve_dependencies(mut self, resolution: DependencyResolution) -> Self {
         self.resolution = resolution;
         self
     }
+    /// Set nonzero application-wide task and timer admission limits, checked at build.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn task_limits(mut self, tasks: usize, timers: usize) -> Self {
         self.max_tasks = tasks;
         self.max_timers = timers;
         self
     }
+    /// Set bounded message admission and metadata budgets, checked at build.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn message_limits(mut self, limits: HubLimits) -> Self {
         self.message_limits = limits;
         self
     }
+    /// Configure independent CPU/I/O resources and shared owner quotas, checked at build.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn execution_resources(mut self, resources: ExecutionResources) -> Self {
         self.execution_resources = resources;
         self
@@ -109,6 +163,9 @@ impl ApplicationBuilder {
         self.queue_capacities = Some((per_component, per_shard));
         self
     }
+    /// Validate selected descriptors, configuration, dependency DAG and capacities; no factory is invoked.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn build(self) -> FrameworkResult<Application> {
         self.message_limits.validate()?;
         self.execution_resources.validate()?;
@@ -212,6 +269,10 @@ impl ApplicationBuilder {
         })
     }
 }
+/// Single-use startup owner; the host retains its Tokio runtime.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct Application {
     inner: Arc<Inner>,
     descriptors: BTreeMap<ComponentRef, ComponentDescriptor>,
@@ -256,22 +317,41 @@ struct Inner {
     shutdown_job: Mutex<Option<ShutdownJob>>,
 }
 #[derive(Clone)]
+/// Cloneable health, messaging and checked-shutdown capability.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct ApplicationHandle {
     inner: Arc<Inner>,
 }
 #[derive(Clone, Debug)]
+/// One retained lifecycle boundary and outcome; journal retention is bounded.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct LifecycleRecord {
     /// State captured before rollback/teardown can change component health.
     pub state: ComponentState,
+    /// Component associated with this boundary; absent before routing when optional.
     pub component: ComponentRef,
+    /// Lifecycle/execution phase associated with this boundary.
     pub phase: Phase,
+    /// Result of this recorded lifecycle hook.
     pub outcome: FrameworkResult<()>,
 }
 #[derive(Clone, Copy, Debug)]
+/// Bounds the caller wait, not the lifetime of a running shutdown transaction.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct ShutdownOptions {
+    /// Caller wait duration; does not cancel an owned shutdown transaction.
     pub timeout: Duration,
 }
 impl ShutdownOptions {
+    /// Use the default 30-second caller wait budget for checked shutdown.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn graceful() -> Self {
         Self {
             timeout: Duration::from_secs(30),
@@ -284,25 +364,52 @@ impl Default for ShutdownOptions {
     }
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
+/// Distinguishes graceful completion from forced termination with pending work.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub enum ShutdownReceipt {
+    /// All owned work drained and resource teardown completed.
     GracefullyStopped,
-    Forced { pending: PendingWork },
+    /// Forced terminal outcome; pending work is not proof of safe resource release.
+    Forced {
+        #[doc = "Work still counted; a nonempty value prevents graceful resource release."]
+        pending: PendingWork,
+    },
 }
 #[derive(Clone, Debug)]
+/// Application and component health snapshot, including pending operations and failures.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct Health {
+    /// Isolated application identity attached to this snapshot.
     pub application_id: ApplicationId,
+    /// Application-local name; nonempty when used for application identity.
     pub name: String,
+    /// Current lifecycle state, as indicated by the enclosing type.
     pub state: ApplicationState,
+    /// Whether the application remains live according to current lifecycle state.
     pub live: bool,
+    /// Whether all required readiness barriers are currently satisfied.
     pub ready: bool,
+    /// Supervision policy or latest failure, as indicated by the type.
     pub failure: Option<FrameworkError>,
+    /// Work still counted; a nonempty value prevents graceful resource release.
     pub pending: PendingWork,
+    /// Per-component lifecycle and generation snapshot.
     pub components: BTreeMap<ComponentRef, ComponentHealth>,
 }
+/// Primary startup error plus compensation result and a handle for cleanup retry.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct StartupError {
     /// Box the primary error to keep startup results small while retaining cleanup ownership.
     pub source: Box<FrameworkError>,
+    /// Compensation outcome, independently retained from the primary startup error.
     pub cleanup: FrameworkResult<ShutdownReceipt>,
+    /// Application handle retained for inspection and cleanup retry.
     pub handle: ApplicationHandle,
 }
 impl std::fmt::Debug for StartupError {
@@ -417,9 +524,15 @@ async fn checked_hook<F: std::future::Future<Output = FrameworkResult<()>>>(
     }
 }
 impl Application {
+    /// Borrow the frozen topological order of selected components.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn startup_plan(&self) -> &[ComponentRef] {
         &self.plan
     }
+    /// Create and initialize selected components; failures retain primary cause, cleanup result and retry handle.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub async fn start(self) -> Result<ApplicationHandle, StartupError> {
         // Continue startup ownership and rollback even if the caller cancels this await.
         let (sender, receiver) = tokio::sync::oneshot::channel();
@@ -588,15 +701,27 @@ impl Application {
     }
 }
 impl ApplicationHandle {
+    /// Return the application or operation identity represented by this handle.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn id(&self) -> ApplicationId {
         self.inner.tracker.application_id()
     }
+    /// Snapshot application-owned tasks, timers and resource-class quotas.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn task_metrics(&self) -> TaskMetrics {
         self.inner.scheduler.metrics()
     }
+    /// Clone the application message capability; use external() at untrusted ingress.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn event_hub(&self) -> EventHub {
         self.inner.hub.clone()
     }
+    /// Snapshot application liveness, readiness, component generations and pending work.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn health(&self) -> Health {
         let state = *self.inner.state.borrow();
         let failure = self
@@ -616,9 +741,15 @@ impl ApplicationHandle {
             components: self.inner.component_health.lock().unwrap().clone(),
         }
     }
+    /// Return only the retained lifecycle window; health/startup errors survive journal eviction.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn lifecycle_journal(&self) -> Vec<LifecycleRecord> {
         self.inner.journal.lock().unwrap().iter().cloned().collect()
     }
+    /// Close new production and request cooperative cancellation while preserving admitted work.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn begin_shutdown(&self) {
         self.close_admission();
         self.ensure_shutdown_job();
@@ -677,6 +808,9 @@ impl ApplicationHandle {
             }
         }
     }
+    /// Wait for a terminal outcome; controlled shutdown is still required before destroying the host runtime.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub async fn wait(&self) -> FrameworkResult<()> {
         let mut state = self.inner.state.subscribe();
         let mut faults = self.inner.terminal_failure.subscribe();
@@ -693,6 +827,9 @@ impl ApplicationHandle {
             tokio::select! { result = state.changed() => result.map_err(|_| FrameworkError::Closed)?, result = faults.changed() => result.map_err(|_| FrameworkError::Closed)? }
         }
     }
+    /// Wait for safe drain and teardown; timeout returns StopIncomplete while the owned transaction continues.
+    ///
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub async fn shutdown_checked(
         &self,
         options: ShutdownOptions,

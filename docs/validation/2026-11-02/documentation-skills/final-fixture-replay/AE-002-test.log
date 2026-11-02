@@ -1,0 +1,17 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling modorch-core v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+   Compiling modorch-registry v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+   Compiling modorch-eventhub v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+   Compiling modorch-scheduler v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+   Compiling modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch-config v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-config)
+   Compiling modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling modorch-modular-template v0.1.0 (/tmp/modorch-cleanroom-x5jk6pql/AE-002)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5m 03s
+     Running unittests src/main.rs (/home/rangh/aispace/modorch-rs/target/debug/deps/modorch_modular_template-598817a55267a422)
+
+running 1 test
+test config_service_request_and_timer_are_integrated ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+

@@ -6,29 +6,58 @@ use std::{
     time::Instant,
 };
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+/// Execution class; ordering policy is configured separately on the component.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub enum TaskClass {
+    /// Owned asynchronous work on the host Tokio runtime.
     Async,
+    /// CPU work on its independent bounded executor.
     Cpu,
+    /// Synchronous I/O on its independent bounded executor.
     BlockingIo,
 }
 #[derive(Clone, Copy, Debug, Default)]
+/// Current per-owner task quota, waiters and execution distribution.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct OwnerTaskMetrics {
+    /// Maximum admitted tasks in the relevant global or owner scope.
     pub task_capacity: usize,
+    /// Sampled unreserved owner task permits.
     pub available_tasks: usize,
+    /// Current bounded resource/admission waiters.
     pub waiters: usize,
+    /// Asynchronous tasks not yet running.
     pub async_queued: usize,
+    /// Asynchronous tasks currently running.
     pub async_running: usize,
+    /// CPU jobs awaiting execution.
     pub cpu_queued: usize,
+    /// CPU jobs currently executing.
     pub cpu_running: usize,
+    /// Synchronous I/O jobs awaiting execution.
     pub blocking_io_queued: usize,
+    /// Synchronous I/O jobs currently executing.
     pub blocking_io_running: usize,
 }
 #[derive(Clone, Copy, Debug, Default)]
+/// Bounded executor counters and approximate latency quantiles.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct ExecutionResourceMetrics {
+    /// Maximum queued or admitted count for this bounded domain.
     pub capacity: usize,
+    /// Sampled unreserved capacity.
     pub available: usize,
+    /// Accepted work awaiting execution.
     pub queued: usize,
+    /// Work currently executing.
     pub running: usize,
+    /// Current bounded resource/admission waiters.
     pub waiters: usize,
     /// Registrations, including jobs subsequently rejected/dropped by an adapter.
     pub admitted: u64,
@@ -40,16 +69,25 @@ pub struct ExecutionResourceMetrics {
     pub canceled_before_start: u64,
     /// Rejection counters count attempts, including admission waiter retries.
     pub rejected_global: u64,
+    /// Cumulative attempts rejected by owner quota.
     pub rejected_owner: u64,
+    /// Cumulative attempts rejected by execution-class capacity.
     pub rejected_capacity: u64,
+    /// Cumulative attempts rejected by waiter limits.
     pub rejected_waiters: u64,
+    /// Cumulative expired admission waits.
     pub admission_timeouts: u64,
+    /// Cumulative host-executor submission failures.
     pub executor_failures: u64,
     /// Cumulative upper-bucket estimates in microseconds.
     pub queue_p95_micros: u64,
+    /// Estimated P99 queue delay in microsecond exponential buckets.
     pub queue_p99_micros: u64,
+    /// Estimated P95 execution time in microsecond exponential buckets.
     pub execution_p95_micros: u64,
+    /// Estimated P99 execution time in microsecond exponential buckets.
     pub execution_p99_micros: u64,
+    /// Estimated P99 actual admission-wait duration in microsecond buckets.
     pub admission_wait_p99_micros: u64,
 }
 #[derive(Default)]

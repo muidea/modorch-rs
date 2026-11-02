@@ -34,6 +34,10 @@ struct Inner {
     admission_events: Notify,
 }
 #[derive(Clone)]
+/// Application-local admission gate, causal scope and operation accounting.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct OperationTracker(Arc<Inner>);
 struct LeaseInner {
     tracker: Weak<Inner>,
@@ -49,6 +53,9 @@ impl Default for OperationTracker {
     }
 }
 impl OperationTracker {
+    /// Create a new isolated tracker with root admission initially not ready.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn new() -> Self {
         Self(Arc::new(Inner {
             application_id: NEXT_APPLICATION.fetch_add(1, std::sync::atomic::Ordering::Relaxed),
@@ -65,9 +72,15 @@ impl OperationTracker {
             admission_events: Notify::new(),
         }))
     }
+    /// Return this tracker's isolated application identity.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn application_id(&self) -> ApplicationId {
         self.0.application_id
     }
+    /// Open root admission; return Closed if the tracker has irreversibly terminated.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn open(&self) -> FrameworkResult<()> {
         let mut state = self.0.state.lock().unwrap();
         if state.admission != Admission::Startup {
@@ -77,6 +90,9 @@ impl OperationTracker {
         self.0.admission_events.notify_waiters();
         Ok(())
     }
+    /// Close root admission while allowing admitted causal children to finish.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn close(&self) {
         let mut state = self.0.state.lock().unwrap();
         if state.admission != Admission::Terminated {
@@ -109,17 +125,26 @@ impl OperationTracker {
             id,
         })))
     }
+    /// Irreversibly reject further tracker admission.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn terminate(&self) {
         self.0.state.lock().unwrap().admission = Admission::Terminated;
         self.0.admission_events.notify_waiters();
         self.0.changed.notify_waiters();
     }
+    /// Report whether root admission is currently closed.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn is_closed(&self) -> bool {
         matches!(
             self.0.state.lock().unwrap().admission,
             Admission::Closed | Admission::Terminated
         )
     }
+    /// Read the current tracked causal lease, if any.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn current(&self) -> Option<OperationLease> {
         CURRENT
             .try_with(Clone::clone)
@@ -127,6 +152,9 @@ impl OperationTracker {
             .flatten()
             .filter(|lease| Weak::ptr_eq(&lease.0.tracker, &Arc::downgrade(&self.0)))
     }
+    /// Admit an operation in the trusted current causal scope; NotReady or Closed rejects it.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn admit(&self, owner: ComponentRef) -> FrameworkResult<OperationLease> {
         self.admit_inner(owner, false, None)
     }
@@ -207,6 +235,9 @@ impl OperationTracker {
     pub fn admission_notification(&self) -> tokio::sync::futures::Notified<'_> {
         self.0.admission_events.notified()
     }
+    /// Poll a future in the supplied tracked operation scope; dropping the future releases its scope.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub async fn scope<F: Future>(&self, lease: OperationLease, future: F) -> F::Output {
         {
             use tracing::Instrument;
@@ -226,6 +257,9 @@ impl OperationTracker {
     pub fn as_root<T>(&self, action: impl FnOnce() -> T) -> T {
         CURRENT.sync_scope(None, action)
     }
+    /// Admit only if the owner generation is current and its admission gate permits this causal operation.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn admit_bound(
         &self,
         owner: ComponentRef,
@@ -233,6 +267,9 @@ impl OperationTracker {
     ) -> FrameworkResult<OperationLease> {
         self.admit_inner(owner, true, Some(generation))
     }
+    /// Return the current component generation.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn generation(&self, owner: &ComponentRef) -> u64 {
         *self
             .0
@@ -243,6 +280,9 @@ impl OperationTracker {
             .get(owner)
             .unwrap_or(&0)
     }
+    /// Check that a capability still names the current component generation.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn generation_valid(&self, owner: &ComponentRef, generation: u64) -> bool {
         self.generation(owner) == generation
     }
@@ -281,6 +321,9 @@ impl OperationTracker {
         self.0.admission_events.notify_waiters();
         Ok(())
     }
+    /// Reopen component admission after recovery; terminated applications return Closed.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn open_owners(&self, owners: &BTreeSet<ComponentRef>) -> FrameworkResult<()> {
         let mut state = self.0.state.lock().unwrap();
         if state.admission != Admission::Open {
@@ -293,6 +336,9 @@ impl OperationTracker {
         self.0.changed.notify_waiters();
         Ok(())
     }
+    /// Snapshot tracked operations associated with the specified owners.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn pending_owners(&self, owners: &BTreeSet<ComponentRef>) -> PendingWork {
         let state = self.0.state.lock().unwrap();
         let owners: BTreeMap<_, _> = owners
@@ -304,6 +350,9 @@ impl OperationTracker {
             owners,
         }
     }
+    /// Wait without an implicit timeout until the specified owners have no tracked operations.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub async fn drain_owners(&self, owners: &BTreeSet<ComponentRef>) {
         loop {
             let notified = self.0.changed.notified();
@@ -319,12 +368,21 @@ impl OperationTracker {
             notified.await;
         }
     }
+    /// Wait for an admission-state notification; callers must recheck their condition.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub async fn admission_changed(&self) {
         self.0.changed.notified().await;
     }
+    /// Poll a future with inherited causal identity cleared, establishing an external root boundary.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub async fn scope_root<F: Future>(&self, future: F) -> F::Output {
         CURRENT.scope(None, future).await
     }
+    /// Snapshot pending operations and owner distribution.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn pending(&self) -> PendingWork {
         let state = self.0.state.lock().unwrap();
         PendingWork {
@@ -350,6 +408,9 @@ impl OperationTracker {
     }
 }
 impl OperationLease {
+    /// Return the application or operation identity represented by this handle.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn id(&self) -> OperationId {
         self.0.id
     }

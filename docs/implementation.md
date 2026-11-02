@@ -105,6 +105,6 @@
 
 ## 混合负载与部署验收工具
 
-新增 `examples/mixed-load` 和 `scripts/acceptance.py`，覆盖多 Owner 四类业务、有界饱和、端到端直方图、Payload 存活字节、资源排空、动态 Lane 创建回收及反复恢复。验收阈值从 TOML 和命令行读取，超标返回失败并保存报告；添加 4 项工具集成测试，验证正常资源归还、动态恢复循环、SLO 失败退出及非法配置拒绝，总计 94 项。CI 普通任务新增混合/恢复/资源压力 smoke，手动稳定性任务新增 300 秒活动负载及恢复循环，均上传 artifact。
+新增 `examples/mixed-load` 和 `scripts/acceptance.py`，覆盖多 Owner 四类业务、有界饱和、端到端直方图、Payload 存活字节、资源排空、动态 Lane 创建回收及反复恢复。验收阈值从 TOML 和命令行读取，超标返回失败并保存报告；添加 4 项工具集成测试，验证正常资源归还、动态恢复循环、SLO 失败退出及非法配置拒绝，该次总计 94 项（历史计数）。CI 普通任务新增混合/恢复/资源压力 smoke，手动稳定性任务新增 300 秒活动负载及恢复循环，均上传 artifact。
 
 工具说明见 [mixed-load](../examples/mixed-load/README.md)，本轮源码检查及测量见 [mixed-acceptance](validation/2026-10-31/mixed-acceptance/README.md)。远端工作流与生产阈值仍需在对应环境执行和确认。

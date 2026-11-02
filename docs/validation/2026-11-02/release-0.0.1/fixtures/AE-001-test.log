@@ -1,0 +1,15 @@
+   Compiling modorch-core v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+   Compiling modorch-eventhub v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+   Compiling modorch-scheduler v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+   Compiling modorch-registry v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+   Compiling modorch-runtime v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling modorch-minimal-template v0.0.1 (/tmp/modorch-cleanroom-gmti5m5i/AE-001)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 15.22s
+     Running unittests src/main.rs (/home/rangh/aispace/modorch-rs/target/debug/deps/modorch_minimal_template-b4ff1ebd7f8d5cd4)
+
+running 1 test
+test selected_module_runs_and_releases ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

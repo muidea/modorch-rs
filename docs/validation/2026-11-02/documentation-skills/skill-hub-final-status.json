@@ -1,0 +1,37 @@
+{
+  "project_path": "/home/rangh/aispace/modorch-rs",
+  "scope": "project",
+  "skill_count": 3,
+  "items": [
+    {
+      "skill_id": "modorch-app-development",
+      "status": "synced",
+      "legacy_status": "Synced",
+      "reason": "source_and_target_match",
+      "local_version": "1.0.2",
+      "repo_version": "1.0.2",
+      "local_path": "/home/rangh/aispace/modorch-rs/.agents/skills/modorch-app-development/SKILL.md",
+      "repo_path": "/home/rangh/.skill-hub/repositories/skills-repo/skills/modorch-app-development/SKILL.md"
+    },
+    {
+      "skill_id": "modorch-framework-maintenance",
+      "status": "synced",
+      "legacy_status": "Synced",
+      "reason": "source_and_target_match",
+      "local_version": "1.0.2",
+      "repo_version": "1.0.2",
+      "local_path": "/home/rangh/aispace/modorch-rs/.agents/skills/modorch-framework-maintenance/SKILL.md",
+      "repo_path": "/home/rangh/.skill-hub/repositories/skills-repo/skills/modorch-framework-maintenance/SKILL.md"
+    },
+    {
+      "skill_id": "modorch-module-development",
+      "status": "synced",
+      "legacy_status": "Synced",
+      "reason": "source_and_target_match",
+      "local_version": "1.0.2",
+      "repo_version": "1.0.2",
+      "local_path": "/home/rangh/aispace/modorch-rs/.agents/skills/modorch-module-development/SKILL.md",
+      "repo_path": "/home/rangh/.skill-hub/repositories/skills-repo/skills/modorch-module-development/SKILL.md"
+    }
+  ]
+}

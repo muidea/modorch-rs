@@ -1,0 +1,34 @@
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "", "--locked", "--offline"]
+    Blocking waiting for file lock on build directory
+    Checking modorch-core v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+    Checking modorch-registry v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 25.26s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "eventhub", "--locked", "--offline"]
+    Blocking waiting for file lock on build directory
+    Checking modorch-eventhub v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 6.11s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "scheduler", "--locked", "--offline"]
+    Blocking waiting for file lock on build directory
+    Checking modorch-scheduler v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.92s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "runtime", "--locked", "--offline"]
+    Blocking waiting for file lock on build directory
+    Checking modorch-eventhub v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+    Checking modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 10.45s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "config-toml", "--locked", "--offline"]
+    Blocking waiting for file lock on build directory
+    Checking modorch-core v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+    Checking modorch-registry v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+    Checking modorch-config v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-config)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 8.12s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "observability", "--locked", "--offline"]
+    Blocking waiting for file lock on build directory
+    Checking modorch-observe v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.74s

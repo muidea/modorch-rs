@@ -102,6 +102,10 @@ impl RequestShared {
         }
     }
 }
+/// Single-consumer typed response handle; dropping it cancels queued work only.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct RequestHandle<R> {
     pub(crate) target: ComponentRef,
     pub(crate) id: OperationId,
@@ -110,12 +114,21 @@ pub struct RequestHandle<R> {
     pub(crate) marker: PhantomData<R>,
 }
 impl<R: Send + Sync + 'static> RequestHandle<R> {
+    /// Return the tracked operation identity.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn operation_id(&self) -> OperationId {
         self.id
     }
+    /// Read request progress without acquiring or retaining its response.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn status(&self) -> RequestStatus {
         self.shared.record.lock().unwrap().status
     }
+    /// Create a lightweight status observer which never retains the reply payload.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn observation(&self) -> RequestObservation {
         let mut record = self.shared.record.lock().unwrap();
         let status = record.status;
@@ -125,6 +138,9 @@ impl<R: Send + Sync + 'static> RequestHandle<R> {
             .clone();
         RequestObservation { state }
     }
+    /// Consume the typed response handle; timeout cancels Queued work or returns Indeterminate once Running. No rollback is implied.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub async fn wait(mut self, timeout: Duration) -> FrameworkResult<Arc<R>> {
         let wait = async {
             loop {
@@ -162,6 +178,9 @@ impl<R: Send + Sync + 'static> RequestHandle<R> {
             )
         })
     }
+    /// Abandon the response wait; queued work becomes CanceledBeforeStart, running work is Indeterminate.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn cancel(self) -> FrameworkError {
         self.shared.cancel_wait(self.id, false)
     }
@@ -181,10 +200,17 @@ impl<R> Drop for RequestHandle<R> {
     }
 }
 #[derive(Clone)]
+/// Lightweight status observer that does not retain response payloads.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct RequestObservation {
     state: Arc<AtomicU8>,
 }
 impl RequestObservation {
+    /// Read request progress without acquiring or retaining its response.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn status(&self) -> RequestStatus {
         match self.state.load(Ordering::Acquire) {
             0 => RequestStatus::Queued,

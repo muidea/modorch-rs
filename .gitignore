@@ -1,2 +1,5 @@
 /target/
 /tests/fixtures/*/target/
+/templates/*/target/
+__pycache__/
+/validation/

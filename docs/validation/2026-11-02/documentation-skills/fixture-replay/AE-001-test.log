@@ -1,0 +1,5 @@
+   Compiling modorch-core v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+   Compiling modorch-eventhub v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+   Compiling modorch-scheduler v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+   Compiling modorch-registry v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+   Compiling modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)

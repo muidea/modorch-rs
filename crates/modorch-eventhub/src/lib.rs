@@ -1,5 +1,31 @@
-//! In-process typed messages, bounded mailboxes and acknowledged routing changes.
+//! Bounded in-process routing, serial domains and typed request outcomes.
+//!
+//! # Ownership and lifecycle
+//! One component owns one execution domain and may have many subscriptions. Serial,
+//! Partitioned and Dynamic preserve ordering within their serial domains; Concurrent
+//! does not promise order. Dynamic lane state is discarded on retirement. Shared
+//! payloads must be Send + Sync. RequestObservation never retains reply ownership.
+//! Contract: MSG-EVT-001, MSG-CMD-001, MSG-REQ-004, MSG-LANE-001, MSG-REPLY-001.
+//!
+//! # Errors and timeouts
+//! Command/publish report queue admission. RequestHandle::wait separately waits for
+//! completion: queued cancellation prevents execution; running timeout is Indeterminate.
+//! Immediate capacity failure is Backpressure; *_wait has an admission deadline and
+//! waiter/cost bounds. Handler-local *_wait is rejected. Host ingress uses external().
+//!
+//! # Examples
+//!
+//! ```
+//! use modorch_eventhub::topic_matches;
+//! assert!(topic_matches("orders/:id/changed", "orders/42/changed"));
+//! assert!(!topic_matches("orders/42/changed", "orders/+/changed"));
+//! ```
+//!
+//! # Stability
+//! Development API 0.0.1. No durable delivery, automatic retry or cross-process transport.
+//! Install workers only inside a host Tokio runtime; application shutdown owns drain.
 #![forbid(unsafe_code)]
+#![deny(missing_docs)]
 mod admission;
 mod lanes;
 mod limits;
@@ -84,21 +110,42 @@ struct Inner {
     message_metrics: metrics::MessageMetricsRegistry,
 }
 #[derive(Clone)]
+/// Application-local bounded message routing and component execution domains.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct EventHub(Arc<Inner>);
 #[derive(Clone, Copy, Debug)]
+/// Message admission and execution snapshot; accepted is not business completion.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct HubMetrics {
+    /// Isolated application identity attached to this snapshot.
     pub application_id: ApplicationId,
+    /// Cumulative accepted admissions; does not mean handler completion.
     pub accepted: u64,
+    /// Cumulative rejected routing/admission attempts, including retries.
     pub rejected: u64,
+    /// Accepted work awaiting execution.
     pub queued: usize,
+    /// Execution policy or sampled execution counters, as indicated by the type.
     pub execution: ExecutionMetrics,
+    /// Current admission-wait and declared-cost snapshot.
     pub admission: AdmissionMetrics,
+    /// Retained worker controls after collecting completed dynamic workers.
     pub worker_tasks: usize,
 }
 impl EventHub {
+    /// Create a hub with default validated admission limits.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn new(tracker: OperationTracker, failures: FailureReporter) -> Self {
         Self::with_limits(tracker, failures, HubLimits::default()).expect("valid default limits")
     }
+    /// Construct an application-scoped hub after validating all admission budgets.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn with_limits(
         tracker: OperationTracker,
         failures: FailureReporter,
@@ -129,6 +176,9 @@ impl EventHub {
             message_metrics: Default::default(),
         })))
     }
+    /// Install a subscription and return its already-effective generation receipt; duplicate IDs reject it.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn subscribe(&self, spec: SubscriptionSpec) -> FrameworkResult<SubscriptionReceipt> {
         validate_pattern(&spec.topic_pattern)?;
         if spec.topic_pattern.len() > self.0.budget.limits.max_topic_bytes {
@@ -161,6 +211,9 @@ impl EventHub {
             generation: r.generation,
         })
     }
+    /// Remove a subscription and return an already-effective generation receipt; accepted work is unaffected.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn unsubscribe(&self, id: SubscriptionId) -> FrameworkResult<SubscriptionReceipt> {
         let mut r = self.0.routing.lock().unwrap();
         if r.terminated {
@@ -317,6 +370,9 @@ impl EventHub {
             request,
         ))
     }
+    /// Fan out an event and report each target admission; accepted does not mean completed.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn publish<T: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -372,6 +428,9 @@ impl EventHub {
                 .collect(),
         })
     }
+    /// Route to exactly one component and acknowledge admission only; routing or capacity errors reject it.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn command<T: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -401,6 +460,9 @@ impl EventHub {
         )
         .map(|(receipt, _)| receipt)
     }
+    /// Admit one typed request; await its RequestHandle for business completion, separately from admission.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn request<T: Send + Sync + 'static, R: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -538,6 +600,9 @@ impl EventHub {
             .message_metrics
             .snapshot(self.0.tracker.application_id())
     }
+    /// Capture independently sampled counters; this snapshot is not a transactional view.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn metrics(&self) -> HubMetrics {
         let r = self.0.routing.lock().unwrap();
         let mut workers = self.0.workers.lock().unwrap();
@@ -585,11 +650,17 @@ impl EventHub {
 #[derive(Clone)]
 pub struct ExternalEventHub(EventHub);
 impl EventHub {
+    /// Create a capability that clears inherited causal privileges for each external submission.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn external(&self) -> ExternalEventHub {
         ExternalEventHub(self.clone())
     }
 }
 impl ExternalEventHub {
+    /// Route to exactly one component and acknowledge admission only; routing or capacity errors reject it.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn command<T: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -602,6 +673,9 @@ impl ExternalEventHub {
             .tracker
             .as_root(|| self.0.command(topic, destination, command, options))
     }
+    /// Admit one typed request; await its RequestHandle for business completion, separately from admission.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn request<T: Send + Sync + 'static, R: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -614,6 +688,9 @@ impl ExternalEventHub {
             .tracker
             .as_root(|| self.0.request(topic, destination, request, options))
     }
+    /// Fan out an event and report each target admission; accepted does not mean completed.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn publish<T: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -630,15 +707,28 @@ impl ExternalEventHub {
 }
 
 #[derive(Clone, Debug)]
+/// Per-component mailbox depths, capacities and active or preparing lanes.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct MailboxMetrics {
+    /// Resolved destination component.
     pub target: ComponentRef,
+    /// Isolated application identity attached to this snapshot.
     pub application_id: ApplicationId,
+    /// Live dynamic lane instances.
     pub active_lanes: usize,
+    /// Lane reservations whose synchronous factory has not installed yet.
     pub preparing_lanes: usize,
+    /// Configured capacity of each mailbox in this execution domain.
     pub shard_capacity: usize,
+    /// Independently sampled queue depths for each shard or active lane.
     pub shard_queue_depths: Vec<usize>,
 }
 impl EventHub {
+    /// Snapshot mailbox depths and active/preparing lane counts.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn mailbox_metrics(&self) -> Vec<MailboxMetrics> {
         let routing = self.0.routing.lock().unwrap();
         routing

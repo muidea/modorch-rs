@@ -15,6 +15,7 @@ graph TD
     hub --> core
     scheduler --> core
     config --> registry
+    observe -. 可选 runtime .-> runtime
     observe --> core
 ```
 

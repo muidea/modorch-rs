@@ -1,0 +1,9 @@
+    Checking modorch-core v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+    Checking modorch-registry v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+    Checking modorch-scheduler v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+    Checking modorch-eventhub v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+    Checking modorch-config v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch-config)
+    Checking modorch-runtime v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+    Checking modorch v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Checking modorch-modular-template v0.0.1 (/tmp/modorch-cleanroom-gmti5m5i/AE-002)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.32s

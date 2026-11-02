@@ -51,7 +51,9 @@ Facade 同时启用 `runtime` 和 `observability` 时，可调用 `modorch::obse
 
 ApplicationBuilder 新增 message_limits(HubLimits)、execution_resources(ExecutionResources)、journal_capacity(usize)；独立使用的 EventHub::with_limits 和 SchedulerRuntime::with_resources 接受相同配置，构建时验证。异步任务继续使用宿主 Tokio；CPU 与同步阻塞 I/O 使用各自的惰性有界线程池，工作类型与 Serial/Partitioned/Concurrent 顺序策略独立。模块可保存 Context 中绑定 Owner 的 TaskScheduler，供 Handler 调用：
 
-```rust,ignore
+```text
+Pseudocode / Non-compilable：calculate、input、service_lease 由业务定义。
+
 let task = tasks.spawn_cpu(move |cancel| {
     // 输入和 ServiceLease 应拥有所有权并移入闭包；长计算应检查 cancel。
     calculate(input, service_lease, cancel)

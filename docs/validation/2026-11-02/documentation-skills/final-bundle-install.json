@@ -1,0 +1,27 @@
+{
+  "status": "Passed",
+  "command": "bundle.verify(archive); bundle.install(archive, clean_directory); bundle.install(archive, same_directory)",
+  "artifact": "docs/validation/2026-11-02/documentation-skills/modorch-skills-1.0.0-candidate.tar.gz",
+  "sha256": "668b290162dceac101be5d8d41fe73b8c4ca7275c12fd72677191521524f030e",
+  "tree_sha256": "eb5c841020a04acc691923c2f175a02fefcbe026b4c852facfec589e648af896",
+  "installed": {
+    "status": "Passed",
+    "installed": [
+      "modorch-app-development",
+      "modorch-framework-maintenance",
+      "modorch-module-development"
+    ],
+    "unchanged": [],
+    "bundle_revision": "1.0.0"
+  },
+  "idempotent": {
+    "status": "Passed",
+    "installed": [],
+    "unchanged": [
+      "modorch-app-development",
+      "modorch-framework-maintenance",
+      "modorch-module-development"
+    ],
+    "bundle_revision": "1.0.0"
+  }
+}

@@ -1,0 +1,23 @@
+$ ["cargo", "clippy", "--workspace", "--all-targets", "--all-features", "--locked", "--offline", "--", "-D", "warnings"]
+    Blocking waiting for file lock on build directory
+    Checking modorch-core v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+    Checking modorch-registry v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+    Checking modorch-scheduler v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+    Checking modorch-eventhub v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+    Checking modorch-config v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-config)
+    Checking modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+    Checking modorch-observe v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+    Checking modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Checking shared-service v0.1.0 (/home/rangh/aispace/modorch-rs/examples/shared-service)
+    Checking runtime-load v0.1.0 (/home/rangh/aispace/modorch-rs/examples/runtime-load)
+    Checking event-messaging v0.1.0 (/home/rangh/aispace/modorch-rs/examples/event-messaging)
+    Checking minimal-app v0.1.0 (/home/rangh/aispace/modorch-rs/examples/minimal-app)
+    Checking mixed-load v0.1.0 (/home/rangh/aispace/modorch-rs/examples/mixed-load)
+    Checking request-response v0.1.0 (/home/rangh/aispace/modorch-rs/examples/request-response)
+    Checking graceful-http v0.1.0 (/home/rangh/aispace/modorch-rs/examples/graceful-http)
+    Checking stateful-initiator v0.1.0 (/home/rangh/aispace/modorch-rs/examples/stateful-initiator)
+    Checking scheduled-tasks v0.1.0 (/home/rangh/aispace/modorch-rs/examples/scheduled-tasks)
+    Checking lifecycle v0.1.0 (/home/rangh/aispace/modorch-rs/examples/lifecycle)
+    Checking multi-module v0.1.0 (/home/rangh/aispace/modorch-rs/examples/multi-module)
+    Checking basic-app v0.1.0 (/home/rangh/aispace/modorch-rs/examples/basic-app)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 6m 09s

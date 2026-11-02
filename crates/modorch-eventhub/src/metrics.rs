@@ -17,16 +17,28 @@ pub(crate) struct Metrics {
     latency: [AtomicU64; 32],
 }
 #[derive(Clone, Copy, Debug, Default)]
+/// Handler execution counters and logarithmic microsecond latency estimates.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct ExecutionMetrics {
+    /// Currently active executions or drains.
     pub active: usize,
+    /// Peak simultaneous handler executions.
     pub peak: usize,
+    /// Cumulative completed executions/drains; executor failures may be a subset.
     pub completed: u64,
+    /// Cumulative failed executions.
     pub failed: u64,
+    /// Response wait deadlines exceeded; not proof of nonexecution.
     pub caller_timeouts: u64,
+    /// Queued work canceled before the business handler began.
     pub canceled_before_start: u64,
+    /// Explicitly abandoned caller waits.
     pub caller_cancellations: u64,
     /// Upper bucket estimates, cumulative since application startup, in microseconds.
     pub p95_micros: u64,
+    /// Estimated P99 handler execution duration, not end-to-end latency.
     pub p99_micros: u64,
 }
 impl Metrics {
@@ -103,15 +115,28 @@ pub const MESSAGE_METRIC_LABEL_LIMIT: usize = 1024;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 #[repr(usize)]
+/// Classification of a routing/admission attempt, not a business outcome.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub enum RouteOutcome {
+    /// Bounded admission succeeded; business completion is not implied.
     Accepted,
+    /// No subscribed target matches topic and destination.
     Unroutable,
+    /// A Command or Request matched multiple target components.
     AmbiguousDestination,
+    /// Immediate admission has no available bounded capacity.
     Backpressure,
+    /// Root/owner admission or a generation-bound capability is closed.
     Closed,
+    /// Root admission is not open yet.
     NotReady,
+    /// The separate admission wait budget expired.
     AdmissionTimeout,
+    /// The framework request wait graph would contain a cycle.
     CircularWait,
+    /// Routing failure outside the separately classified outcomes.
     OtherFailure,
 }
 impl RouteOutcome {
@@ -142,6 +167,10 @@ impl RouteOutcome {
     }
 }
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
+/// Bounded message metric identity; overflow aggregates excess label sets.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct MessageMetricLabels {
     /// None for routing failures before a target is known, or for overflow.
     pub component: Option<modorch_core::ComponentRef>,
@@ -151,12 +180,20 @@ pub struct MessageMetricLabels {
     pub topic: Option<String>,
 }
 #[derive(Clone, Debug)]
+/// Per-label routing attempts and handler execution snapshot.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct MessageMetrics {
+    /// Isolated application identity attached to this snapshot.
     pub application_id: modorch_core::ApplicationId,
+    /// Bounded message metric identity.
     pub labels: MessageMetricLabels,
+    /// True for aggregate counters beyond exact-label capacity.
     pub overflow: bool,
     /// Admission attempts, including retries by *_wait; not final business results.
     pub routing: std::collections::BTreeMap<RouteOutcome, u64>,
+    /// Execution policy or sampled execution counters, as indicated by the type.
     pub execution: ExecutionMetrics,
 }
 #[derive(Default)]

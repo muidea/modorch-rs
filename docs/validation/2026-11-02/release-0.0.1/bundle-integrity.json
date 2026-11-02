@@ -1,0 +1,8 @@
+{
+  "status": "Passed",
+  "bundle_sha256": "90eaf70a618f4cf3f293ecfd0c051e7bce4cde1c3e9028519bb5ecf4e6fa33ae",
+  "tree_sha256": "ae8be5ddee151c24ae792cc2e50645748518e77d64e03340903041d7b0ef1208",
+  "framework_version": "0.0.1",
+  "bundle_revision": "1.0.3",
+  "payload_matches_current_source": true
+}

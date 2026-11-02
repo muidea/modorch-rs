@@ -1,0 +1,62 @@
+{
+  "on": {
+    "pull_request": {},
+    "push": {},
+    "workflow_dispatch": {}
+  },
+  "permissions": {
+    "contents": "read"
+  },
+  "name": "Skills and Templates",
+  "env": {
+    "RUSTUP_TOOLCHAIN": "1.94.0",
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "jobs": {
+    "validate": {
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+        },
+        {
+          "run": "rustup toolchain install 1.94.0 --profile minimal"
+        },
+        {
+          "run": "cargo fetch --locked"
+        },
+        {
+          "run": "python3 tools/skill-packaging/sync.py --check"
+        },
+        {
+          "run": "python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v"
+        },
+        {
+          "name": "Clean external installation and templates",
+          "run": "python3 tests/agent-evals/fixture-replay.py --output validation/skills"
+        },
+        {
+          "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+          "if": "always()",
+          "with": {
+            "name": "candidate-skill-bundle-and-fixtures",
+            "path": "validation/skills/"
+          }
+        }
+      ]
+    },
+    "release-readiness": {
+      "if": "github.event_name == 'workflow_dispatch'",
+      "runs-on": "ubuntu-latest",
+      "steps": [
+        {
+          "uses": "actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683"
+        },
+        {
+          "name": "Fail closed without actual reviewed Agent evidence",
+          "run": "python3 tools/doc-validation/release-gate.py docs/validation/2026-11-02/release-0.0.1/checks/verification.json"
+        }
+      ]
+    }
+  }
+}

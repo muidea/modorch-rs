@@ -4,7 +4,7 @@
 > **Cargo 主包：** `modorch`  
 > **文档类型：** 独立、完整的框架技术设计规范  
 > **适用范围：** 单进程、常驻型和任务驱动型 Rust 后端应用  
-> **规范状态：** 目标架构与接口契约；本文代码用于约定期望 API，不代表相关 Crate 已经发布或编译验收
+> **规范状态：** 0.0.1 当前实现说明（2026-11-02 刷新，基线 `37bdc93`）；公开签名以源码/Rustdoc 为准，行为承诺由 Contracts 与执行证据共同确认
 
 ## 1. 框架定位、目标与边界
 
@@ -37,7 +37,7 @@ Modorch-RS 是以 **Framework as a Library** 为产品形态的通用 Rust 模�
 | `Registered ≠ Enabled ≠ Instantiated ≠ Running` | 注册、选择、实例化与运行必须是独立状态 |
 | `Accepted ≠ Completed` | 消息进入队列不代表业务已执行完成 |
 | `Timeout ≠ NotExecuted` | 已执行请求的超时不能宣称无副作用 |
-| `Lane ≠ Destination` | Lane 控制局部执行顺序，不决定消息路由 |
+| `Lane ≠ Destination` | Lane 在串行策略下控制局部执行顺序，不决定消息路由 |
 | `ShutdownTimeout ≠ Stopped` | 未排空工作不能虚报资源已安全释放 |
 | `Arc<T> ≠ ResourceReady` | Rust 引用计数安全不等于外部资源仍可用 |
 | `ComponentKind ∈ {Initiator, Module}` | 业务子分类不能扩展为额外的框架顶层组件类型 |
@@ -79,8 +79,8 @@ flowchart TB
     LIFE[LifecycleCoordinator + Supervisor]
     SVC[ServiceRegistry / Resource Lease]
     BUS[EventHub: Topic + Destination + Subscription]
-    LANE[LaneScheduler: Serial / Partitioned / Concurrent]
-    TASK[TaskScheduler + TaskGroup]
+    LANE[LaneScheduler: Serial / Partitioned / Concurrent / Dynamic]
+    TASK[TaskScheduler + OperationTracker]
     STOP[AdmissionGate + OperationTracker + Drain]
     REG --> LIFE
     LIFE --> SVC
@@ -116,11 +116,11 @@ flowchart TB
 modorch-rs/
 ├── Cargo.toml
 ├── crates/
-│   ├── modorch/               # Facade，公开稳定统一 API
-│   ├── modorch-core/          # ID、Descriptor、Lifecycle、Context、Error
+│   ├── modorch/               # Facade，统一开发期 API
+│   ├── modorch-core/          # ID、Descriptor、Error、OperationTracker
 │   ├── modorch-registry/      # Factory 注册、组合、DAG、资源注册表
 │   ├── modorch-eventhub/      # 消息、订阅、路由、请求状态、执行策略与 Lane
-│   ├── modorch-scheduler/     # TaskGroup、Timer、TaskHandle、TaskSupervisor
+│   ├── modorch-scheduler/     # Owner 任务、Timer、TaskHandle、有界执行池
 │   ├── modorch-runtime/       # Application、LifecycleCoordinator、Shutdown
 │   ├── modorch-config/        # 可选：配置 schema 和 TOML 适配
 │   └── modorch-observe/       # 可选：Health、Metrics、Tracing 适配
@@ -128,9 +128,11 @@ modorch-rs/
 │   ├── minimal-app/
 │   ├── stateful-initiator/
 │   ├── multi-module/
-│   └── graceful-http/
+│   ├── graceful-http/
+│   ├── runtime-load/
+│   └── mixed-load/
 ├── tests/
-│   └── integration/
+│   └── fixtures/external-app/
 └── docs/
     ├── architecture.md
     ├── public-api.md
@@ -140,7 +142,7 @@ modorch-rs/
     └── compatibility.md
 ```
 
-建议单向依赖：
+核心实现依赖（完整 Feature 图见架构说明）：
 
 ```text
 modorch (facade)
@@ -148,12 +150,12 @@ modorch (facade)
   └─ modorch-runtime
        ├─ modorch-registry ──────► modorch-core
        ├─ modorch-eventhub ──────► modorch-core
-       └─ modorch-scheduler ─────► modorch-eventhub + modorch-core
+       └─ modorch-scheduler ─────► modorch-core
 ```
 
 需要避免依赖环。`modorch-core` 不应 import `modorch-runtime`；`modorch-eventhub` 不应依赖具体应用模块；`modorch-registry` 和 `modorch-runtime` 之间资源与 Context 的类型可用低层接口 crate 或 core 中的窄 Trait 打破逆向依赖，最终编译图必须无环。
 
-可以先以 `modorch-core/eventhub/scheduler/runtime/facade` 五个发布单元实现最小核心；是否保留独立 registry crate，取决于编译依赖的实际复杂度。
+当前保留八个框架 crate，业务通过 Facade 消费；依赖图由 Cargo 检查，不合并为假定的五个发布单元。
 
 ### 3.2 独立业务应用仓库
 
@@ -176,48 +178,9 @@ my-app/
 
 ### 3.3 Cargo / 版本策略
 
-框架根目录：
+根工作区使用 resolver 3、Edition 2024、版本 0.0.1、MIT、MSRV 1.85。当前尚无正式 Registry 发布声明。实际依赖与 Feature 定义见 [Facade manifest](../crates/modorch/Cargo.toml) 与 [兼容性说明](compatibility.md)。
 
-```toml
-[workspace]
-resolver = "3"
-members = ["crates/*", "examples/*"]
-
-[workspace.package]
-edition = "2024"
-license = "MIT OR Apache-2.0"
-rust-version = "1.85"
-```
-
-> `resolver = "3"` 与 Edition 2024 相适应；在正式发布前根据实际最低 Rust 工具链校正 `rust-version`，不可在未经验证的工具链上承诺 MSRV。上述许可证仅是示例，最终以项目实际授权为准。
-
-Facade crate（概念示例）：
-
-```toml
-[package]
-name = "modorch"
-version = "0.3.0"
-edition.workspace = true
-
-[features]
-default = ["runtime", "eventhub", "scheduler"]
-runtime = ["dep:modorch-runtime"]
-eventhub = ["dep:modorch-eventhub"]
-scheduler = ["dep:modorch-scheduler"]
-config-toml = ["dep:modorch-config"]
-observability = ["dep:modorch-observe"]
-signals = ["modorch-runtime/signals"]
-
-[dependencies]
-modorch-core = { path = "../modorch-core", version = "0.3" }
-modorch-runtime = { path = "../modorch-runtime", version = "0.3", optional = true }
-modorch-eventhub = { path = "../modorch-eventhub", version = "0.3", optional = true }
-modorch-scheduler = { path = "../modorch-scheduler", version = "0.3", optional = true }
-modorch-config = { path = "../modorch-config", version = "0.3", optional = true }
-modorch-observe = { path = "../modorch-observe", version = "0.3", optional = true }
-```
-
-Feature 是**编译时加法**；应用启停配置只能从编译进去的可用模块中选择。不能保证依赖图中两个消费者启用的同一框架 crate Feature 彼此隔离；Cargo 对同一包的 Features 通常合并。
+默认开启 runtime/eventhub/scheduler；runtime 同时启用 eventhub 与 scheduler，core/registry 不可选，config-toml 与 observability 可选。没有库级 signals Feature；信号由宿主 Tokio 提供。Feature 是编译时加法，运行时选择由 ComponentSelection 完成。
 
 ## 4. 唯一顶层分类：Initiator 和 Module
 
@@ -237,52 +200,15 @@ Feature 是**编译时加法**；应用启停配置只能从编译进去的可�
 
 不能以“内部有 `Mutex` 或 `HashMap`”判定为 Initiator。`UsageModule` 即使持有 DuckDB、缓存、连接池，如果它通过消息契约提供操作且不对外借出资源，可仍定义为 Module。若多个模块确需共享底层连接池，并允许按窄接口直接使用，则采用 Initiator 提供共享 ServiceHandle。
 
-### 4.2 公共 Trait 草案
+### 4.2 公共 Trait
 
-以下所有 Rust API 为目标设计、**非现有可编译代码**。为了支持 `Box<dyn Initiator>` 和 `Box<dyn Module>`，优先使用 `async-trait` 或明确的 `Pin<Box<dyn Future...>>` 对 async Trait 进行对象安全封装。
+真实定义见 [component.rs](../crates/modorch-runtime/src/component.rs)：Lifecycle 的 setup/start/ready/begin_shutdown/quiesce/teardown 使用 async-trait，支持对象安全的 Box<dyn Initiator/Module>。钩子默认返回成功；start 必须及时返回，长任务交给受管 Scheduler。
 
-```rust
-#[async_trait::async_trait]
-pub trait Lifecycle: Send {
-    async fn setup(&mut self, ctx: &SetupContext) -> FrameworkResult<()>;
-    async fn start(&mut self, ctx: &RuntimeContext) -> FrameworkResult<()>;
-    async fn begin_shutdown(&mut self, ctx: &ShutdownContext) -> FrameworkResult<()>;
-    async fn quiesce(&mut self, ctx: &ShutdownContext) -> FrameworkResult<()>;
-    async fn teardown(&mut self, ctx: &ShutdownContext) -> FrameworkResult<()>;
-}
-
-pub trait Initiator: Lifecycle {
-    fn descriptor(&self) -> ComponentDescriptor;
-    fn export_services(&self, publisher: &mut ServicePublisher) -> FrameworkResult<()>;
-}
-
-pub trait Module: Lifecycle {
-    fn descriptor(&self) -> ComponentDescriptor;
-    fn handlers(&mut self) -> FrameworkResult<Vec<HandlerRegistration>>;
-}
-```
-
-所有关键生命周期返回 `Result`；`start()` **不允许长期阻塞**。长期运行的工作由 `TaskScheduler` 和 EventHub 监督。`begin_shutdown()` 应停止新业务生产者并尽快返回，不应在其中直接释放依赖。
-
-若某 Initiator 同时需要订阅消息，可通过**可选的 EventEndpoint 注册**暴露 Handler，而不是把 Initiator 强制伪装成 Module。
+Module::handlers 与 Initiator::event_endpoint 都返回可选的单套 HandlerRegistration，可包含多个订阅。Initiator::activate_ingress 在全体 ready 之后调用。不得把旧草案的 Vec<HandlerRegistration> 当作现有 API。
 
 ### 4.3 ComponentDescriptor
 
-```rust
-pub enum ComponentKind { Initiator, Module }
-pub struct ComponentRef { pub kind: ComponentKind, pub id: ComponentId }
-
-pub struct ComponentDescriptor {
-    pub id: ComponentId,
-    pub kind: ComponentKind,
-    pub version: semver::Version,
-    pub requires: Vec<ComponentRef>,
-    pub optional: Vec<ComponentRef>,
-    pub execution: ExecutionPolicy,
-    pub queue_capacity: usize,
-    pub failure: FailurePolicy,
-}
-```
+[组件元数据源码](../crates/modorch-core/src/lib.rs)
 
 `requires` 只允许 `Initiator → Initiator`、`Module → Initiator`、`Module → Module`，默认不允许 Initiator 依赖业务 Module，以保证确定的组级生命周期；跨层反向依赖需重构为 Service/Port，而不是绕过生命周期。
 
@@ -290,17 +216,7 @@ Module 的 `execution` 有效；Initiator 只有在显式声明 EventEndpoint �
 
 ### 4.4 两种 Factory / Registry
 
-```rust
-pub trait InitiatorFactory: Send + Sync {
-    fn descriptor(&self) -> ComponentDescriptor;
-    fn create(&self, cfg: &ComponentConfig) -> FrameworkResult<Box<dyn Initiator>>;
-}
-
-pub trait ModuleFactory: Send + Sync {
-    fn descriptor(&self) -> ComponentDescriptor;
-    fn create(&self, cfg: &ComponentConfig) -> FrameworkResult<Box<dyn Module>>;
-}
-```
+[Factory 与配置验证源码](../crates/modorch-runtime/src/component.rs)
 
 应用注册 Factory，而不是注册已启动的对象。重复 ComponentRef 拒绝；Factory 不应在注册阶段做网络连接、建表、绑定端口等有副作用操作。Factory 的真实资源初始化应放到 `setup`。
 
@@ -326,7 +242,7 @@ Setup / Start / Ready / Accept Requests
 - **Instantiate**：只为选中组件创建实例；未启用组件不占用线程、socket、连接池等。
 - **Start**：执行生命周期与 readiness；成功后才开放外部准入。
 
-默认 `MissingDependency` 为构建错误；可提供显式 `.resolve_dependencies(IncludeRequired)` 策略，但不能隐式加载非用户选择的模块。
+默认缺失依赖报告 MissingDependency，已注册但未启用报告 DisabledDependency；提供显式 `.resolve_dependencies(DependencyResolution::IncludeRequired)` 策略，但不能隐式加载非用户选择的模块。
 
 ### 5.2 Composition 配置
 
@@ -352,7 +268,6 @@ enabled = false
 [messaging]
 default_queue_capacity = 1024
 per_shard_capacity = 64
-publish_when_full = "reject"
 
 [shutdown]
 grace_period_secs = 30
@@ -362,7 +277,7 @@ Framework 提供可选 TOML schema/转换工具，但进程配置文件路径、
 
 ### 5.3 Application 所有权
 
-建议 `ApplicationBuilder::build()` 返回未启动 Application；`Application::start().await` 返回可克隆的 `ApplicationHandle`。启动失败须保留可检查的清理结果；尚有在途资源时不可把部分初始化失败当成完全释放。
+`ApplicationBuilder::build()` 返回未启动 Application；`Application::start().await` 返回可克隆的 `ApplicationHandle`。启动失败须保留可检查的清理结果；尚有在途资源时不可把部分初始化失败当成完全释放。
 
 - `Application` 是单次启动生命周期所有者；要重启须创建新实例（一期不要求同一实例复活）。
 - `ApplicationHandle` 暴露 `wait()`、`health()`、`begin_shutdown()`、`shutdown_checked()`、`event_hub()` 的受控句柄。
@@ -376,7 +291,7 @@ Framework 提供可选 TOML schema/转换工具，但进程配置文件路径、
 - 资源由明确的 Initiator Owner 创建、注册、关闭；Framework 持有 Registry 的实例作用域。
 - 通过 `ServiceKey(name, type)` + 类型化 `ServiceHandle<T>` 暴露受控服务接口。
 - 读侧必须声明依赖并只获取获准的服务；不允许匿名访问任意可变对象。
-- 资源可用性必须受 Owner State 和 ResourceLease 约束：持有 `Arc<T>` 只保证内存有效，不保证数据库连接等逻辑资源尚未关闭。
+- 资源可用性必须受 Owner State 和 ServiceLease 约束：持有 `Arc<T>` 只保证内存有效，不保证数据库连接等逻辑资源尚未关闭。
 - Owner 在所有借用者模块和相关任务 Drain 完成后才能 teardown；未完成时保留资源且返回不完整关闭回执。
 - `ServiceHandle<T>::acquire()` 返回受 Owner 状态保护、会被 OperationTracker 计数的 `ServiceLease<T>`；租约有效期间可使用线程安全服务接口，Owner 必须在所有租约释放后才能拆卸底层资源。
 - 不应仅把裸 `Arc<T>` 当作受控服务句柄；若必须暴露由用户定义的内部可复制句柄，业务组件需要保证该句柄的每次外部操作执行独立的可用性检查。关闭后新获取/使用失效服务返回 `ServiceUnavailable`。
@@ -400,27 +315,11 @@ Framework 提供可选 TOML schema/转换工具，但进程配置文件路径、
 
 ### 7.1 消息信封
 
-```rust
-pub enum MessageKind { Event, Command, Request }
-
-pub struct MessageEnvelope {
-    pub message_id: MessageId,
-    pub kind: MessageKind,
-    pub topic: Topic,
-    pub source: ComponentRef,
-    pub destination: Destination,
-    pub lane_key: Option<LaneKey>,
-    pub correlation_id: Option<CorrelationId>,
-    pub causation_id: Option<MessageId>,
-    pub deadline: Option<std::time::Instant>,
-    pub headers: Headers,
-    pub payload: MessagePayload,
-}
-```
+[消息信封源码](../crates/modorch-eventhub/src/types.rs)
 
 - `topic` 表示事件/命令语义与版本，例如 `storage/save/v1`。
 - `destination` 决定谁接收；Request 和 Command 必须精确解析到一个已启用目标，Event 允许广播到多个订阅者。
-- `lane_key` 仅决定局部顺序，不改变接收目标；框架内部串行域默认是 `(destination_component, logical_lane)`。
+- `lane_key` 仅影响局部串行域，不改变接收目标；Serial 为组件域，Partitioned 为 shard，Dynamic 为活跃 Key，Concurrent 不承诺顺序。
 - `source` 和调用链信息由框架生成/校验，不允许非可信业务输入伪造内部执行身份。
 - `payload` 首先支持进程内类型化 `Arc<dyn Any + Send + Sync>` 或等价类型擦除；Serde/JSON/CBOR 是可选 Transport Adapter。禁止把 `oneshot::Sender` 混入需要持久化的业务 Payload。
 
@@ -432,67 +331,40 @@ pub struct MessageEnvelope {
 | `command(target,cmd)` | 返回 `AdmissionReceipt`，**只表示受控队列接受** | 返回 `Backpressure` | 未返回业务完成不代表未执行 |
 | `request(target,req)` | 返回 `RequestHandle`；等待唯一 Handler 的 typed 完成 | 返回 `Backpressure` / AdmissionTimeout | 如已开始执行则 `Indeterminate(OperationId)` |
 
-对于 Event，订阅者 A 已成功入队、B 失败入队时返回 `PartialDelivery` 和每接收方状态；不能把一次广播的部分失败说成全部成功。默认策略应为 **Reject with explicit error**（不是静默丢弃），确实允许丢弃的 Telemetry Event 才显式选择 `DropNewest` 等策略。
+对于 Event，订阅者 A 已成功入队、B 失败入队时返回 PublishReport 中每接收方的状态（is_partial 可查询部分成功）；不能把一次广播的部分失败说成全部成功。默认策略应为 **Reject with explicit error**（不是静默丢弃），确实允许丢弃的 Telemetry Event 才显式选择 `DropNewest` 等策略。
 
 ### 7.3 订阅与路由
 
-```rust
-pub struct SubscriptionSpec {
-    pub id: SubscriptionId,
-    pub topic_pattern: TopicPattern,
-    pub destination_pattern: DestinationPattern,
-    pub target: ComponentRef,
-}
-```
+[订阅类型源码](../crates/modorch-eventhub/src/types.rs)
 
 - `SubscriptionId` 是唯一订阅身份，不能与业务 destination matcher 混用。
 - `topic_pattern` 支持单段 `+`、多段 `#` 与参数段（`/:id`）风格，统一采用 `/` 作为路径分隔符；订阅模式匹配事件真实 Topic，**不进行双向随意匹配**。
 - 路由按 `topic + destination` 双维度筛选；`lane_key` 不参与订阅匹配。
 - 启动订阅必须在模块 Ready 前完成；运行时订阅变更通过独立控制面串行提交。
 - `subscribe/unsubscribe` 返回**已生效回执**，拒绝操作不能稍后偷偷执行；取消订阅不等价于已有 Handler 已排空。
-- 匹配缓存使用 `(topic,destination,subscription_generation)` 或等价不可过期快照；变更和缓存发布必须维持一致性。
+- 当前不使用路由匹配缓存。索引、订阅变更和入队共享线性化边界；回执含订阅 generation。
 - 启用和停机阶段不可产生向已禁用模块的“幽灵路由”。
 
-### 7.4 三种执行策略与 Rust 所有权
+### 7.4 四种执行策略与 Rust 所有权
 
-```rust
-pub enum ExecutionPolicy {
-    Serial,
-    Partitioned { shards: std::num::NonZeroUsize },
-    Concurrent { max_in_flight: std::num::NonZeroUsize },
-}
-```
+[执行策略源码](../crates/modorch-core/src/lib.rs)
 
 - **Serial**：整个 Module 一个 `SerialHandler: Send`，使用 `&mut self` 顺序执行。
 - **Partitioned**：固定 `N` 个 shard mailbox，每个 shard 一个独立 `SerialHandler`；按稳定 hash(`lane_key`) 映射；同 Key 依准入序 FIFO，不同 Key 如果碰撞同 shard 也可能串行。不同 shard 可并行。
-- **Concurrent**：共享 `Arc<dyn ConcurrentHandler + Send + Sync>`，Semaphore 限制并发；不承诺 Handler 执行顺序。
+- **Dynamic**：每个活跃 Key 一套 SerialHandler 与有界邮箱，受 max_lanes 和 idle_timeout 限制；空闲回收后不保留 Handler 私有状态。
+- **Concurrent**：共享 `Arc<dyn ConcurrentHandler + Send + Sync>`，固定 Worker 与 Dispatcher 限制并发；不承诺 Handler 执行顺序。
 
 Handler 的对象所有权需在接口层显式区分：
 
-```rust
-#[async_trait::async_trait]
-pub trait SerialHandler: Send {
-    async fn handle(&mut self, ctx: &HandlerContext, message: MessageEnvelope)
-        -> FrameworkResult<HandlerReply>;
-}
+[Handler 所有权与注册源码](../crates/modorch-eventhub/src/workers.rs)
 
-#[async_trait::async_trait]
-pub trait ConcurrentHandler: Send + Sync {
-    async fn handle(&self, ctx: &HandlerContext, message: MessageEnvelope)
-        -> FrameworkResult<HandlerReply>;
-}
+HandlerFactory 在模块完成 Setup 后创建 Worker 实例，`&mut self` 不会被多个任务并发借用。Dynamic 已实现最大 Lane 数（含构造中预留）、空闲回收和停机回收；工厂在路由锁外调用，超时不能中断同步工厂。跨 shard 共享状态必须通过明确的线程安全服务或消息聚合处理，不能默认为分片副本数据一致。
 
-// 由 HandlerRegistration 在构造时选择 Serial、Partitioned 或 Concurrent。
-// Partitioned 使用 HandlerFactory 为每个 shard 创建独立的 SerialHandler。
-```
-
-HandlerFactory 在模块完成 Setup 后创建 Worker 实例，`&mut self` 不会被多个任务并发借用。固定分片内存上界可控；如实现动态 Lane，必须增加 idle retire、最大 Lane 数和停机回收控制。跨 shard 共享状态必须通过明确的线程安全服务或消息聚合处理，不能默认为分片副本数据一致。
-
-**顺序保证的精确定义**：同一个 `(module, lane_key)` 在同一进程执行代际内按成功准入顺序执行；多生产者并发时以路由器成功准入线性化顺序为准。不承诺独立模块间全序、Event Fanout 原子性或跨进程顺序。
+**顺序保证的精确定义**：Serial、Partitioned、Dynamic 中同一串行域在同一代际按成功准入顺序执行；Concurrent 不承诺顺序；多生产者并发时以路由器成功准入线性化顺序为准。不承诺独立模块间全序、Event Fanout 原子性或跨进程顺序。
 
 ### 7.5 防止同步等待死锁
 
-- `RequestContext` 携带框架生成的 `ExecutionChain`，包括当前 `module/shard/lane` 和祖先等待链。
+- HandlerContext 与 OperationTracker 传播框架生成的因果身份；WaitGraph 使用组件/shard/Lane 等待域，Concurrent 使用保守组件域。
 - 请求入队前向 WaitGraph 登记“当前同步等待目标”的边。检测自己等待自己、`A→B→A`、`A→B→C→A` 并返回 `CircularWait`。
 - 默认**拒绝受限 Lane 的同步重入**，不复制 Go 中可重入共享 Handler 行为；避免 `&mut self` 的排他语义被破坏。
 - 串行 Lane 内的业务可以改用 `publish` 或独立子任务实现非阻塞链，或将相关操作设计为异步状态机。
@@ -514,28 +386,23 @@ Created → Admitted → Queued → Running → Completed
 
 API 目标：
 
-```rust
-pub trait TaskScheduler {
-    fn spawn(&self, task: TaskSpec) -> FrameworkResult<TaskHandle>;
-    fn interval(&self, schedule: IntervalSpec, task: TaskSpec) -> FrameworkResult<TimerHandle>;
-    fn delay(&self, delay: Duration, task: TaskSpec) -> FrameworkResult<TimerHandle>;
-}
-```
+[TaskScheduler 源码](../crates/modorch-scheduler/src/lib.rs)
 
 - `TaskScheduler` 是从 ComponentContext 获取的 **owner-bound 句柄**，Owner ID 由框架绑定，业务调用方不能自行伪造；所有后台任务都必须归属于一个已启动组件。不得绕开监督通过 `tokio::spawn` 永久遗留任务。
 - Task Handle 具备 Accepted/Running/Completed/Failed/CancelRequested/Cancelled 等状态与完成结果。
 - Scheduler 入口关闭后拒绝外部新任务，允许在途工作产生满足规则的受控子任务。
 - 周期 TimerDriver 与真正执行业务的 Worker Pool 分离；定时器占用数量、队列长度、并发执行数均有上限。
 - 默认定时任务 **SkipIfRunning**，避免运行慢时无界重叠；允许显式 QueueBounded/AllowOverlap。
-- `TaskGroup` 记录 Owner 的在途任务，支撑 Shutdown 排空；调用 `CancellationToken.cancel()` 只是发出协作式取消信号，并非任务已经完成。
-- `TaskTracker.close()` 仅允许 wait 在空集合时结束，本身不阻止新任务被跟踪；因此必须配合框架自定义 AdmissionGate 做准入控制。
+- OperationTracker 记录 Owner 的在途任务，支撑 Shutdown 排空；调用 `CancellationToken.cancel()` 只是发出协作式取消信号，并非任务已经完成。
+- OperationTracker 将准入与租约登记线性化；不以第三方 TaskTracker 的 close 代替该屏障。
+- spawn 接受取消 Token 闭包，delay/interval 接受 TaskFactory。spawn_cpu/spawn_blocking_io 进入各自有界池；wait_finished 确认自身额度与捕获已释放，wait 只表示结果可读。
 
 ## 9. 生命周期与应用启动
 
 ### 9.1 Application 状态
 
 ```text
-New → Resolving → Initializing → Starting → Ready / Running
+New → Initializing → Starting → Ready / Degraded / Recovering
                         ↓            ↓            ↓
                       Failed ───────────────→ Quiescing
                                                   ↓
@@ -546,7 +413,7 @@ New → Resolving → Initializing → Starting → Ready / Running
                                              Stopped
 ```
 
-因排空超时进入 `StopIncomplete`（附当前阶段与未完成工作）；允许调用 `shutdown_checked` 重试，但**不能重复释放已成功拆卸的资源**。`Stopped` 是不可逆状态，重复关闭幂等。只有全新 Application 实例重新启动新代际。
+因排空超时进入 `StopIncomplete`（附当前阶段与未完成工作）；允许调用 `shutdown_checked` 重试，但**不能重复释放已成功拆卸的资源**。`Stopped` 是不可逆状态，重复关闭幂等。Stopped 后只能创建全新 Application；运行期 Restart 可在旧闭包排空和拆卸后推进组件代际。
 
 ### 9.2 启动阶段（必须有启动事务日志）
 
@@ -586,12 +453,12 @@ sequenceDiagram
   App->>Ingress: Quiesce (外部连接与入站操作)
   App->>M: Quiesce (组件主动生产者)
   App->>H: Drain (包含合法内部子请求)
-  App->>S: Drain (Owner TaskGroups)
+  App->>S: Drain (Owner 在途任务)
   Note over H,S: 以全局 OperationTracker 固定点判断真正排空，不能只各等一次
   App->>M: Teardown (逆 DAG)
   App->>Ingress: Teardown (逆 DAG)
-  App->>H: TerminateChecked
-  App->>S: TerminateChecked
+  App->>H: 终止执行器（内部阶段）
+  App->>S: 终止执行器（内部阶段）
 ```
 
 **精确准入规则**：Root 入站在 BeginShutdown 后一律拒绝；已经被接受且正在执行的 Operation 可以在已有因果链下提交必要的 Internal Child Operation。准入、计数和 OperationLease 创建必须具备一个线性化边界，防止“确认排空后又成功进入子操作”。孤立新生产者不可借内部接口绕过停机。
@@ -601,7 +468,7 @@ sequenceDiagram
 - 跟踪 Root Operation、Child Operation、Message Dispatch、Handler、Owner Task、Timer Dispatcher 等依赖业务资源的在途工作。
 - `Lease` 由框架创建，跨 await 持有直到真实工作完成；业务 Future 超时/取消不能私自把已启动的工作从 Tracker 中抹掉。
 - 排空需先证明外部生产者停止，随后等待全局在途计数归零，并再次验证准入没有新工作可进入。
-- `Drain` 超时返回 `StopIncomplete {phase, pending_operations, pending_owners}`，保留依赖资源及所需执行器可用，并允许后续重试。
+- `Drain` 超时返回 `StopIncomplete { phase, pending: PendingWork, errors }`，保留依赖资源及所需执行器可用，并允许后续重试。
 - 无法协作退出时可提供 `force_shutdown()` 独立接口，明确这是**可能损失在途操作**的操作，不返回 `GracefullyStopped`。
 - 如果进程直接被 OS 强制结束，框架无法保证完成排空；应用负责为重要外部副作用使用幂等键/持久化恢复机制。
 
@@ -613,17 +480,11 @@ sequenceDiagram
 
 ## 11. 故障监督与错误语义
 
-```rust
-pub enum FailurePolicy {
-    FailFast,                 // 默认：关键组件异常触发进程级受控停机
-    StopDependents,           // 可选：停止所有依赖方，降低整体可用性
-    Restart { max_attempts: u32, backoff: Duration }, // 高级能力，需可重建工厂
-}
-```
+[FailurePolicy 源码](../crates/modorch-core/src/lib.rs)
 
-基础版本默认 FailFast；Restart 只有在资源拆卸完成、旧 TaskGroup 排空、消息重试安全和 Factory 可重新实例化的条件下才能启用。禁止直接在原资源仍被借用时启动第二代对象。
+默认 FailFast。StopDependents 与 Restart 均已实现；Restart 在旧闭包排空和拆卸后按累计预算重建，不自动重放消息，预算耗尽转 FailFast。禁止直接在原资源仍被借用时启动第二代对象。
 
-推荐结构化错误：`DuplicateComponent`、`MissingDependency`、`DependencyCycle`、`DisabledDependency`、`InvalidConfig`、`NotReady`、`Closed`、`Backpressure`、`Unroutable`、`AmbiguousDestination`、`CircularWait`、`AdmissionTimeout`、`ExecutionFailed`、`Indeterminate`、`StopIncomplete`、`ResourceUnavailable`。
+推荐结构化错误：`DuplicateComponent`、`MissingDependency`、`DependencyCycle`、`DisabledDependency`、`InvalidConfig`、`NotReady`、`Closed`、`Backpressure`、`Unroutable`、`AmbiguousDestination`、`CircularWait`、`AdmissionTimeout`、`ExecutionFailed`、`Indeterminate`、`StopIncomplete`、`ServiceUnavailable`、`ResourceLimit`、`CanceledBeforeStart`、`Cancelled`、`TypeMismatch`、`AccessDenied`、`ComponentUnavailable`。
 
 错误应携带 `ComponentRef`、`OperationId`、`Phase`、`Retryable`（只表明技术重试可能性，不代表业务幂等）和 `source`；不把任务 panic 变成正常成功回执。
 
@@ -636,139 +497,15 @@ pub enum FailurePolicy {
 - 共享 ServiceRegistry：在 API/代码结构上限制模块请求超出依赖声明的资源，避免隐性资源耦合；这是框架级能力边界，并非针对不可信第三方插件的沙箱隔离。
 - 外部协议由应用实现鉴权、限流及请求输入验证，框架只负责受控的内部通信。
 
-## 13. 独立应用集成示例（公共 API 草案）
+## 13. 独立应用集成示例
 
-### 13.1 应用 Cargo.toml
-
-```toml
-[package]
-name = "order-service"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-modorch = { path = "../modorch-rs/crates/modorch" }
-tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal"] }
-anyhow = "1"
-initiator-http = { path = "crates/initiator-http", optional = true }
-module-storage = { path = "crates/module-storage", optional = true }
-module-order = { path = "crates/module-order", optional = true }
-module-worker = { path = "crates/module-worker", optional = true }
-
-[features]
-default = ["http", "storage", "order"]
-http = ["dep:initiator-http"]
-storage = ["dep:module-storage"]
-order = ["dep:module-order"]
-worker = ["dep:module-worker"]
-```
-
-> 框架依赖路径仅用于开发环境示例。正式使用时，可改为团队已发布且已验证的 Git Tag 或 Registry 版本。
-
-### 13.2 应用编排代码
-
-```rust
-// app-service/src/runtime.rs —— 公共 API 形状示意
-use modorch::{Application, ApplicationBuilder, ComponentSelection, ShutdownOptions};
-
-pub async fn run() -> anyhow::Result<()> {
-    let mut builder = ApplicationBuilder::new("order-service");
-
-    #[cfg(feature = "http")]
-    builder.register_initiator(initiator_http::registration())?;
-    #[cfg(feature = "storage")]
-    builder.register_module(module_storage::registration())?;
-    #[cfg(feature = "order")]
-    builder.register_module(module_order::registration())?;
-    #[cfg(feature = "worker")]
-    builder.register_module(module_worker::registration())?;
-
-    // 实际场景由配置确定启用项；示例仅选已编译进入应用的组件。
-    let mut selection = ComponentSelection::new();
-    #[cfg(feature = "http")]
-    selection.enable_initiator("http");
-    #[cfg(feature = "storage")]
-    selection.enable_module("storage");
-    #[cfg(feature = "order")]
-    selection.enable_module("order");
-
-    let application: Application = builder.selection(selection).build()?;
-    let handle = application.start().await?;
-
-    // 无论正常退出还是收到信号，都执行检查式停机。
-    let run_result = tokio::select! {
-        result = handle.wait() => result.map_err(anyhow::Error::from),
-        signal = tokio::signal::ctrl_c() => signal.map_err(anyhow::Error::from),
-    };
-    let shutdown_result = handle
-        .shutdown_checked(ShutdownOptions::graceful())
-        .await;
-    run_result?;
-    shutdown_result?;
-    Ok(())
-}
-```
-
-实际应用应将运行配置与 Cargo Feature 提供的可用组件做交叉验证：配置中要求但尚未编译的组件必须报告 `ComponentUnavailable`，不能静默忽略。`main.rs` 只负责调用 `app_service::run()` 并处理退出码。
-
-### 13.3 一个共享状态 Initiator
-
-```rust
-// initiator-http/src/lib.rs —— 接口行为示意
-pub struct HttpInitiator {
-    // listener / route registry / token / state 等私有资源
-}
-
-// Setup: 构建 RouteRegistry，注册受控 RouteRegistryHandle。
-// Start: 准备监听但尚不对外处理未就绪的业务请求。
-// Ready activation: 所有 Module 注册路由后允许对外接入。
-// BeginShutdown: 停止 Accept 新连接及新根操作。
-// Quiesce: 等待已进入的请求结束。
-// Teardown: 最后释放 listener、registry 等资源。
-```
-
-### 13.4 一个消息型业务 Module
-
-```rust
-// module-order/src/events.rs —— 由能力拥有方统一定义 DTO
-#[derive(Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateOrder { pub order_id: String }
-
-#[derive(Clone, serde::Serialize, serde::Deserialize)]
-pub struct CreateOrderResult { pub accepted: bool }
-
-// module-order/src/module.rs —— 行为示意
-// Module setup: 从受控 ServiceRegistry 取得明确声明的服务依赖。
-// Module handlers(): 注册 topic="order/create/v1" 的 Request Handler。
-// Module start(): 提交必要的后台任务/周期任务，等待 readiness。
-// Module quiesce(): 停止新业务生产者，完成已接收请求。
-// Module teardown(): 释放私有资源，取消并确认本组件拥有的任务。
-```
-
-其他应用组件通过框架提供的 `EventHub` 调用 `order-contract` 中定义的 typed Request，不直接获取 `OrderModule` 对象，不重复定义 Topic 和 Payload。
-
-### 13.5 独立 App 间隔离
-
-Application A 与 Application B 在同一个 Tokio Runtime 上运行时仍各自具有 Registry、EventHub、TaskScheduler 作用域和 Shutdown 状态。`get_service()` 不跨应用获取服务；进程级跨应用消息必须通过显式 Bridge 或 TransportAdapter；不属于框架核心的隐式能力。
+只消费 Facade。可运行来源为 [minimal-app](../examples/minimal-app/src/main.rs)、[stateful-initiator](../examples/stateful-initiator/src/main.rs)、[multi-module](../examples/multi-module/src/main.rs)、[graceful-http](../examples/graceful-http/src/main.rs) 和 [独立工作区](../tests/fixtures/external-app)。配置、信号、全局日志与 Runtime 由宿主持有；入口使用 ExternalEventHub 建立新根，Handler 的子操作使用 ctx.event_hub。
 
 ## 14. 公共 API 表面与兼容承诺
 
-推荐 Facade 仅暴露最小必要接口：
+唯一调用入口为 modorch；[Facade 源码](../crates/modorch/src/lib.rs) 定义完整导出和 prelude。Markdown 不重复维护全量签名。公开字段和错误变体在0.0.1 开发阶段可能变化，迁移须复核结构体字面量、穷举匹配和 Feature。
 
-```rust
-pub mod prelude {
-    pub use crate::{ApplicationBuilder, Initiator, Module,
-        InitiatorFactory, ModuleFactory, ComponentDescriptor,
-        ModuleContext, ServiceHandle, EventHub, TaskScheduler};
-}
-```
-
-- 按可扩展的 Builder/NonExhaustive 配置类型发布，减少添加字段对下游代码的破坏。
-- 多 crate 之间不得泄漏 `tokio::mpsc::Sender`、私有执行器内部句柄为长期稳定公共 ABI。
-- 明确 MSRV；框架 crate 发布版本需要同一兼容系列，外部模块按相同主兼容版本构建。
-- 版本化业务 Topic 和 DTO 由应用能力 owner 管理，框架不掌握各业务 Schema。
-- 不通过不安全的全局 static 宏自动注册来模拟 Go `init()`；可选提供 `register_components!` 宏糖，但其生成内容必须是显式的实例级 Builder 操作。
-- 第三方 Crate 接入遵守 SemVer，正式稳定前使用小版本演进和兼容性说明；Rust native 动态库 ABI 不作为核心插件分发机制。
+StartupError.source 为 Box<FrameworkError>，标准 Error::source 暴露原始 FrameworkError；cleanup 与 ApplicationHandle 保留。ShutdownOptions.timeout 限制调用者等待而不取消关闭事务。具体边界见 [公共 API](public-api.md)、[兼容性](compatibility.md) 与本次文档验收记录。
 
 ## 15. 核心验收标准（以行为为准）
 
@@ -801,14 +538,14 @@ pub mod prelude {
 - [ ] Concurrent 模式严格受 max_in_flight 限制。
 - [ ] 有界队列满时明确拒绝，不默认无界内存占用。
 - [ ] A→A、A→B→A 请求等待图循环被拒绝，不依赖超时解决。
-- [ ] 订阅变更与路由缓存之间无过期回填竞态。
+- [ ] 订阅变更与路由准入之间没有失效路由发布；当前无路由缓存。
 
 ### 15.4 Task 与停机
 
 - [ ] 所有 Task 有明确 Owner、状态和完成/取消回执。
 - [ ] Timer 不永久占满 Worker；超时/重复 Tick 行为有明确约束。
 - [ ] 关闭入口后拒绝新根操作，允许合法在途子请求完成。
-- [ ] Drain 的计数覆盖 EventHub、Handler、TaskGroup 和相关内部子请求。
+- [ ] Drain 的计数覆盖 EventHub、Handler、Owner 任务 和相关内部子请求。
 - [ ] Drain 超时返回 StopIncomplete，保留未完成工作和依赖资源。
 - [ ] 重试 Shutdown 不重复关闭已经释放的组件。
 - [ ] ForceShutdown 与 GracefulShutdown 有不同的结果类型和日志。
@@ -825,7 +562,7 @@ cargo clippy --workspace --all-targets -- -D warnings
 cargo test -p modorch-eventhub --test concurrency -- --nocapture
 ```
 
-额外设计 `tokio::test(start_paused = true)`、多线程高并发、Fault Injection、资源借用与停机竞态测试；对 AdmissionGate/OperationTracker 可使用 Loom 等状态空间测试。以上命令属于验收规范，并未在本次文档编写过程中实际执行。
+额外设计 `tokio::test(start_paused = true)`、多线程高并发、Fault Injection、资源借用与停机竞态测试；对 AdmissionGate/OperationTracker 可使用 Loom 等状态空间测试。本次实际命令与输出见 docs/validation/2026-11-02/documentation-skills/；远程 CI 未由本地执行推定。
 
 ## 16. 实施计划与交付范围
 
@@ -834,8 +571,8 @@ cargo test -p modorch-eventhub --test concurrency -- --nocapture
 | M0：库化与公共 API | Facade/Manifest/独立应用示例，统一 Initiator/Module 契约 | 外部 Workspace 可编译引入、模块按需编排 |
 | M1：Factory/Composition/DAG | 注册、选择、资源/实例所有权、依赖排序、部分启动清理 | 未启用不实例化，DAG 与失败回滚测试 |
 | M2：EventHub | Topic/Destination、订阅、Request/Command/Event、反压 | 回执与动态订阅竞态测试 |
-| M3：Lane 与 HandlerFactory | Serial/Partitioned/Concurrent、WaitGraph | FIFO、并发上限、循环等待测试 |
-| M4：统一停机 | AdmissionGate + OperationTracker + TaskGroup + CheckedShutdown | 不完整排空可重试，无提前资源释放 |
+| M3：Lane 与 HandlerFactory | Serial/Partitioned/Concurrent/Dynamic、WaitGraph | FIFO、并发上限、循环等待测试 |
+| M4：统一停机 | AdmissionGate + OperationTracker + Owner 任务 + CheckedShutdown | 不完整排空可重试，无提前资源释放 |
 | M5：生产化 | Config/Health/Tracing、示例、MSRV 和版本兼容 | 完整 CI、压测、稳定公共 API |
 
 **实施顺序约束：** 必须先固化公共组件契约与实例级注册，再实现 EventHub 的准确回执与 Lane，最后接入统一 OperationTracker 停机。每个阶段均以通过对应的自动化验收为结束条件，不能因为存在接口草图就宣称已交付能力。
@@ -854,7 +591,7 @@ cargo test -p modorch-eventhub --test concurrency -- --nocapture
 | ServiceHandle | 获取 Initiator 提供的受控服务的入口，作用域限制在单 Application |
 | ServiceLease | 使用期间登记在途工作并保护服务 Owner 的资源租约 |
 | EventHub | 负责 Topic/Destination 订阅匹配、路由、投递和响应关联的内部消息系统 |
-| Lane | 消息处理时的局部串行域，默认以目标 Module 和 LaneKey 共同确定 |
+| Lane | 消息处理时的局部串行域，按组件执行策略映射到组件、shard 或活跃 Key |
 | AdmissionGate | 统一准入判定，控制哪些根操作和因果子操作可以进入运行时 |
 | OperationTracker | 跟踪消息、Handler、子请求、任务和资源租约的实际在途状态 |
 | Quiesce | 停止组件主动生产新工作并等待生产者静止，不等同于释放资源 |
@@ -864,7 +601,7 @@ cargo test -p modorch-eventhub --test concurrency -- --nocapture
 ### 17.1 框架与应用的强制边界
 
 - 应用决定**定义什么、注册什么、启用什么**；框架决定**如何调度、通信、监督和安全退出**。
-- 每个 Application 各自创建自己的 InitiatorRegistry、ModuleRegistry、EventHub、TaskScheduler、ServiceRegistry 和 Shutdown 状态，不以隐式全局单例共享。
+- 每个 Application 各自创建自己的 Factory 表、EventHub、SchedulerRuntime、ServiceRegistry 和 Shutdown 状态，不以隐式全局单例共享。
 - 两类组件可以使用同一消息总线；但默认不允许其他组件直接获取 Module 对象，也不允许 Initiator 把未受控可变指针作为公共资源。
 - 未启用组件不得创建业务资源、订阅消息或运行后台任务；强制依赖缺失必须在运行前报告。
 - 已入队工作和已完成工作必须可区分；在途工作结束前不得销毁其依赖的状态或连接。
@@ -872,4 +609,4 @@ cargo test -p modorch-eventhub --test concurrency -- --nocapture
 
 ### 17.2 文档验收定义
 
-本文件是 **Modorch-RS 的完整目标设计规范**。框架实现只有在公共 API、依赖图验证、消息正确性、并发边界、资源生命周期、停机可靠性以及跨仓库集成测试全部满足本文验收要求后，才可宣称符合本设计。
+本文件按 **Modorch-RS 0.0.1 当前实现** 刷新；验收清单的执行证据由独立验证报告记录。框架实现只有在公共 API、依赖图验证、消息正确性、并发边界、资源生命周期、停机可靠性以及跨仓库集成测试全部满足本文验收要求后，才可宣称符合本设计。

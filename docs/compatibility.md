@@ -1,6 +1,6 @@
 # 版本与兼容性
 
-所有框架 crate 使用同一 `0.1.0` 版本系列，Rust Edition 2024、Cargo resolver 3、MIT 许可证。0.x 期间公共 API 仍可按小版本演进，尚无正式 Registry 发布或包名占用声明。稳定 API 仅通过 Facade 引入，业务 DTO 版本由能力 Owner 管理。
+所有框架 crate 使用同一 `0.0.1` 版本系列，Rust Edition 2024、Cargo resolver 3、MIT 许可证。0.x 期间公共 API 仍可按小版本演进，尚无正式 Registry 发布或包名占用声明。稳定 API 仅通过 Facade 引入，业务 DTO 版本由能力 Owner 管理。
 
 Feature 表：
 
@@ -22,7 +22,7 @@ Cargo Feature 是加法组合，不能隔离同一依赖图中不同消费者的
 
 当前实现包含三种 FailurePolicy、静态和动态 Lane，以及显式有时限的 Wait 入队 API。进程间 Transport、消息持久化和自动重试有副作用请求属于设计非目标，不随本轮扩展加入。资源强制取消、Exactly-once、跨资源事务和第三方插件沙箱不作承诺。
 
-本次开发收口扩展了 `ExecutionFailed` 的可选操作 ID、`Phase::Handle/Task`、`ComponentState::PartiallyInitialized` 和部分诊断快照字段。Handler/Task 的返回错误现在带执行边界和原始 `source`，调用方识别业务根因应使用 `root_cause()`。这些是尚未发布的 0.1 开发期 API 调整；新增字段的结构体字面量和错误穷举匹配需要同步适配，不声称对旧草图二进制兼容。
+本次开发收口扩展了 `ExecutionFailed` 的可选操作 ID、`Phase::Handle/Task`、`ComponentState::PartiallyInitialized` 和部分诊断快照字段。Handler/Task 的返回错误现在带执行边界和原始 `source`，调用方识别业务根因应使用 `root_cause()`。这些是首发版本归一化前的 0.1 开发期 API 调整；新增字段的结构体字面量和错误穷举匹配需要同步适配，不声称对旧草图二进制兼容。
 
 ## 2026-10-31 性能与内存收口
 

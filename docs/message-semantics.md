@@ -1,6 +1,6 @@
 # 消息与并发语义
 
-Topic 与 Destination 决定接收者；LaneKey 只用于目标组件的固定 shard 分配，采用稳定 FNV-1a。SubscriptionSpec 的 topic_pattern 支持 `+`、尾部 `#` 和 `:parameter`，匹配方向为订阅模式到实际主题。
+Topic 与 Destination 决定接收者；LaneKey 只影响目标组件内部的串行域：Partitioned 使用稳定 FNV-1a 映射固定 shard，Dynamic 使用逻辑 Key 定位有界 Lane；它不改变路由目标。SubscriptionSpec 的 topic_pattern 支持 `+`、尾部 `#` 和 `:parameter`，匹配方向为订阅模式到实际主题。
 
 | 调用 | 成功含义 | 满队列 | 调用者超时/取消 |
 |---|---|---|---|

@@ -1,0 +1,363 @@
+$ ["cargo", "test", "--workspace", "--all-features", "--locked", "--offline"]
+    Blocking waiting for file lock on artifact directory
+   Compiling modorch-core v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+   Compiling modorch-registry v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+   Compiling modorch-scheduler v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+   Compiling modorch-eventhub v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+   Compiling modorch-config v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-config)
+   Compiling modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch-observe v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+   Compiling modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling lifecycle v0.1.0 (/home/rangh/aispace/modorch-rs/examples/lifecycle)
+   Compiling mixed-load v0.1.0 (/home/rangh/aispace/modorch-rs/examples/mixed-load)
+   Compiling stateful-initiator v0.1.0 (/home/rangh/aispace/modorch-rs/examples/stateful-initiator)
+   Compiling multi-module v0.1.0 (/home/rangh/aispace/modorch-rs/examples/multi-module)
+   Compiling graceful-http v0.1.0 (/home/rangh/aispace/modorch-rs/examples/graceful-http)
+   Compiling event-messaging v0.1.0 (/home/rangh/aispace/modorch-rs/examples/event-messaging)
+   Compiling minimal-app v0.1.0 (/home/rangh/aispace/modorch-rs/examples/minimal-app)
+   Compiling shared-service v0.1.0 (/home/rangh/aispace/modorch-rs/examples/shared-service)
+   Compiling scheduled-tasks v0.1.0 (/home/rangh/aispace/modorch-rs/examples/scheduled-tasks)
+   Compiling basic-app v0.1.0 (/home/rangh/aispace/modorch-rs/examples/basic-app)
+   Compiling runtime-load v0.1.0 (/home/rangh/aispace/modorch-rs/examples/runtime-load)
+   Compiling request-response v0.1.0 (/home/rangh/aispace/modorch-rs/examples/request-response)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4m 57s
+     Running unittests src/main.rs (target/debug/deps/basic_app-2a16b64bba4a4aa3)
+
+running 1 test
+test selected_module_runs_and_releases ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running unittests src/main.rs (target/debug/deps/event_messaging-1768c268d9849c09)
+
+running 1 test
+test fanout_finishes_before_successful_shutdown ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running unittests src/main.rs (target/debug/deps/graceful_http-a6ecebbe1aa4754f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/lifecycle-2718e1b50dd29f4b)
+
+running 1 test
+test setup_failure_runs_compensation ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running unittests src/main.rs (target/debug/deps/minimal_app-cbc4065420ae3229)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/mixed_load-0f51b77cb387c451)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/acceptance.rs (target/debug/deps/acceptance-5e982f9f93285d9e)
+
+running 4 tests
+test invalid_or_unbounded_workload_configuration_is_rejected_before_start ... ok
+test exceeded_latency_slo_returns_failure_with_a_reviewable_report ... ok
+test all_owners_complete_all_work_classes_and_release_resources ... ok
+test dynamic_idle_and_recovery_cycles_reclaim_handlers_and_payloads ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.79s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch-8fa0af4923b896a7)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/application.rs (target/debug/deps/application-ce52446e5cd9e3c2)
+
+running 16 tests
+test default_selection_is_empty_duplicates_and_unavailable_are_errors ... ok
+test applications_are_isolated_in_one_runtime ... ok
+test cancellation_of_startup_does_not_abandon_created_resources ... ok
+test initiator_can_register_an_optional_event_endpoint ... ok
+test externally_held_service_leases_block_owner_teardown ... ok
+test lifecycle_journal_is_bounded_and_startup_errors_survive_eviction ... ok
+test force_shutdown_never_reports_a_graceful_stop_or_releases_busy_owners ... ok
+test forced_drain_is_interrupted_and_never_counted_as_completed ... ok
+test startup_error_is_bounded_and_preserves_failed_cleanup_for_retry ... ok
+test supervised_panic_triggers_failfast_shutdown_with_a_failure_receipt ... ok
+test retries_skip_successful_teardown_checkpoints ... ok
+test timed_out_quiesce_continues_once_and_can_flush_dependencies ... ok
+test shutdown_timeout_preserves_resources_and_accepts_only_causal_children ... ok
+test only_enabled_factories_create_and_dag_orders_lifecycle ... ok
+test partial_setup_rolls_back_and_preserves_primary_error ... ok
+test blocking_work_keeps_its_service_and_owner_alive_after_await_is_abandoned ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+     Running tests/supervision.rs (target/debug/deps/supervision-77b8dbbe26421e2c)
+
+running 6 tests
+test a_noncooperative_old_task_keeps_resources_alive_until_it_really_finishes ... ok
+test stop_dependents_removes_only_the_dependency_closure ... ok
+test shutdown_interrupts_restart_backoff_without_spawning_a_new_generation ... ok
+test old_generation_faults_are_not_replayed_against_the_replacement ... ok
+test replacement_setup_failure_is_cleaned_before_retry_and_budget_is_bounded ... ok
+test restart_waits_for_old_handlers_and_leases_and_invalidates_old_handles ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+
+     Running tests/tracing.rs (target/debug/deps/tracing-8819a9a70f7f5db1)
+
+running 1 test
+test traces_preserve_task_ancestry_separate_external_roots_and_log_shutdown_outcomes ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch_config-f71b8a19fb7d1cbd)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/composition.rs (target/debug/deps/composition-89a8fe63768d16da)
+
+running 1 test
+test parses_explicit_selection_and_rejects_bad_configuration ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch_core-8ae4a47925cfc02b)
+
+running 2 tests
+test operation::model::close_and_admit_are_linearized_and_never_lose_leases ... ok
+test operation::model::owner_generation_cannot_advance_while_an_old_task_is_admitted ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.20s
+
+     Running tests/operations.rs (target/debug/deps/operations-d90549b0653373de)
+
+running 2 tests
+test shutdown_allows_children_but_zero_is_a_fixed_point ... ok
+test close_races_with_admission_without_lost_operations ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.37s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch_eventhub-531e393ca31bea6e)
+
+running 2 tests
+test admission::tests::zero_admission_window_never_submits ... ok
+test admission::tests::expired_waiter_never_retries_when_capacity_and_timer_are_both_ready ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests/concurrency.rs (target/debug/deps/concurrency-c1b055dddd452ac9)
+
+running 35 tests
+test aborting_a_worker_completes_waiters_with_an_honest_result ... ok
+test bounded_fanout_reports_partial_delivery_and_ambiguous_requests ... ok
+test detects_wait_cycles_between_independent_roots ... ok
+test dynamic_lane_sync_reentry_is_detected ... ok
+test byte_budgets_and_waiter_limits_release_on_cancellation ... ok
+test external_ingress_cannot_inherit_a_producer_tasks_shutdown_privileges ... ok
+test concurrent_worker_handoff_allows_parallel_synchronous_handlers ... ok
+test dynamic_lanes_are_bounded_retire_when_idle_and_recreate_without_reordering ... ok
+test concurrent_workers_obey_strict_limit ... ok
+test handler_panic_is_supervised_and_has_no_success_receipt ... ok
+test handler_errors_keep_execution_identity_and_the_original_source ... ok
+test handler_cannot_deadlock_by_waiting_for_mailbox_capacity ... ok
+test lane_construction_that_exceeds_admission_deadline_never_enqueues ... ok
+test metadata_and_subscription_bounds_reject_before_dispatch ... ok
+test message_metrics_distinguish_routes_kinds_targets_and_applications ... ok
+test named_destinations_and_topics_route_independently_of_lane_keys ... ok
+test metrics_separate_admission_deadlines_reply_timeouts_and_cancellation ... ok
+test partitioned_same_key_is_fifo_and_independent_shards_progress ... ok
+test panicking_lane_factory_clears_reservation_and_can_retry ... ok
+test patterns_are_directional_and_segment_based ... ok
+test queued_timeout_cancels_but_running_timeout_is_indeterminate ... ok
+test rejects_self_and_cross_component_wait_cycles ... ok
+test owner_recovery_waits_for_construction_and_never_installs_a_stale_lane ... ok
+test serial_fifo_dynamic_subscriptions_and_typed_requests ... ok
+test pending_lane_is_bounded_and_unsubscribe_discards_its_constructed_handler ... ok
+test slow_lane_construction_does_not_hold_routing_lock_and_reserves_its_slot ... ok
+test completed_unconsumed_and_timed_out_replies_release_with_observers_alive ... ok
+test waiting_admission_succeeds_after_capacity_and_timeout_never_enqueues_later ... ok
+test control_plane_changes_never_publish_stale_routes ... ok
+test waiting_admission_is_cancel_safe_and_wakes_on_shutdown ... ok
+test waiting_fanout_delivers_ready_subscribers_without_retrying_accepted_legs ... ok
+test metric_label_overflow_preserves_totals_and_existing_labels ... ok
+test status_observers_never_retain_consumed_or_abandoned_replies ... ok
+test bounded_mailbox_recovers_under_competing_producers_without_losing_fifo ... ok
+test contended_admission_notifications_remain_safe_across_capacity_retries has been running for over 60 seconds
+test contended_admission_notifications_remain_safe_across_capacity_retries ... ok
+
+test result: ok. 35 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 99.74s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch_observe-6eb2f6198ed56dc4)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch_registry-e974d6b0bf34cd8f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/registry.rs (target/debug/deps/registry-24923e35d7f0c270)
+
+running 5 tests
+test rejects_cycles_cross_layer_dependencies_and_invalid_capacities ... ok
+test services_enforce_declared_dependencies_isolation_and_leases ... ok
+test validates_dependencies_and_orders_optional_selected_dependencies ... ok
+test missing_dependencies_are_reported_before_instantiation ... ok
+test borrowed_resources_remain_host_owned_but_handles_are_generation_scoped ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch_runtime-28a237922741004f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch_scheduler-37c7e988765d9e5c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/tasks.rs (target/debug/deps/tasks-bc0c94306ada5a9a)
+
+running 21 tests
+test forced_task_abort_has_a_cancelled_receipt_and_releases_its_owner ... ok
+test async_abort_before_first_poll_drops_captures_before_finished_ack ... ok
+test bounded_timer_queue_preserves_only_its_configured_backlog ... ok
+test queued_blocking_work_can_be_cancelled_and_dropped_waiters_do_not_uncount_it ... ok
+test blocking_io_wait_shares_owner_and_global_waiter_bounds_with_cpu ... ok
+test blocking_panic_retains_identity_and_releases_capacity ... ok
+test rejected_or_discarded_jobs_drop_captures_before_finished_ack_and_release_accounting ... ok
+test resource_waiting_observes_owner_close_without_polling_or_late_enqueue ... ok
+test owner_quota_is_shared_between_handles_and_all_execution_classes ... ok
+test task_errors_retain_operation_owner_phase_and_retryability ... ok
+test resource_metrics_distinguish_queued_running_and_canceled_work_by_owner ... ok
+test resource_waiting_wakes_after_real_release_and_registers_only_once ... ok
+test resource_waiters_are_bounded_cancel_safe_and_timeout_without_late_execution ... ok
+test task_panic_is_failure_and_never_success ... ok
+test timers_do_not_consume_task_slots_and_skip_overlapping_ticks ... ok
+test timer_overlap_has_an_explicit_limit ... ok
+test tasks_have_results_bounds_and_cooperative_shutdown ... ok
+test execution_classes_are_independent_and_force_waits_for_real_completion ... ok
+test timer_controls_are_removed_before_exit_acknowledgement ... ok
+test finished_ack_returns_all_permits_before_a_capacity_one_resubmission ... ok
+test contending_resource_waiters_make_progress_without_lost_capacity_wakeups ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.18s
+
+     Running unittests src/main.rs (target/debug/deps/multi_module-13a5a829f1edaf15)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running unittests src/main.rs (target/debug/deps/request_response-a56fd1cddd8dab65)
+
+running 1 test
+test response_and_running_timeout_are_distinct ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running unittests src/main.rs (target/debug/deps/runtime_load-95cb95f6b6805694)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/scheduled_tasks-fec72a05432e4796)
+
+running 1 test
+test timers_stop_and_dispatched_tasks_drain ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running unittests src/main.rs (target/debug/deps/shared_service-b010908e7137a1b3)
+
+running 1 test
+test service_is_read_and_released_after_dependents ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running unittests src/main.rs (target/debug/deps/stateful_initiator-7237000d399c4dc7)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests modorch
+
+running 1 test
+test crates/modorch/src/lib.rs - (line 19) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+all doctests ran in 23.79s; merged doctests compilation took 23.62s
+   Doc-tests modorch_config
+
+running 1 test
+test crates/modorch-config/src/lib.rs - (line 11) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+all doctests ran in 7.03s; merged doctests compilation took 6.94s
+   Doc-tests modorch_core
+
+running 1 test
+test crates/modorch-core/src/lib.rs - (line 11) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+all doctests ran in 4.01s; merged doctests compilation took 3.87s
+   Doc-tests modorch_eventhub
+
+running 1 test
+test crates/modorch-eventhub/src/lib.rs - (line 18) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+all doctests ran in 6.60s; merged doctests compilation took 6.40s
+   Doc-tests modorch_observe
+
+running 1 test
+test crates/modorch-observe/src/lib.rs - (line 11) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+all doctests ran in 14.28s; merged doctests compilation took 13.90s
+   Doc-tests modorch_registry
+
+running 1 test
+test crates/modorch-registry/src/lib.rs - (line 16) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+all doctests ran in 7.77s; merged doctests compilation took 7.66s
+   Doc-tests modorch_runtime
+
+running 1 test
+test crates/modorch-runtime/src/lib.rs - (line 18) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+all doctests ran in 8.99s; merged doctests compilation took 8.80s
+   Doc-tests modorch_scheduler
+
+running 1 test
+test crates/modorch-scheduler/src/lib.rs - (line 18) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+all doctests ran in 9.35s; merged doctests compilation took 9.22s

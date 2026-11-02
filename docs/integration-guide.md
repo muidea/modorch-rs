@@ -14,7 +14,9 @@
 
 可选 TOML 适配：
 
-```rust,ignore
+```text
+Pseudocode / Non-compilable：以下为装配步骤摘要，完整可运行来源为 external-app。
+
 let config = modorch::config::CompositionConfig::parse(&input)?;
 let mut builder = ApplicationBuilder::new(&config.application.name)
     .selection(config.selection()?)

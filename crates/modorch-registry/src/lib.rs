@@ -1,45 +1,102 @@
-//! Composition validation, deterministic dependency ordering and leased services.
+//! Explicit composition, dependency ordering and typed leased services.
+//!
+//! # Ownership and lifecycle
+//! Only Initiators publish services. Readers are bound to the borrower generation and
+//! allowed dependency set. A ServiceLease protects both borrower and resource Owner;
+//! final closure belongs to the Initiator for Owned, and to the host for Borrowed.
+//! Contract: COMP-002, DEP-001, RES-001 / RES-002 / RES-003.
+//!
+//! # Errors
+//! MissingDependency and DisabledDependency are distinct. Optional dependencies never
+//! auto-enable. Duplicate owner/name/type service keys are InvalidConfig; inaccessible
+//! services return AccessDenied or ServiceUnavailable. No implicit blocking timeout.
+//!
+//! # Examples
+//!
+//! ```
+//! use modorch_registry::ComponentSelection;
+//! use modorch_core::ComponentRef;
+//! let mut enabled = ComponentSelection::new();
+//! assert_eq!(enabled.components().count(), 0);
+//! enabled.enable_module("orders");
+//! assert_eq!(enabled.components().next(), Some(&ComponentRef::module("orders")));
+//! ```
+//!
+//! # Stability
+//! Development API 0.0.1. Business applications use the modorch Facade.
 #![forbid(unsafe_code)]
+#![deny(missing_docs)]
 mod services;
 use modorch_core::*;
 pub use services::*;
 use std::collections::{BTreeMap, BTreeSet};
 
 #[derive(Clone, Debug, Default)]
+/// Explicit enabled components and their configuration; empty by default.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct ComponentSelection {
     enabled: BTreeMap<ComponentRef, ComponentConfig>,
 }
 impl ComponentSelection {
+    /// Create an empty explicit selection.
+    ///
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn new() -> Self {
         Self::default()
     }
+    /// Explicitly select an Initiator; registration is still required at build.
+    ///
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn enable_initiator(&mut self, id: impl Into<String>) -> &mut Self {
         self.enable(ComponentRef::initiator(id))
     }
+    /// Explicitly select a Module; registration is still required at build.
+    ///
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn enable_module(&mut self, id: impl Into<String>) -> &mut Self {
         self.enable(ComponentRef::module(id))
     }
+    /// Explicitly select a component without replacing existing configuration.
+    ///
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn enable(&mut self, component: ComponentRef) -> &mut Self {
         self.enabled
             .entry(component)
             .or_insert(ComponentConfig::Null);
         self
     }
+    /// Select a component and replace its application-supplied configuration.
+    ///
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn configure(&mut self, component: ComponentRef, config: ComponentConfig) -> &mut Self {
         self.enabled.insert(component, config);
         self
     }
+    /// Iterate selected component identities in deterministic order.
+    ///
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn components(&self) -> impl Iterator<Item = &ComponentRef> {
         self.enabled.keys()
     }
+    /// Clone a selected component's configuration, defaulting to JSON null if absent.
+    ///
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn config(&self, component: &ComponentRef) -> ComponentConfig {
         self.enabled.get(component).cloned().unwrap_or_default()
     }
 }
 #[derive(Clone, Copy, Debug, Default)]
+/// Whether required dependencies must be selected or are explicitly included.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub enum DependencyResolution {
     #[default]
+    /// Default: every registered required dependency must already be selected.
     RequireSelected,
+    /// Explicitly extend selection with registered required dependencies only.
     IncludeRequired,
 }
 
@@ -139,6 +196,9 @@ pub fn resolve(
     }
     Ok(result)
 }
+/// Reject invalid or overflowing resource limits before any work is created.
+///
+/// Contract: RES-001 / DEP-001. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
 pub fn validate(d: &ComponentDescriptor) -> FrameworkResult<()> {
     if d.id.trim().is_empty() || d.queue_capacity == 0 || d.queue_capacity > tokio_capacity_limit()
     {

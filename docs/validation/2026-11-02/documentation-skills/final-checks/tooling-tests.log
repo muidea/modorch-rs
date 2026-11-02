@@ -1,0 +1,20 @@
+$ ["/usr/bin/python3", "-m", "unittest", "discover", "-s", "tests/agent-evals", "-p", "test_*.py", "-v"]
+test_complete_evidence_can_pass_and_tamper_blocks_it (test_tooling.ReleaseEvidenceTests.test_complete_evidence_can_pass_and_tamper_blocks_it) ... ok
+test_bundle_is_deterministic_and_install_is_idempotent (test_tooling.ToolingTests.test_bundle_is_deterministic_and_install_is_idempotent) ... ok
+test_bundle_rejects_tamper_and_missing_payload (test_tooling.ToolingTests.test_bundle_rejects_tamper_and_missing_payload) ... ok
+test_bundle_rejects_traversal_symlinks_duplicates_and_budgets (test_tooling.ToolingTests.test_bundle_rejects_traversal_symlinks_duplicates_and_budgets) ... ok
+test_contract_mapping_rejects_missing_test (test_tooling.ToolingTests.test_contract_mapping_rejects_missing_test) ... ok
+test_drift_detects_stale_snapshot (test_tooling.ToolingTests.test_drift_detects_stale_snapshot) ... ok
+test_gate_rejects_notrun_or_missing (test_tooling.ToolingTests.test_gate_rejects_notrun_or_missing) ... ok
+test_install_checks_all_conflicts_before_writing (test_tooling.ToolingTests.test_install_checks_all_conflicts_before_writing) ... ok
+test_missing_toolchain_reports_notrun (test_tooling.ToolingTests.test_missing_toolchain_reports_notrun) ... ok
+test_preflight_matches_external_resolved_graph (test_tooling.ToolingTests.test_preflight_matches_external_resolved_graph) ... ok
+test_preflight_rejects_mismatch (test_tooling.ToolingTests.test_preflight_rejects_mismatch) ... ok
+test_report_rejects_false_pass_and_missing_fields (test_tooling.ToolingTests.test_report_rejects_false_pass_and_missing_fields) ... ok
+test_skill_trigger_boundaries_are_explicit (test_tooling.ToolingTests.test_skill_trigger_boundaries_are_explicit) ... ok
+test_template_never_overwrites_existing_directory (test_tooling.ToolingTests.test_template_never_overwrites_existing_directory) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 3.143s
+
+OK

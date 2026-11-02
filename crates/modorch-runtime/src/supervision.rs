@@ -1,20 +1,39 @@
 use crate::*;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// Supervised component lifecycle state within an application generation.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub enum ComponentState {
+    /// Running start and readiness hooks.
     Starting,
+    /// Setup created partial state before failing; compensation is required.
     PartiallyInitialized,
+    /// All relevant readiness barriers passed.
     Ready,
+    /// Releasing resources in reverse dependency order.
     Stopping,
+    /// Irreversible graceful terminal state.
     Stopped,
+    /// Old generation drained; rebuilding under the cumulative attempt budget.
     Restarting,
+    /// A supervised operation or lifecycle boundary failed.
     Failed,
 }
 #[derive(Clone, Debug)]
+/// Latest component state, generation, cumulative restart count and failure.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct ComponentHealth {
+    /// Current lifecycle state, as indicated by the enclosing type.
     pub state: ComponentState,
+    /// Component generation used to reject stale capabilities.
     pub generation: u64,
+    /// Cumulative rebuild attempts for this component.
     pub restarts: u32,
+    /// Latest failure retained independently of journal eviction.
     pub last_failure: Option<FrameworkError>,
 }
 impl ApplicationHandle {

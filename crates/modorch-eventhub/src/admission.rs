@@ -84,6 +84,9 @@ impl EventHub {
             tokio::select! {biased; _=tokio::time::sleep_until(deadline)=>return Err(timed_out(Some(&last_target))), _=notified=>{}, _=&mut endpoint_notify=>{},_=&mut gate=>{}}
         }
     }
+    /// Wait within a bounded admission budget, then return Accepted only; forbidden inside a Handler.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub async fn command_wait<T: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -128,6 +131,9 @@ impl EventHub {
         )
         .await
     }
+    /// Wait for bounded admission, then return a request handle with a separate response wait budget.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub async fn request_wait<T: Send + Sync + 'static, R: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -260,6 +266,9 @@ impl EventHub {
     }
 }
 impl ExternalEventHub {
+    /// Wait within a bounded admission budget, then return Accepted only; forbidden inside a Handler.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub async fn command_wait<T: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -277,6 +286,9 @@ impl ExternalEventHub {
             )
             .await
     }
+    /// Wait for bounded admission, then return a request handle with a separate response wait budget.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub async fn request_wait<T: Send + Sync + 'static, R: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -294,6 +306,9 @@ impl ExternalEventHub {
             )
             .await
     }
+    /// Wait independently for each fanout target at most once; partial results do not imply completion.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub async fn publish_wait<T: Send + Sync + 'static>(
         &self,
         topic: &str,

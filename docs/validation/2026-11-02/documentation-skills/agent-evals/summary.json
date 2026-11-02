@@ -1,0 +1,220 @@
+{
+  "agent_evals": [
+    {
+      "case_id": "AE-001",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "agent_version": null,
+      "goal_sha256": "b9d2bccd7e64e0fddb46f0633550727479c8458b9b9abd9f31dbba7cfc18d989",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "b9d2bccd7e64e0fddb46f0633550727479c8458b9b9abd9f31dbba7cfc18d989"
+      },
+      "evidence": "docs/validation/2026-11-02/documentation-skills/agent-evals/AE-001/record.json",
+      "sha256": "2e92bed8f24d99bfcd9c776b6c5a13b26b298286718b8cea140766fa3b752821"
+    },
+    {
+      "case_id": "AE-002",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "agent_version": null,
+      "goal_sha256": "b8099de0c2ae8a8c283cf80df3b5c869fda12be6e1a0ad5ba16edaabd0644209",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "b8099de0c2ae8a8c283cf80df3b5c869fda12be6e1a0ad5ba16edaabd0644209"
+      },
+      "evidence": "docs/validation/2026-11-02/documentation-skills/agent-evals/AE-002/record.json",
+      "sha256": "4affe69d3aaa574d3e5248d93f900e5820bb8cb8bb1aa62188452888acb1da6c"
+    },
+    {
+      "case_id": "AE-003",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "agent_version": null,
+      "goal_sha256": "d706a9b1e09124791db7ddb1bdc9c3b9b2b4d12ff6757bcdd8ca2cd845896df2",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "d706a9b1e09124791db7ddb1bdc9c3b9b2b4d12ff6757bcdd8ca2cd845896df2"
+      },
+      "evidence": "docs/validation/2026-11-02/documentation-skills/agent-evals/AE-003/record.json",
+      "sha256": "57dd385f27b94dfc9ec17470662efdf9bd2b6e4ff4c29f486fb5ea45bd7efc2f"
+    },
+    {
+      "case_id": "AE-004",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "agent_version": null,
+      "goal_sha256": "45e3d05337aa0b3b65275be923678c15087f70ecdf9050c744f4f935a14264a1",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "45e3d05337aa0b3b65275be923678c15087f70ecdf9050c744f4f935a14264a1"
+      },
+      "evidence": "docs/validation/2026-11-02/documentation-skills/agent-evals/AE-004/record.json",
+      "sha256": "518bdead95ff5ab5fd04768592209686f652beba26bfb7f3c2866d335f33553a"
+    },
+    {
+      "case_id": "AE-005",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "agent_version": null,
+      "goal_sha256": "a3f0d0fb9d2d0d820504dc32017d377cc906a67236c7b7084b1cf000426ae07a",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "a3f0d0fb9d2d0d820504dc32017d377cc906a67236c7b7084b1cf000426ae07a"
+      },
+      "evidence": "docs/validation/2026-11-02/documentation-skills/agent-evals/AE-005/record.json",
+      "sha256": "334675dee222a7f10de580163795f45a4e33cea4dfd0b4c077eeca40e024b9fa"
+    },
+    {
+      "case_id": "AE-006",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "agent_version": null,
+      "goal_sha256": "7116057edc43ab9425a612badee0e7672c3287d3f80219fc52a4deb80d34036f",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "7116057edc43ab9425a612badee0e7672c3287d3f80219fc52a4deb80d34036f"
+      },
+      "evidence": "docs/validation/2026-11-02/documentation-skills/agent-evals/AE-006/record.json",
+      "sha256": "c81eca0b7b8dbfdd62895d4ade213a6680e170d5d856a23c68a3d77b0591b165"
+    },
+    {
+      "case_id": "AE-007",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "agent_version": null,
+      "goal_sha256": "6ff3eee0b9da51c9991ab32edd3bf9770247f0a4fa0dfd4398fde653e8fe7677",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "6ff3eee0b9da51c9991ab32edd3bf9770247f0a4fa0dfd4398fde653e8fe7677"
+      },
+      "evidence": "docs/validation/2026-11-02/documentation-skills/agent-evals/AE-007/record.json",
+      "sha256": "4c4213e4a3998916cb3fbfd76cbd0a5610ee4e3f888da94bd8f8471aa8683dc1"
+    },
+    {
+      "case_id": "AE-008",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "agent_version": null,
+      "goal_sha256": "1aa27d505b132ebd7ffc6cc7767c4c436b94a52bdafdd68b0ab08271947a2098",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "1aa27d505b132ebd7ffc6cc7767c4c436b94a52bdafdd68b0ab08271947a2098"
+      },
+      "evidence": "docs/validation/2026-11-02/documentation-skills/agent-evals/AE-008/record.json",
+      "sha256": "9a2599adf74e5181958ac09c2ab3bf4b504eaa27c769299bb95c6bbc2572881c"
+    },
+    {
+      "case_id": "AE-009",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "agent_version": null,
+      "goal_sha256": "15360a70fcbeec7fd9b2b216f90fc575fcb96c423d7593beaafd7ae1dacc8205",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "15360a70fcbeec7fd9b2b216f90fc575fcb96c423d7593beaafd7ae1dacc8205"
+      },
+      "evidence": "docs/validation/2026-11-02/documentation-skills/agent-evals/AE-009/record.json",
+      "sha256": "e4c2eada28b6be98b07d43732b9e3efe36939ec1be215bacac1f1a69d8594000"
+    },
+    {
+      "case_id": "AE-010",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "agent_version": null,
+      "goal_sha256": "496ece65b0d6bf0b3941ac3068b9b47e7c452ee53bd73d843f7177428deacf2c",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "496ece65b0d6bf0b3941ac3068b9b47e7c452ee53bd73d843f7177428deacf2c"
+      },
+      "evidence": "docs/validation/2026-11-02/documentation-skills/agent-evals/AE-010/record.json",
+      "sha256": "305d0a869d1f6a4b4ae0fe520cc97bac77514368d6582d5d63a1827d2a4c4a7d"
+    },
+    {
+      "case_id": "AE-011",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "agent_version": null,
+      "goal_sha256": "6c15f347a088c089446ec570d88b3b085359384ed7a7fad41b23928636021564",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "6c15f347a088c089446ec570d88b3b085359384ed7a7fad41b23928636021564"
+      },
+      "evidence": "docs/validation/2026-11-02/documentation-skills/agent-evals/AE-011/record.json",
+      "sha256": "3ad52d8ffb31df9bb1bf3a42e224c122ab29f58f75def7a6d401f0c870d3727b"
+    },
+    {
+      "case_id": "AE-012",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "agent_version": null,
+      "goal_sha256": "d0076ffea299e9ad2828604e6be471ef9fc426150bf5df7a3fd713b917f8d3d8",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "d0076ffea299e9ad2828604e6be471ef9fc426150bf5df7a3fd713b917f8d3d8"
+      },
+      "evidence": "docs/validation/2026-11-02/documentation-skills/agent-evals/AE-012/record.json",
+      "sha256": "2a6cd36203515a905c10172bb8902e3f38a199150212b5985f9d28f9c4685082"
+    }
+  ]
+}

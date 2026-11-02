@@ -4,16 +4,31 @@ use futures_util::FutureExt;
 use std::{num::NonZeroUsize, panic::AssertUnwindSafe};
 
 #[derive(Clone)]
+/// Trusted handler identity and causal EventHub capability.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct HandlerContext {
+    /// Causal message capability for trusted component child operations.
     pub event_hub: EventHub,
+    /// Component associated with this boundary; absent before routing when optional.
     pub component: ComponentRef,
+    /// Fixed shard index or dynamic lane instance identity.
     pub shard: usize,
+    /// Tracked operation identity for diagnostics and causal accounting.
     pub operation_id: OperationId,
 }
 // async-trait adds a bare #[must_use] to the already must-use boxed Future.
 #[allow(clippy::double_must_use)]
 #[async_trait]
+/// Exclusive mutable handler within one serial execution domain.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub trait SerialHandler: Send {
+    /// Execute one message within the framework-provided causal context; return a shared reply or business error.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     async fn handle(
         &mut self,
         ctx: &HandlerContext,
@@ -23,14 +38,28 @@ pub trait SerialHandler: Send {
 // Keep this workaround scoped to the macro-generated trait methods.
 #[allow(clippy::double_must_use)]
 #[async_trait]
+/// Send + Sync handler shared by a bounded set of workers; no ordering promise.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub trait ConcurrentHandler: Send + Sync {
+    /// Execute one message within the framework-provided causal context; return a shared reply or business error.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     async fn handle(
         &self,
         ctx: &HandlerContext,
         message: MessageEnvelope,
     ) -> FrameworkResult<HandlerReply>;
 }
+/// Creates independent serial handlers for fixed shards or dynamic lane instances.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub trait HandlerFactory: Send + Sync {
+    /// Create a fresh serial handler for a fixed shard or monotonically assigned dynamic lane instance ID.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     fn create(&self, shard: usize) -> FrameworkResult<Box<dyn SerialHandler>>;
 }
 impl<F> HandlerFactory for F
@@ -41,25 +70,45 @@ where
         self(shard)
     }
 }
+/// One component-owned execution domain with any number of subscriptions.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub enum HandlerRegistration {
+    /// One mutable handler and bounded FIFO mailbox.
     Serial {
+        /// Owned mutable serial handler or shared thread-safe concurrent handler.
         handler: Box<dyn SerialHandler>,
+        /// Multiple subscriptions sharing this component execution domain.
         subscriptions: Vec<SubscriptionSpec>,
     },
+    /// Independent serial handlers on fixed shards.
     Partitioned {
+        /// Nonzero fixed shard count; at most 4096.
         shards: NonZeroUsize,
+        /// Creates an independent serial handler per shard/lane.
         factory: Box<dyn HandlerFactory>,
+        /// Multiple subscriptions sharing this component execution domain.
         subscriptions: Vec<SubscriptionSpec>,
     },
+    /// Bounded per-key serial lanes retired after idle timeout.
     Dynamic {
+        /// Maximum combined active and preparing dynamic lanes; at most 4096.
         max_lanes: NonZeroUsize,
+        /// Positive empty-lane retirement interval; does not preserve handler private state.
         idle_timeout: std::time::Duration,
+        /// Creates an independent serial handler per shard/lane.
         factory: Box<dyn HandlerFactory>,
+        /// Multiple subscriptions sharing this component execution domain.
         subscriptions: Vec<SubscriptionSpec>,
     },
+    /// Shared handler with a strict concurrency bound and no ordering guarantee.
     Concurrent {
+        /// Maximum simultaneous work in this execution domain.
         max_in_flight: NonZeroUsize,
+        /// Owned mutable serial handler or shared thread-safe concurrent handler.
         handler: Arc<dyn ConcurrentHandler>,
+        /// Multiple subscriptions sharing this component execution domain.
         subscriptions: Vec<SubscriptionSpec>,
     },
 }
@@ -69,6 +118,9 @@ enum Workers {
     Dynamic(DynamicEndpoint),
 }
 impl EventHub {
+    /// Install one validated execution domain and subscriptions; requires a current host Tokio runtime.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn install(
         &self,
         descriptor: &ComponentDescriptor,

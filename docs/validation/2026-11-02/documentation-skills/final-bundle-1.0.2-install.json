@@ -1,0 +1,43 @@
+{
+  "status": "Passed",
+  "command": "bundle.verify; clean install; idempotent reinstall; installed preflight against locked external app; compare fixture asset/script hashes",
+  "artifact": "docs/validation/2026-11-02/documentation-skills/modorch-skills-1.0.2-candidate.tar.gz",
+  "sha256": "70db11878b71e9045204cacc95d636cff4f386b1b609b211c244c474d0277980",
+  "tree_sha256": "3c174b75f0993a9be68ec798e30f952bd6bd3a1964862d157bbcb25f691c933c",
+  "installed": {
+    "status": "Passed",
+    "installed": [
+      "modorch-app-development",
+      "modorch-framework-maintenance",
+      "modorch-module-development"
+    ],
+    "unchanged": [],
+    "bundle_revision": "1.0.2"
+  },
+  "idempotent": {
+    "status": "Passed",
+    "installed": [],
+    "unchanged": [
+      "modorch-app-development",
+      "modorch-framework-maintenance",
+      "modorch-module-development"
+    ],
+    "bundle_revision": "1.0.2"
+  },
+  "installed_preflight": {
+    "status": "Passed",
+    "framework_version": "0.1.0",
+    "features": [
+      "config-toml",
+      "default",
+      "eventhub",
+      "observability",
+      "runtime",
+      "scheduler"
+    ],
+    "framework_sha256": "9f84156b385c963c9e32933ab2e9d77de59a4387dc1a1cf6f82d258e7817ebf8",
+    "skill_revision": "1.0.2"
+  },
+  "unchanged_replayed_assets_and_scripts": 22,
+  "runtime_fixture_bundle_revision": "1.0.0"
+}

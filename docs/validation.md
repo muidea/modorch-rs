@@ -72,7 +72,7 @@ Loom 使用真实 OperationTracker 的状态与算法，将其状态互斥锁在
 
 ## 混合负载及持续验收工具
 
-在上述 90 项框架回归之上新增 4 项 mixed-load 工具集成测试，当前共 94 项。工具通过每个 Owner 的四类工作和结果校验记录端到端 P95/P99、吞吐、反压、类别/Owner 资源统计、定时器延迟、Payload 存活字节、RSS 和线程数。动态模式支持突发—空闲、Lane 回收重建及轮流 Owner 故障恢复。配置可设置延迟、拒绝比例、抖动、空闲 RSS 增量和线程阈值；未填写真实目标的模板不产生生产 SLO 通过声明。
+在上述 90 项框架回归之上新增 4 项 mixed-load 工具集成测试，该次验收共 94 项（历史计数）。工具通过每个 Owner 的四类工作和结果校验记录端到端 P95/P99、吞吐、反压、类别/Owner 资源统计、定时器延迟、Payload 存活字节、RSS 和线程数。动态模式支持突发—空闲、Lane 回收重建及轮流 Owner 故障恢复。配置可设置延迟、拒绝比例、抖动、空闲 RSS 增量和线程阈值；未填写真实目标的模板不产生生产 SLO 通过声明。
 
 `scripts/acceptance.py` 保存源码/配置/二进制摘要和原始输出，顺序执行当前版本与指定历史基线的 Echo A/B、四类混合工作 inline/isolated 对照、订阅规模扫描、可选 DHAT 及恢复长测。完整参数和测量边界见 [工具说明](../examples/mixed-load/README.md)，本轮实际检查和采样另见 [mixed-acceptance](validation/2026-10-31/mixed-acceptance/README.md)，不沿用此前测量数值。
 

@@ -1,0 +1,42 @@
+$ ["python3", "tools/skill-packaging/bundle.py", "verify", "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-02/documentation-skills/modorch-skills-1.0.2-candidate.tar.gz"]
+{
+  "status": "Passed",
+  "tree_sha256": "3c174b75f0993a9be68ec798e30f952bd6bd3a1964862d157bbcb25f691c933c"
+}
+$ ["python3", "tools/skill-packaging/bundle.py", "install", "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-02/documentation-skills/modorch-skills-1.0.2-candidate.tar.gz", "--dest", "/tmp/modorch-final-install-3b_pc46e/.agents/skills"]
+{
+  "status": "Passed",
+  "installed": [
+    "modorch-app-development",
+    "modorch-framework-maintenance",
+    "modorch-module-development"
+  ],
+  "unchanged": [],
+  "bundle_revision": "1.0.2"
+}
+$ ["python3", "tools/skill-packaging/bundle.py", "install", "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-02/documentation-skills/modorch-skills-1.0.2-candidate.tar.gz", "--dest", "/tmp/modorch-final-install-3b_pc46e/.agents/skills"]
+{
+  "status": "Passed",
+  "installed": [],
+  "unchanged": [
+    "modorch-app-development",
+    "modorch-framework-maintenance",
+    "modorch-module-development"
+  ],
+  "bundle_revision": "1.0.2"
+}
+$ ["python3", "/tmp/modorch-final-install-3b_pc46e/.agents/skills/modorch-app-development/scripts/preflight.py", "--manifest-path", "/home/rangh/aispace/modorch-rs/tests/fixtures/external-app/Cargo.toml"]
+{
+  "status": "Passed",
+  "framework_version": "0.1.0",
+  "features": [
+    "config-toml",
+    "default",
+    "eventhub",
+    "observability",
+    "runtime",
+    "scheduler"
+  ],
+  "framework_sha256": "9f84156b385c963c9e32933ab2e9d77de59a4387dc1a1cf6f82d258e7817ebf8",
+  "skill_revision": "1.0.2"
+}

@@ -1,0 +1,210 @@
+   Compiling modorch-core v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+   Compiling modorch-registry v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+   Compiling modorch-eventhub v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+   Compiling modorch-scheduler v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+   Compiling modorch-config v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-config)
+   Compiling modorch-runtime v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch-observe v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+   Compiling modorch v0.1.0 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling basic-app v0.1.0 (/home/rangh/aispace/modorch-rs/examples/basic-app)
+   Compiling shared-service v0.1.0 (/home/rangh/aispace/modorch-rs/examples/shared-service)
+   Compiling runtime-load v0.1.0 (/home/rangh/aispace/modorch-rs/examples/runtime-load)
+   Compiling lifecycle v0.1.0 (/home/rangh/aispace/modorch-rs/examples/lifecycle)
+   Compiling event-messaging v0.1.0 (/home/rangh/aispace/modorch-rs/examples/event-messaging)
+   Compiling mixed-load v0.1.0 (/home/rangh/aispace/modorch-rs/examples/mixed-load)
+   Compiling request-response v0.1.0 (/home/rangh/aispace/modorch-rs/examples/request-response)
+   Compiling scheduled-tasks v0.1.0 (/home/rangh/aispace/modorch-rs/examples/scheduled-tasks)
+   Compiling stateful-initiator v0.1.0 (/home/rangh/aispace/modorch-rs/examples/stateful-initiator)
+   Compiling graceful-http v0.1.0 (/home/rangh/aispace/modorch-rs/examples/graceful-http)
+   Compiling minimal-app v0.1.0 (/home/rangh/aispace/modorch-rs/examples/minimal-app)
+   Compiling multi-module v0.1.0 (/home/rangh/aispace/modorch-rs/examples/multi-module)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8m 45s
+     Running unittests src/main.rs (target/debug/deps/basic_app-2a16b64bba4a4aa3)
+
+running 1 test
+test selected_module_runs_and_releases ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running unittests src/main.rs (target/debug/deps/event_messaging-1768c268d9849c09)
+
+running 1 test
+test fanout_finishes_before_successful_shutdown ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+     Running unittests src/main.rs (target/debug/deps/graceful_http-a6ecebbe1aa4754f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/lifecycle-2718e1b50dd29f4b)
+
+running 1 test
+test setup_failure_runs_compensation ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running unittests src/main.rs (target/debug/deps/minimal_app-cbc4065420ae3229)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/mixed_load-0f51b77cb387c451)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/acceptance.rs (target/debug/deps/acceptance-5e982f9f93285d9e)
+
+running 4 tests
+test invalid_or_unbounded_workload_configuration_is_rejected_before_start ... ok
+test all_owners_complete_all_work_classes_and_release_resources ... ok
+test exceeded_latency_slo_returns_failure_with_a_reviewable_report ... ok
+test dynamic_idle_and_recovery_cycles_reclaim_handlers_and_payloads ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.54s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch-8fa0af4923b896a7)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/application.rs (target/debug/deps/application-ce52446e5cd9e3c2)
+
+running 16 tests
+test cancellation_of_startup_does_not_abandon_created_resources ... ok
+test force_shutdown_never_reports_a_graceful_stop_or_releases_busy_owners ... ok
+test externally_held_service_leases_block_owner_teardown ... ok
+test applications_are_isolated_in_one_runtime ... ok
+test initiator_can_register_an_optional_event_endpoint ... ok
+test default_selection_is_empty_duplicates_and_unavailable_are_errors ... ok
+test lifecycle_journal_is_bounded_and_startup_errors_survive_eviction ... ok
+test startup_error_is_bounded_and_preserves_failed_cleanup_for_retry ... ok
+test shutdown_timeout_preserves_resources_and_accepts_only_causal_children ... ok
+test blocking_work_keeps_its_service_and_owner_alive_after_await_is_abandoned ... ok
+test forced_drain_is_interrupted_and_never_counted_as_completed ... ok
+test only_enabled_factories_create_and_dag_orders_lifecycle ... ok
+test partial_setup_rolls_back_and_preserves_primary_error ... ok
+test timed_out_quiesce_continues_once_and_can_flush_dependencies ... ok
+test supervised_panic_triggers_failfast_shutdown_with_a_failure_receipt ... ok
+test retries_skip_successful_teardown_checkpoints ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+     Running tests/supervision.rs (target/debug/deps/supervision-77b8dbbe26421e2c)
+
+running 6 tests
+test stop_dependents_removes_only_the_dependency_closure ... ok
+test shutdown_interrupts_restart_backoff_without_spawning_a_new_generation ... ok
+test restart_waits_for_old_handlers_and_leases_and_invalidates_old_handles ... ok
+test old_generation_faults_are_not_replayed_against_the_replacement ... ok
+test a_noncooperative_old_task_keeps_resources_alive_until_it_really_finishes ... ok
+test replacement_setup_failure_is_cleaned_before_retry_and_budget_is_bounded ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+     Running tests/tracing.rs (target/debug/deps/tracing-8819a9a70f7f5db1)
+
+running 1 test
+test traces_preserve_task_ancestry_separate_external_roots_and_log_shutdown_outcomes ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.30s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch_config-f71b8a19fb7d1cbd)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/composition.rs (target/debug/deps/composition-89a8fe63768d16da)
+
+running 1 test
+test parses_explicit_selection_and_rejects_bad_configuration ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch_core-8ae4a47925cfc02b)
+
+running 2 tests
+test operation::model::owner_generation_cannot_advance_while_an_old_task_is_admitted ... ok
+test operation::model::close_and_admit_are_linearized_and_never_lose_leases ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.22s
+
+     Running tests/operations.rs (target/debug/deps/operations-d90549b0653373de)
+
+running 2 tests
+test shutdown_allows_children_but_zero_is_a_fixed_point ... ok
+test close_races_with_admission_without_lost_operations ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.72s
+
+     Running unittests src/lib.rs (target/debug/deps/modorch_eventhub-531e393ca31bea6e)
+
+running 2 tests
+test admission::tests::expired_waiter_never_retries_when_capacity_and_timer_are_both_ready ... ok
+test admission::tests::zero_admission_window_never_submits ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+     Running tests/concurrency.rs (target/debug/deps/concurrency-c1b055dddd452ac9)
+
+running 35 tests
+test bounded_fanout_reports_partial_delivery_and_ambiguous_requests ... ok
+test byte_budgets_and_waiter_limits_release_on_cancellation ... ok
+test detects_wait_cycles_between_independent_roots ... ok
+test concurrent_workers_obey_strict_limit ... ok
+test aborting_a_worker_completes_waiters_with_an_honest_result ... ok
+test dynamic_lane_sync_reentry_is_detected ... ok
+test external_ingress_cannot_inherit_a_producer_tasks_shutdown_privileges ... ok
+test dynamic_lanes_are_bounded_retire_when_idle_and_recreate_without_reordering ... ok
+test handler_panic_is_supervised_and_has_no_success_receipt ... ok
+test handler_cannot_deadlock_by_waiting_for_mailbox_capacity ... ok
+test message_metrics_distinguish_routes_kinds_targets_and_applications ... ok
+test lane_construction_that_exceeds_admission_deadline_never_enqueues ... ok
+test metadata_and_subscription_bounds_reject_before_dispatch ... ok
+test handler_errors_keep_execution_identity_and_the_original_source ... ok
+test metrics_separate_admission_deadlines_reply_timeouts_and_cancellation ... ok
+test control_plane_changes_never_publish_stale_routes ... ok
+test panicking_lane_factory_clears_reservation_and_can_retry ... ok
+test named_destinations_and_topics_route_independently_of_lane_keys ... ok
+test patterns_are_directional_and_segment_based ... ok
+test pending_lane_is_bounded_and_unsubscribe_discards_its_constructed_handler ... ok
+test partitioned_same_key_is_fifo_and_independent_shards_progress ... ok
+test rejects_self_and_cross_component_wait_cycles ... ok
+test queued_timeout_cancels_but_running_timeout_is_indeterminate ... ok
+test owner_recovery_waits_for_construction_and_never_installs_a_stale_lane ... ok
+test concurrent_worker_handoff_allows_parallel_synchronous_handlers ... ok
+test serial_fifo_dynamic_subscriptions_and_typed_requests ... ok
+test waiting_admission_is_cancel_safe_and_wakes_on_shutdown ... ok
+test metric_label_overflow_preserves_totals_and_existing_labels ... ok
+test waiting_fanout_delivers_ready_subscribers_without_retrying_accepted_legs ... FAILED
+test waiting_admission_succeeds_after_capacity_and_timeout_never_enqueues_later ... ok
+test slow_lane_construction_does_not_hold_routing_lock_and_reserves_its_slot ... ok
+test completed_unconsumed_and_timed_out_replies_release_with_observers_alive ... ok
+test status_observers_never_retain_consumed_or_abandoned_replies ... ok
+test bounded_mailbox_recovers_under_competing_producers_without_losing_fifo ... ok
+test contended_admission_notifications_remain_safe_across_capacity_retries has been running for over 60 seconds
+test contended_admission_notifications_remain_safe_across_capacity_retries ... ok
+
+failures:
+
+---- waiting_fanout_delivers_ready_subscribers_without_retrying_accepted_legs stdout ----
+
+thread 'waiting_fanout_delivers_ready_subscribers_without_retrying_accepted_legs' (1398995) panicked at crates/modorch-eventhub/tests/concurrency.rs:1032:5:
+assertion `left == right` failed
+  left: []
+ right: [2]
+
+
+failures:
+    waiting_fanout_delivers_ready_subscribers_without_retrying_accepted_legs
+
+test result: FAILED. 34 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 98.34s
+
+error: test failed, to rerun pass `-p modorch-eventhub --test concurrency`

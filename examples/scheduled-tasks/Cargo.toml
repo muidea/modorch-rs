@@ -1,0 +1,10 @@
+[package]
+name = "scheduled-tasks"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+modorch.workspace = true
+tokio = { workspace = true, features = ["rt-multi-thread"] }

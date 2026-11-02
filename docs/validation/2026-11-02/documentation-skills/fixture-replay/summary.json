@@ -1,0 +1,65 @@
+{
+  "status": "Failed",
+  "mode": "fixture",
+  "actual_agent_evaluation": "NotRun",
+  "limits": [
+    "AE-006/007/009/011/012 tooling checks are infrastructure proxies, not semantic Agent acceptance",
+    "Use actual contract tests for dependency and shutdown behavior"
+  ],
+  "commands": [
+    {
+      "case_id": "AE-001",
+      "step": "lock",
+      "command": [
+        "cargo",
+        "generate-lockfile",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-f2e_5c3b/AE-001/Cargo.toml",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-001-lock.log",
+      "sha256": "34461941254c08555cd88a9bec16f32d5899f439221914bbb6a30092d152473f"
+    },
+    {
+      "case_id": "AE-001",
+      "step": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "/tmp/modorch-cleanroom-f2e_5c3b/.agents/skills/modorch-app-development/scripts/preflight.py",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-f2e_5c3b/AE-001/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-001-preflight.log",
+      "sha256": "a9cfe6d3abe95b98f0f700d8f3a0798451dd7a213cc8beffe7831f9bbe9b0315"
+    },
+    {
+      "case_id": "AE-001",
+      "step": "check",
+      "command": [
+        "cargo",
+        "check",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-f2e_5c3b/AE-001/Cargo.toml",
+        "--locked",
+        "--offline",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-001-check.log",
+      "sha256": "aaf569ef5009b516e630df32788195505020559e8d8d2e07a9a3b2ffe0dadec0"
+    },
+    {
+      "status": "Failed",
+      "reason": "Command '['cargo', 'test', '--manifest-path', '/tmp/modorch-cleanroom-f2e_5c3b/AE-001/Cargo.toml', '--locked', '--offline']' timed out after 179.99991845300246 seconds",
+      "mode": "fixture"
+    }
+  ]
+}

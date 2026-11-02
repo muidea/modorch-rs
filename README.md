@@ -1,8 +1,20 @@
 # Modorch-RS
 
-Modorch 是供独立 Rust 应用通过 Cargo 引入的模块化编排框架。应用显式注册和选择 Initiator / Module，框架管理依赖、消息、后台任务和检查式停机。每个 Application 独立，宿主负责 Tokio Runtime、信号和日志 Subscriber。
+Modorch 是单进程 Rust 后端应用的模块化编排库。应用拥有 main、Tokio Runtime、配置、信号与日志；框架提供 Initiator / Module、显式装配、DAG、共享服务租约、进程内消息、受管任务和检查式停机。
 
-当前版本为 `0.1.0`，支持按依赖关系停止组件、受预算约束的重启、动态 Lane 回收和显式限时等待入队。目标设计见 [设计说明书](docs/Modorch-RS-Framework-Design.md)，逐项实现及验收对应关系见 [实现验收表](docs/implementation.md)。
+当前为 **0.0.1 开发期 Candidate**，Rust >= 1.85、Edition 2024、MIT。尚未声明 crates.io / docs.rs 发布；验证范围与已知限制见[能力矩阵](docs/reference/capability-matrix.md)。
+
+首发版本与已知限制见 [0.0.1 发布说明](docs/releases/0.0.1.md)。先前 0.1.0 是未发布的内部开发标号，现统一为 0.0.1。
+
+从[入门指南](docs/getting-started.md)创建独立应用，或在当前源码运行：
+
+```bash
+cargo run -p basic-app --locked
+cargo run -p shared-service --locked
+cargo run -p request-response --locked
+```
+
+独立应用的依赖明确指向匹配版本源码：
 
 ```toml
 [dependencies]
@@ -10,52 +22,23 @@ modorch = { path = "../modorch-rs/crates/modorch" }
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
 ```
 
+极简应用（完整源码也在 [minimal-app](examples/minimal-app/src/main.rs)；显式启用组件见 basic-app）：
+
 ```rust
 use modorch::prelude::*;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let handle = ApplicationBuilder::new("my-app").build()?.start().await?;
-    // Register factories and select components before build; default selection is empty.
     handle.shutdown_checked(ShutdownOptions::graceful()).await?;
     Ok(())
 }
 ```
 
-可运行示例：
+默认选择为空，注册不等于启用。Event/Command 成功只代表准入；运行中的 Request 超时为 Indeterminate。StopIncomplete 保留未完成工作与资源，强制结束不证明正常释放。支持 Serial、Partitioned、Concurrent、Dynamic，及受累计预算约束的 Restart；不提供跨进程、持久化消息、exactly-once 或任意外部副作用安全强杀。
 
-```bash
-cargo run -p minimal-app
-cargo run -p stateful-initiator
-cargo run -p multi-module
-cargo run -p graceful-http -- --once
-```
+[文档索引](docs/index.md) → [指南](docs/guides/application.md) → [契约](contracts/README.md) → [公共 API 导航](docs/public-api.md)。生成 Rustdoc：cargo doc --workspace --all-features --no-deps --locked。
 
-- [共享状态](examples/stateful-initiator/src/main.rs)：Initiator 发布窄接口，Module 按声明依赖获取 ServiceHandle，使用期间持有 ServiceLease。
-- [模块协作](examples/multi-module/src/main.rs)：私有存储状态、版本化契约、类型化 Request 和内部子请求。
-- [HTTP 入口](examples/graceful-http/src/main.rs)：Ready 后激活监听、Owner 任务、宿主信号及排空。省略 `--once` 后等待 Ctrl-C。
-- [混合负载验收](examples/mixed-load/README.md)：每 Owner 四类工作、资源压力、突发后空闲、Lane 回收和故障恢复循环；支持配额配置及 SLO 检查。
-- [独立工作区](tests/fixtures/external-app)：通过路径依赖接入，可单独运行，无框架到应用的反向依赖。
+Agent 从 [AGENTS.md](AGENTS.md) 与[两个开发 Skill](.agents/skills/modorch-app-development/SKILL.md)开始；外部项目需[独立安装匹配的 Bundle](tools/skill-packaging/README.md)，添加 Cargo 依赖不会自动安装 Skill。维护检查见 [CONTRIBUTING](CONTRIBUTING.md)，本次证据见[文档与 Skill 验收](docs/validation/2026-11-02/release-0.0.1/README.md)。[混合负载工具](examples/mixed-load/README.md)与[历史报告](docs/validation.md)保留原始性能测量。
 
-`command` 回执只代表入队；`request` 等待业务完成。已执行请求超时返回 `Indeterminate`。`StopIncomplete` 保留未完成工作与依赖资源，后续可重试关闭。强制关闭返回独立回执，不承诺外部副作用已停止。
-
-混合负载可用 `TaskScheduler::spawn_cpu / spawn_blocking_io` 分别提交到有界执行池；`ApplicationBuilder::execution_resources / message_limits` 配置执行资源、Owner 额度和消息内存预算，详见 [公共 API](docs/public-api.md)。
-
-诊断入口：`ApplicationHandle::metrics()` 汇总消息路由、按 Topic/组件统计、队列/任务和 Drain 耗时；错误上下文及观测边界见 [公共 API](docs/public-api.md)。
-
-负载与稳定性验证入口：`cargo run --release -p runtime-load -- --mode dynamic --seconds 300 --producers 64 --capacity 8`。实际结果与复现方法见 [验证报告](docs/validation.md)。
-
-混合场景可执行 `cargo run --release -p mixed-load -- --profile examples/mixed-load/profiles/local.toml`。批量 A/B、CPU/RSS 采样、DHAT 和恢复循环由 `scripts/acceptance.py` 驱动；测量前完成 release 构建，输出目录保留源码与二进制摘要。部署模板见 [deployment.template.toml](examples/mixed-load/profiles/deployment.template.toml)，阈值需按目标环境填写。
-
-开发检查：
-
-```bash
-cargo fmt --all -- --check
-cargo check --workspace --all-targets --all-features --locked
-cargo test --workspace --all-features --locked
-cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
-cargo test -p modorch-eventhub --test concurrency -- --nocapture
-cargo run --manifest-path tests/fixtures/external-app/Cargo.toml --locked
-```
-
-Rust Edition 2024，最低版本及验证记录见 [兼容性说明](docs/compatibility.md)。许可证为 [MIT](LICENSE)。
+许可证：[MIT](LICENSE)。

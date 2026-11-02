@@ -6,9 +6,16 @@ use std::{
 use tokio::sync::{Notify, watch};
 
 #[derive(Clone, Debug)]
+/// A failure associated with an optional component and its generation.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct FailureEvent {
+    /// Component associated with this boundary; absent before routing when optional.
     pub component: Option<ComponentRef>,
+    /// Component generation used to reject stale capabilities.
     pub generation: u64,
+    /// Structured failure retaining its execution boundary and root cause.
     pub error: FrameworkError,
 }
 struct Inner {
@@ -25,6 +32,9 @@ impl Default for FailureReporter {
     }
 }
 impl FailureReporter {
+    /// Create an isolated value using the supplied application-scoped dependencies.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn new() -> Self {
         Self(Arc::new(Inner {
             queue: Mutex::new(VecDeque::new()),
@@ -32,6 +42,9 @@ impl FailureReporter {
             current: watch::channel(None).0,
         }))
     }
+    /// Report a failure without a component identity.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn report(&self, error: FrameworkError) {
         self.enqueue(FailureEvent {
             component: None,
@@ -39,6 +52,9 @@ impl FailureReporter {
             error,
         });
     }
+    /// Report a component-generation failure to the bounded supervision mailbox.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn report_for(&self, component: ComponentRef, generation: u64, error: FrameworkError) {
         self.enqueue(FailureEvent {
             component: Some(component),
@@ -64,9 +80,15 @@ impl FailureReporter {
             .send_replace(queue.front().map(|e| e.error.clone()));
         self.0.changed.notify_waiters();
     }
+    /// Subscribe to the latest failure notification.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn subscribe(&self) -> watch::Receiver<Option<FrameworkError>> {
         self.0.current.subscribe()
     }
+    /// Read the latest unacknowledged failure, if present.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn current(&self) -> Option<FrameworkError> {
         self.0.current.borrow().clone()
     }
@@ -82,6 +104,9 @@ impl FailureReporter {
             notified.await;
         }
     }
+    /// Acknowledge the current terminal failure notification.
+    ///
+    /// Contract: LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn acknowledge(&self) {
         let queue = self.0.queue.lock().unwrap();
         self.0

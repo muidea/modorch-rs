@@ -4,16 +4,27 @@ use crate::*;
 /// they are not a deep-size measurement of `Any` or application-owned memory.
 #[derive(Clone, Debug)]
 pub struct HubLimits {
+    /// Global bound on simultaneously waiting submissions.
     pub max_waiters: usize,
+    /// Per-target bound on waiting message submissions.
     pub max_waiters_per_target: usize,
+    /// Optional global budget for declared payload bytes held by waiting submissions.
     pub max_waiting_bytes: Option<usize>,
+    /// Optional global budget for declared queued/executing payload bytes.
     pub max_in_flight_bytes: Option<usize>,
+    /// Optional per-target budget for declared queued/executing payload bytes.
     pub max_in_flight_bytes_per_target: Option<usize>,
+    /// Optional maximum declared cost of one message.
     pub max_message_bytes: Option<usize>,
+    /// Maximum UTF-8 bytes in a topic or named destination.
     pub max_topic_bytes: usize,
+    /// Maximum UTF-8 bytes in a lane key.
     pub max_lane_key_bytes: usize,
+    /// Maximum header entries per message.
     pub max_headers: usize,
+    /// Maximum combined UTF-8 bytes of header keys and values.
     pub max_header_bytes: usize,
+    /// Maximum installed subscriptions per hub.
     pub max_subscriptions: usize,
 }
 impl Default for HubLimits {
@@ -34,6 +45,9 @@ impl Default for HubLimits {
     }
 }
 impl HubLimits {
+    /// Reject invalid or overflowing resource limits before any work is created.
+    ///
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
     pub fn validate(&self) -> FrameworkResult<()> {
         if [
             self.max_waiters,
@@ -110,9 +124,16 @@ impl HubLimits {
     }
 }
 #[derive(Clone, Copy, Debug, Default)]
+/// Current admission waiters and declared retained payload costs.
+///
+/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// are documented at crate level and in the matching behavior Contracts.
 pub struct AdmissionMetrics {
+    /// Current bounded resource/admission waiters.
     pub waiters: usize,
+    /// Current declared payload cost retained by bounded admission waiters.
     pub waiting_bytes: usize,
+    /// Current declared payload cost across admitted targets.
     pub in_flight_bytes: usize,
 }
 #[derive(Default)]
