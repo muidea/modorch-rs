@@ -200,7 +200,9 @@ class ToolingTests(unittest.TestCase):
 class ReleaseEvidenceTests(unittest.TestCase):
     def test_complete_evidence_can_pass_and_tamper_blocks_it(self):
         # Synthetic artifacts exercise the gate policy; they are never published as real evals.
-        with tempfile.TemporaryDirectory(dir=ROOT / "target") as temporary:
+        target = ROOT / "target"
+        target.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=target) as temporary:
             base = pathlib.Path(temporary)
             log = base / "checks.log"
             log.write_text("synthetic gate-policy test only\n")

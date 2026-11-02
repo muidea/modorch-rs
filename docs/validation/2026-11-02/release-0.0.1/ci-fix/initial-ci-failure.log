@@ -1,0 +1,41 @@
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	﻿2026-11-02T06:06:43.9015573Z ##[group]Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:43.9016158Z [36;1mpython3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v[0m
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:43.9028667Z shell: /usr/bin/bash -e {0}
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:43.9028935Z env:
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:43.9029131Z   RUSTUP_TOOLCHAIN: 1.94.0
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:43.9029368Z   CARGO_BUILD_JOBS: 2
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:43.9029582Z ##[endgroup]
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.2674278Z test_complete_evidence_can_pass_and_tamper_blocks_it (test_tooling.ReleaseEvidenceTests.test_complete_evidence_can_pass_and_tamper_blocks_it) ... ERROR
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.4001310Z test_bundle_is_deterministic_and_install_is_idempotent (test_tooling.ToolingTests.test_bundle_is_deterministic_and_install_is_idempotent) ... ok
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.4566334Z test_bundle_rejects_tamper_and_missing_payload (test_tooling.ToolingTests.test_bundle_rejects_tamper_and_missing_payload) ... ok
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.4585226Z test_bundle_rejects_traversal_symlinks_duplicates_and_budgets (test_tooling.ToolingTests.test_bundle_rejects_traversal_symlinks_duplicates_and_budgets) ... ok
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.4595810Z test_contract_mapping_rejects_missing_test (test_tooling.ToolingTests.test_contract_mapping_rejects_missing_test) ... ok
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.4603384Z test_drift_detects_stale_snapshot (test_tooling.ToolingTests.test_drift_detects_stale_snapshot) ... ok
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.5908054Z test_gate_rejects_notrun_or_missing (test_tooling.ToolingTests.test_gate_rejects_notrun_or_missing) ... ok
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6198315Z test_install_checks_all_conflicts_before_writing (test_tooling.ToolingTests.test_install_checks_all_conflicts_before_writing) ... ok
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6580610Z test_missing_toolchain_reports_notrun (test_tooling.ToolingTests.test_missing_toolchain_reports_notrun) ... ok
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6611344Z test_preflight_matches_external_resolved_graph (test_tooling.ToolingTests.test_preflight_matches_external_resolved_graph) ... ok
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6784135Z test_preflight_rejects_mismatch (test_tooling.ToolingTests.test_preflight_rejects_mismatch) ... ok
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6787238Z test_report_rejects_false_pass_and_missing_fields (test_tooling.ToolingTests.test_report_rejects_false_pass_and_missing_fields) ... ok
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6793789Z test_skill_trigger_boundaries_are_explicit (test_tooling.ToolingTests.test_skill_trigger_boundaries_are_explicit) ... ok
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6798168Z test_template_never_overwrites_existing_directory (test_tooling.ToolingTests.test_template_never_overwrites_existing_directory) ... ok
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6799951Z 
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6800275Z ======================================================================
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6802462Z ERROR: test_complete_evidence_can_pass_and_tamper_blocks_it (test_tooling.ReleaseEvidenceTests.test_complete_evidence_can_pass_and_tamper_blocks_it)
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6804016Z ----------------------------------------------------------------------
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6804605Z Traceback (most recent call last):
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6805529Z   File "/home/runner/work/modorch-rs/modorch-rs/tests/agent-evals/test_tooling.py", line 203, in test_complete_evidence_can_pass_and_tamper_blocks_it
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6806611Z     with tempfile.TemporaryDirectory(dir=ROOT / "target") as temporary:
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6807771Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6808318Z   File "/usr/lib/python3.12/tempfile.py", line 1021, in __init__
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6808877Z     self.name = mkdtemp(suffix, prefix, dir)
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6809305Z                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6809793Z   File "/usr/lib/python3.12/tempfile.py", line 523, in mkdtemp
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6810295Z     _os.mkdir(file, 0o700)
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6811000Z FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/modorch-rs/modorch-rs/target/tmpflyzdklu'
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6811779Z 
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6812007Z ----------------------------------------------------------------------
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6812886Z Ran 14 tests in 0.502s
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6813099Z 
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6813224Z FAILED (errors=1)
+validate	Run python3 -m unittest discover -s tests/agent-evals -p 'test_*.py' -v	2026-11-02T06:06:44.6924787Z ##[error]Process completed with exit code 1.

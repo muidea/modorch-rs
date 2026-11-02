@@ -54,7 +54,7 @@
         },
         {
           "name": "Fail closed without actual reviewed Agent evidence",
-          "run": "python3 tools/doc-validation/release-gate.py docs/validation/2026-11-02/release-0.0.1/checks/verification.json"
+          "run": "python3 tools/doc-validation/release-gate.py docs/validation/2026-11-02/release-0.0.1/ci-fix/verification.json"
         }
       ]
     }
