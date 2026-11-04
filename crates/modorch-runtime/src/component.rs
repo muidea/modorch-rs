@@ -4,7 +4,7 @@ use async_trait::async_trait;
 #[derive(Clone)]
 /// Owner-bound runtime capabilities supplied to component lifecycle hooks.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ComponentContext {
     /// Component associated with this boundary; absent before routing when optional.
@@ -18,22 +18,22 @@ pub struct ComponentContext {
 }
 /// ComponentContext used during resource initialization.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type SetupContext = ComponentContext;
 /// ComponentContext used during start, readiness and ingress activation.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type RuntimeContext = ComponentContext;
 /// ComponentContext alias for module lifecycle integration.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type ModuleContext = ComponentContext;
 /// Services and phase available to an owned component shutdown hook.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ShutdownContext {
     /// Component associated with this boundary; absent before routing when optional.
@@ -49,7 +49,7 @@ pub struct ShutdownContext {
 #[async_trait]
 /// Fallible, retry-aware component hooks supervised by the application.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub trait Lifecycle: Send {
     /// Initialize owned resources; partial failure still enters compensation (LIFE-002).
@@ -82,22 +82,22 @@ pub trait Lifecycle: Send {
 #[async_trait]
 /// Lifecycle component providing narrow shared services and optional ingress or handlers.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub trait Initiator: Lifecycle {
     /// Return stable metadata; created instances must match their registered factory descriptor.
     ///
-    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     fn descriptor(&self) -> ComponentDescriptor;
     /// Publish narrow services after successful setup; duplicate typed keys reject startup.
     ///
-    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     fn export_services(&self, _publisher: &mut ServicePublisher) -> FrameworkResult<()> {
         Ok(())
     }
     /// Optionally return one Initiator-owned handler registration with multiple subscriptions.
     ///
-    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     fn event_endpoint(&mut self) -> FrameworkResult<Option<HandlerRegistration>> {
         Ok(None)
     }
@@ -108,12 +108,12 @@ pub trait Initiator: Lifecycle {
 }
 /// Lifecycle component encapsulating business behavior and private state.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub trait Module: Lifecycle {
     /// Return stable metadata; created instances must match their registered factory descriptor.
     ///
-    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     fn descriptor(&self) -> ComponentDescriptor;
     /// One component-owned execution policy, with any number of subscriptions.
     fn handlers(&mut self) -> FrameworkResult<Option<HandlerRegistration>> {
@@ -122,42 +122,42 @@ pub trait Module: Lifecycle {
 }
 /// Side-effect-free metadata/config validation and creation of selected Initiators.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub trait InitiatorFactory: Send + Sync {
     /// Return stable metadata; created instances must match their registered factory descriptor.
     ///
-    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     fn descriptor(&self) -> ComponentDescriptor;
     /// Validate owner-defined configuration before any selected factory is invoked.
     ///
-    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     fn validate_config(&self, _config: &ComponentConfig) -> FrameworkResult<()> {
         Ok(())
     }
     /// Create a fresh instance without starting background work; resource setup belongs to Lifecycle::setup.
     ///
-    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     fn create(&self, config: &ComponentConfig) -> FrameworkResult<Box<dyn Initiator>>;
 }
 /// Side-effect-free metadata/config validation and creation of selected Modules.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub trait ModuleFactory: Send + Sync {
     /// Return stable metadata; created instances must match their registered factory descriptor.
     ///
-    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     fn descriptor(&self) -> ComponentDescriptor;
     /// Validate owner-defined configuration before any selected factory is invoked.
     ///
-    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     fn validate_config(&self, _config: &ComponentConfig) -> FrameworkResult<()> {
         Ok(())
     }
     /// Create a fresh instance without starting background work; resource setup belongs to Lifecycle::setup.
     ///
-    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: LIFE-002 / LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     fn create(&self, config: &ComponentConfig) -> FrameworkResult<Box<dyn Module>>;
 }
 pub(crate) enum Factory {

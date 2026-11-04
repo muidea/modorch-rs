@@ -1,0 +1,232 @@
+{
+  "agent_evals": [
+    {
+      "case_id": "AE-001",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+      "agent_version": null,
+      "goal_sha256": "220cdcd02b94cfd7816e4e01fb1059aa7cdbdaefcd1065eb0ef8b8ec536a55cf",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "220cdcd02b94cfd7816e4e01fb1059aa7cdbdaefcd1065eb0ef8b8ec536a55cf"
+      },
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/agents/AE-001/record.json",
+      "sha256": "b8fa9df7a722c4d205915d64ea3d59339eb2b41ffa4ea7d18856582d56a6963e"
+    },
+    {
+      "case_id": "AE-002",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+      "agent_version": null,
+      "goal_sha256": "ff7f1ba732a332b1236bd23ce674427d465f51a5380d9a43adb76a9d7aee402a",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "ff7f1ba732a332b1236bd23ce674427d465f51a5380d9a43adb76a9d7aee402a"
+      },
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/agents/AE-002/record.json",
+      "sha256": "4a2a780dc11c2cf789cf37d6f73f7ddb6d205f6f933180a6d1b07b2b2d7f7a5a"
+    },
+    {
+      "case_id": "AE-003",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+      "agent_version": null,
+      "goal_sha256": "6768e408e95cd1f6d93ce3c2637677990d5d69cc36eccfe8f16e55263b7e93dc",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "6768e408e95cd1f6d93ce3c2637677990d5d69cc36eccfe8f16e55263b7e93dc"
+      },
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/agents/AE-003/record.json",
+      "sha256": "46c21cfd11201da8db578ae434ffc8f7cb9ffa72a9475b1ad390348b5b10c677"
+    },
+    {
+      "case_id": "AE-004",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+      "agent_version": null,
+      "goal_sha256": "ab62afd160ad92df878103beb129215a4dccf06f18e755a8bccf7b8c5b26f8d3",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "ab62afd160ad92df878103beb129215a4dccf06f18e755a8bccf7b8c5b26f8d3"
+      },
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/agents/AE-004/record.json",
+      "sha256": "21e5bdc5d07275a5a2b1300b31b143ef30f8865bcd0db5ac9b83bd3065d5edeb"
+    },
+    {
+      "case_id": "AE-005",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+      "agent_version": null,
+      "goal_sha256": "c37fc59177c025fbd6b9b574d751c62ba4cef942837627026d8b640607339304",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "c37fc59177c025fbd6b9b574d751c62ba4cef942837627026d8b640607339304"
+      },
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/agents/AE-005/record.json",
+      "sha256": "6ff8b7b0491da28da815b39b87323cccc1b0d00dd079aec225ab3ac4194782ab"
+    },
+    {
+      "case_id": "AE-006",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+      "agent_version": null,
+      "goal_sha256": "128bf20b343098fd97acb96e69b0d34f985a8d163b1b1bd698fc3be7e9962b92",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "128bf20b343098fd97acb96e69b0d34f985a8d163b1b1bd698fc3be7e9962b92"
+      },
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/agents/AE-006/record.json",
+      "sha256": "995b92e87bc8875ff7e1943a57b61b3d391618600d1caebb8209687190f226cd"
+    },
+    {
+      "case_id": "AE-007",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+      "agent_version": null,
+      "goal_sha256": "31f544fa68df035d788b75af851153c1fcb1eca085433d2afa4c15fa2ab76445",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "31f544fa68df035d788b75af851153c1fcb1eca085433d2afa4c15fa2ab76445"
+      },
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/agents/AE-007/record.json",
+      "sha256": "083abbb23f23da04d27ad40d7ed7c1bdb9ab3bb360fe914ecce6a6a4a073769b"
+    },
+    {
+      "case_id": "AE-008",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+      "agent_version": null,
+      "goal_sha256": "72ce3c45621b5d3694f13331993ffc6033044571694af9cb81c15ad61f86c5f5",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "72ce3c45621b5d3694f13331993ffc6033044571694af9cb81c15ad61f86c5f5"
+      },
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/agents/AE-008/record.json",
+      "sha256": "26ecc8a9a6e7c0d685af258d0f85558a38ee275e247010f822b957a09ff2a4de"
+    },
+    {
+      "case_id": "AE-009",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+      "agent_version": null,
+      "goal_sha256": "6b2690cb17df53f0b9e835c412257dedfc38282864efd6d3fcf7bdf59b08c93a",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "6b2690cb17df53f0b9e835c412257dedfc38282864efd6d3fcf7bdf59b08c93a"
+      },
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/agents/AE-009/record.json",
+      "sha256": "a67fc472953d5e0fff961f640570b784641e73a021023cca222692424167cd03"
+    },
+    {
+      "case_id": "AE-010",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+      "agent_version": null,
+      "goal_sha256": "3deed079f1c88a8ea21593f70349770ffab7b0e48e1873a3aae40b0f989e22d6",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "3deed079f1c88a8ea21593f70349770ffab7b0e48e1873a3aae40b0f989e22d6"
+      },
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/agents/AE-010/record.json",
+      "sha256": "f23de3b3c0210ce478a21295fff92a290a4d5b45e5f32ab280da1b024fc16358"
+    },
+    {
+      "case_id": "AE-011",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+      "agent_version": null,
+      "goal_sha256": "99d82cf3b37e9f0a279a8ad3eb3a73bccd4bed736fad47a289c2496b31c03022",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "99d82cf3b37e9f0a279a8ad3eb3a73bccd4bed736fad47a289c2496b31c03022"
+      },
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/agents/AE-011/record.json",
+      "sha256": "d4efe26fb0c09f69f6b8b1638fd80fa2e6f82a5bb55a9e25b2f2ba4231306489"
+    },
+    {
+      "case_id": "AE-012",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+      "agent_version": null,
+      "goal_sha256": "a79cc309fd226a0a052c90527e090f8decb735f509a4842bfd9e94bd16283f53",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "a79cc309fd226a0a052c90527e090f8decb735f509a4842bfd9e94bd16283f53"
+      },
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/agents/AE-012/record.json",
+      "sha256": "f32a938071fc606f47928d50f1e056f1760213221405dbb4105279c2ca67e90f"
+    }
+  ]
+}

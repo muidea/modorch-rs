@@ -1,18 +1,18 @@
 # Skill Bundle 本地构建与安装
 
-适用：modorch 0.0.1 开发树、Skill revision 1.0.3 / Contract revision 1.0.0；Python >= 3.11、Rust >= 1.85、锁定依赖。只生成本地 Candidate 工件，发布另受 release-gate 约束。
+适用：modorch 0.0.2 开发树、Skill revision 1.0.5 / Contract revision 1.1.0；Python >= 3.11、Rust >= 1.85、锁定依赖。只生成本地 Candidate 工件，发布另受 release-gate 约束。
 
 ## 刷新与构建
 
-源码/Rustdoc、Contracts、指南和模板是受控来源；references/assets/scripts 中的快照由 sync.py 生成，不手工编辑。修改公共内容时升级 Skill revision 并重新验证兼容性。开发树只声明已验证的 0.0.1 及其精确源码指纹，不泛化为所有 0.x。
+源码/Rustdoc、Contracts、指南和模板是受控来源；references/assets/scripts 中的快照由 sync.py 生成，不手工编辑。修改公共内容时升级 Skill revision 并重新验证兼容性。开发树只声明已验证的 0.0.2 及其精确源码指纹，不泛化为所有 0.x。
 
 ```bash
 python3 tools/skill-packaging/sync.py
 python3 tools/skill-packaging/sync.py --check
 python3 tools/doc-validation/run.py
-python3 tools/skill-packaging/bundle.py build --output /tmp/modorch-skills-1.0.3.tar.gz
-python3 tools/skill-packaging/bundle.py verify /tmp/modorch-skills-1.0.3.tar.gz
-python3 tools/skill-packaging/bundle.py install /tmp/modorch-skills-1.0.3.tar.gz --dest /tmp/my-app/.agents/skills
+python3 tools/skill-packaging/bundle.py build --output /tmp/modorch-skills-1.0.5.tar.gz
+python3 tools/skill-packaging/bundle.py verify /tmp/modorch-skills-1.0.5.tar.gz
+python3 tools/skill-packaging/bundle.py install /tmp/modorch-skills-1.0.5.tar.gz --dest /tmp/my-app/.agents/skills
 ```
 
 输出归档包含 manifest.json、MIT LICENSE、README 和三个完整 Skill。安装需显式给目标路径；现有相同内容幂等，冲突拒绝，不覆盖、不写全局目录、不修改 Cargo。安装器只接受常规文件，拒绝穿越、绝对路径、链接、重复成员、超出预算和摘要不符。哈希验证完整性，来源可信性仍由用户核对版本与工件来源。

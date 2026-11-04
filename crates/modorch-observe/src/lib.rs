@@ -16,7 +16,7 @@
 //! ```
 //!
 //! # Errors and stability
-//! Development API 0.0.1. Capture is a snapshot conversion, not a completion barrier
+//! Development API 0.0.2. Capture is a snapshot conversion, not a completion barrier
 //! or an end-to-end business SLO. Errors remain in the original runtime result chain.
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]
@@ -24,7 +24,7 @@ use modorch_core::*;
 #[derive(Clone, Debug)]
 /// Exporter-neutral operation-count snapshot; exporters belong to the host.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct OperationMetrics {
     /// Current tracked operations.
@@ -49,7 +49,7 @@ pub struct ApplicationMetrics(pub modorch_runtime::RuntimeMetrics);
 impl ApplicationMetrics {
     /// Capture the runtime metrics snapshot without installing a global exporter.
     ///
-    /// Contract: VAL-001. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: VAL-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     pub fn capture(application: &modorch_runtime::ApplicationHandle) -> Self {
         Self(application.metrics())
     }

@@ -102,7 +102,7 @@ def validate(report, root=ROOT):
             skill_metadata = (root / ".agents/skills" / case_inputs[case]["skill"] / "references/framework-identity.json")
             skill_revision = json.loads(skill_metadata.read_text())["skill_revision"]
             if (output["result"]["overall_status"] not in allowed
-                    or output["result"]["framework_version"] != "0.0.1"
+                    or output["result"]["framework_version"] != "0.0.2"
                     or output["result"]["skill"] != case_inputs[case]["skill"]
                     or output["result"]["skill_revision"] != skill_revision):
                 continue

@@ -1,0 +1,17 @@
+{
+  "case_id": "AE-012",
+  "status": "NotRun",
+  "mode": "agent",
+  "host": null,
+  "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+  "agent_version": null,
+  "goal_sha256": "a79cc309fd226a0a052c90527e090f8decb735f509a4842bfd9e94bd16283f53",
+  "review": {
+    "status": "NotRun",
+    "notes": "Independent semantic review is required"
+  },
+  "reason": "No actual Agent command was selected; fixture replay is separate",
+  "artifacts": {
+    "goal.json": "a79cc309fd226a0a052c90527e090f8decb735f509a4842bfd9e94bd16283f53"
+  }
+}

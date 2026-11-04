@@ -1,6 +1,6 @@
 {
-  "revision": "1.0.0",
-  "framework_version": "0.0.1",
+  "revision": "1.1.0",
+  "framework_version": "0.0.2",
   "tests": [
     {
       "rule_id": "COMP-001",
@@ -395,6 +395,105 @@
       "target": "concurrency",
       "name": "metric_label_overflow_preserves_totals_and_existing_labels",
       "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "MSG-TOPIC-001",
+      "test_id": "CT-MSG-TOPIC-001",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "topic_conformance",
+      "name": "mqtt_utf8_byte_ceiling_is_separate_from_local_budget",
+      "source": "crates/modorch-eventhub/tests/topic_conformance.rs"
+    },
+    {
+      "rule_id": "MSG-TOPIC-001",
+      "test_id": "CT-MSG-TOPIC-001-INGRESS",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "topic_conformance",
+      "name": "mqtt_invalid_names_are_rejected_by_every_ingress",
+      "source": "crates/modorch-eventhub/tests/topic_conformance.rs"
+    },
+    {
+      "rule_id": "MSG-TOPIC-002",
+      "test_id": "CT-MSG-TOPIC-002",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "topic_conformance",
+      "name": "mqtt_vectors_match_real_subscription_and_delivery",
+      "source": "crates/modorch-eventhub/tests/topic_conformance.rs"
+    },
+    {
+      "rule_id": "MSG-TOPIC-003",
+      "test_id": "CT-MSG-TOPIC-003",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "lib",
+      "name": "mqtt_vectors_agree_with_helper_and_route_index",
+      "source": "crates/modorch-eventhub/src/routing.rs"
+    },
+    {
+      "rule_id": "MSG-TOPIC-003",
+      "test_id": "CT-MSG-TOPIC-003-DELIVERY",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "topic_conformance",
+      "name": "mqtt_vectors_match_real_subscription_and_delivery",
+      "source": "crates/modorch-eventhub/tests/topic_conformance.rs"
+    },
+    {
+      "rule_id": "MSG-TOPIC-004",
+      "test_id": "CT-MSG-TOPIC-004",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "topic_conformance",
+      "name": "mqtt_invalid_subscriptions_leave_registry_and_generation_unchanged",
+      "source": "crates/modorch-eventhub/tests/topic_conformance.rs"
+    },
+    {
+      "rule_id": "MSG-TOPIC-004",
+      "test_id": "CT-MSG-TOPIC-004-CHURN",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "topic_conformance",
+      "name": "mqtt_subscription_churn_never_leaves_stale_routes",
+      "source": "crates/modorch-eventhub/tests/topic_conformance.rs"
+    },
+    {
+      "rule_id": "MSG-TOPIC-004",
+      "test_id": "CT-MSG-TOPIC-004-OWNER",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "concurrency",
+      "name": "owner_recovery_waits_for_construction_and_never_installs_a_stale_lane",
+      "source": "crates/modorch-eventhub/tests/concurrency.rs"
+    },
+    {
+      "rule_id": "MSG-TOPIC-005",
+      "test_id": "CT-MSG-TOPIC-005",
+      "semantic_ids": [],
+      "contract": "contracts/messaging-contract.md",
+      "package": "modorch-eventhub",
+      "target": "topic_conformance",
+      "name": "mqtt_destination_lane_and_component_dedup_remain_orthogonal",
+      "source": "crates/modorch-eventhub/tests/topic_conformance.rs"
+    }
+  ],
+  "tooling_tests": [
+    {
+      "rule_id": "MSG-TOPIC-006",
+      "test_id": "CT-MSG-TOPIC-006",
+      "contract": "contracts/messaging-contract.md",
+      "name": "test_drift_detects_stale_snapshot",
+      "source": "tests/agent-evals/test_tooling.py"
     }
   ]
 }

@@ -1,0 +1,7 @@
+[
+  {
+    "check": "links",
+    "status": "Failed",
+    "reason": "broken or escaping link: docs/validation/2026-11-04/mqtt-topic-alignment/README.md -> ../../../../../crates/modorch-eventhub/tests/topic_conformance.rs"
+  }
+]

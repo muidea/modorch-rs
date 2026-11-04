@@ -1,0 +1,875 @@
+{
+  "status": "Passed",
+  "mode": "fixture",
+  "actual_agent_evaluation": "NotRun",
+  "limits": [
+    "AE-007/009/010/011 tooling checks are infrastructure proxies, not semantic Agent acceptance",
+    "Use actual contract tests for dependency and shutdown behavior"
+  ],
+  "commands": [
+    {
+      "case_id": "AE-001",
+      "step": "lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--no-deps",
+        "--format-version=1",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-001/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-001-lock.log",
+      "sha256": "ed2fce7ea0ead0129219a7360f4a75c3a77a87c969f29de0333318aacf1bd813"
+    },
+    {
+      "case_id": "AE-001",
+      "step": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "/tmp/modorch-cleanroom-oikaxjlq/.agents/skills/modorch-app-development/scripts/preflight.py",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-001/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-001-preflight.log",
+      "sha256": "6b00bf6b32a855e71974370fe6a929225c20b5f61417afc7e9a4c6bd80804a19"
+    },
+    {
+      "case_id": "AE-001",
+      "step": "check",
+      "command": [
+        "cargo",
+        "check",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-001/Cargo.toml",
+        "--locked",
+        "--offline",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-001-check.log",
+      "sha256": "320c27326fbe35fdb3329ccb78e8435c740878782b08d05f1beec0600dc7482c"
+    },
+    {
+      "case_id": "AE-001",
+      "step": "test",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-001/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-001-test.log",
+      "sha256": "9f43a22b9e1bd29374358c53e7434ba1b62154529cd61e6f761f1c2754f7e798"
+    },
+    {
+      "case_id": "AE-001",
+      "step": "run",
+      "command": [
+        "cargo",
+        "run",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-001/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-001-run.log",
+      "sha256": "9d5fd937806152e1664c4852234237602aa2332692267443081e0fe850b607d6"
+    },
+    {
+      "case_id": "AE-002",
+      "step": "lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--no-deps",
+        "--format-version=1",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-002/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-002-lock.log",
+      "sha256": "31f2bf3a255fac7cef954bf14a74fac9322dfd94ce89ffed860f5df33ad5c3a7"
+    },
+    {
+      "case_id": "AE-002",
+      "step": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "/tmp/modorch-cleanroom-oikaxjlq/.agents/skills/modorch-module-development/scripts/preflight.py",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-002/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-002-preflight.log",
+      "sha256": "d61b65e715efabf53838e1bab26aaafad26215abb434fe115c833c8d05991d8a"
+    },
+    {
+      "case_id": "AE-002",
+      "step": "check",
+      "command": [
+        "cargo",
+        "check",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-002/Cargo.toml",
+        "--locked",
+        "--offline",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-002-check.log",
+      "sha256": "e515d0bc116dd347f710e2b24f3475bac6e31ebccd1dc070e4b769034f8608fb"
+    },
+    {
+      "case_id": "AE-002",
+      "step": "test",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-002/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-002-test.log",
+      "sha256": "bfdb04efcec13df500d568039c549e18b9d06259d5ef0e7ac3a684ee549dc0db"
+    },
+    {
+      "case_id": "AE-002",
+      "step": "run",
+      "command": [
+        "cargo",
+        "run",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-002/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-002-run.log",
+      "sha256": "b9ff56a269c085286a44c907929e5ea00490e667bfbfc4c07320b2efff2e71ae"
+    },
+    {
+      "case_id": "AE-003",
+      "step": "lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--no-deps",
+        "--format-version=1",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-003/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-003-lock.log",
+      "sha256": "f1390c1f4c0a552986c7d429df67bc60b7a49a6228e088fd74fb824d32c2cfd7"
+    },
+    {
+      "case_id": "AE-003",
+      "step": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "/tmp/modorch-cleanroom-oikaxjlq/.agents/skills/modorch-app-development/scripts/preflight.py",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-003/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-003-preflight.log",
+      "sha256": "6b00bf6b32a855e71974370fe6a929225c20b5f61417afc7e9a4c6bd80804a19"
+    },
+    {
+      "case_id": "AE-003",
+      "step": "check",
+      "command": [
+        "cargo",
+        "check",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-003/Cargo.toml",
+        "--locked",
+        "--offline",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-003-check.log",
+      "sha256": "b1e95df9f2d0404458e3f0919ef84df7eb053f1fdaa38264f2b190b78ad5d1bb"
+    },
+    {
+      "case_id": "AE-003",
+      "step": "test",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-003/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-003-test.log",
+      "sha256": "6e683d5396ed27b870c0894a62b558fd9e02da2773baa2bf5da1c8d456306213"
+    },
+    {
+      "case_id": "AE-003",
+      "step": "run",
+      "command": [
+        "cargo",
+        "run",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-003/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-003-run.log",
+      "sha256": "1eae0ca6cf94b79e8450a84f4af84374137804c1db978e51cc3dbf5eeb171a42"
+    },
+    {
+      "case_id": "AE-004",
+      "step": "lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--no-deps",
+        "--format-version=1",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-004/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-004-lock.log",
+      "sha256": "b3a38a27f8c0134526714947617a361c0ce409bd5318df112a710af33bcf1bc4"
+    },
+    {
+      "case_id": "AE-004",
+      "step": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "/tmp/modorch-cleanroom-oikaxjlq/.agents/skills/modorch-app-development/scripts/preflight.py",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-004/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-004-preflight.log",
+      "sha256": "6b00bf6b32a855e71974370fe6a929225c20b5f61417afc7e9a4c6bd80804a19"
+    },
+    {
+      "case_id": "AE-004",
+      "step": "check",
+      "command": [
+        "cargo",
+        "check",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-004/Cargo.toml",
+        "--locked",
+        "--offline",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-004-check.log",
+      "sha256": "314cf81140496e3a9bd9aececd620987115d861cfe4572ead86620503ce07e0e"
+    },
+    {
+      "case_id": "AE-004",
+      "step": "test",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-004/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-004-test.log",
+      "sha256": "27cbc0f136de350ee23a2ef8644b156f4c55ba29f539ff30692b22b400d8eba4"
+    },
+    {
+      "case_id": "AE-004",
+      "step": "run",
+      "command": [
+        "cargo",
+        "run",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-004/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-004-run.log",
+      "sha256": "9243aa65c50695ad2f21e2fd089b547bf74a2f9aee16c6b452d02da2ae4ed9c5"
+    },
+    {
+      "case_id": "AE-005",
+      "step": "lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--no-deps",
+        "--format-version=1",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-005/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-005-lock.log",
+      "sha256": "f5a8fc60d5e36d8968ba192857e32e7468a5334ac7fec2d14abce7dc8b31041d"
+    },
+    {
+      "case_id": "AE-005",
+      "step": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "/tmp/modorch-cleanroom-oikaxjlq/.agents/skills/modorch-app-development/scripts/preflight.py",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-005/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-005-preflight.log",
+      "sha256": "6b00bf6b32a855e71974370fe6a929225c20b5f61417afc7e9a4c6bd80804a19"
+    },
+    {
+      "case_id": "AE-005",
+      "step": "check",
+      "command": [
+        "cargo",
+        "check",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-005/Cargo.toml",
+        "--locked",
+        "--offline",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-005-check.log",
+      "sha256": "b2ee1d0c27e653ce26748c916830a53f6f84b891a575512e23b0cdf52f3e5419"
+    },
+    {
+      "case_id": "AE-005",
+      "step": "test",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-005/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-005-test.log",
+      "sha256": "15e08b8f5368220413e5a8fa00b019fae59e1da67fe3950b3965e4182f8b11ff"
+    },
+    {
+      "case_id": "AE-005",
+      "step": "run",
+      "command": [
+        "cargo",
+        "run",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-005/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-005-run.log",
+      "sha256": "06bf90a9a12b4b2c90268ac8d40e100d4ca00bddf87e3cc7e256eee3f960672a"
+    },
+    {
+      "case_id": "EX-shared",
+      "step": "lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--no-deps",
+        "--format-version=1",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/EX-shared/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "EX-shared-lock.log",
+      "sha256": "5300eea8ef06296bf2927937a8aebbf778de41e375e095496b4a2a18e82424ce"
+    },
+    {
+      "case_id": "EX-shared",
+      "step": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "/tmp/modorch-cleanroom-oikaxjlq/.agents/skills/modorch-app-development/scripts/preflight.py",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/EX-shared/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "EX-shared-preflight.log",
+      "sha256": "6b00bf6b32a855e71974370fe6a929225c20b5f61417afc7e9a4c6bd80804a19"
+    },
+    {
+      "case_id": "EX-shared",
+      "step": "check",
+      "command": [
+        "cargo",
+        "check",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/EX-shared/Cargo.toml",
+        "--locked",
+        "--offline",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "EX-shared-check.log",
+      "sha256": "0e403e21d143e0ece43289209a5af220dee2d960152d6a313c375109161e6616"
+    },
+    {
+      "case_id": "EX-shared",
+      "step": "test",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/EX-shared/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "EX-shared-test.log",
+      "sha256": "48d9c5c51ebacbed3dbd358d1a55bc33d85b367f8a5b36ced90be2ffbfe83c83"
+    },
+    {
+      "case_id": "EX-shared",
+      "step": "run",
+      "command": [
+        "cargo",
+        "run",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/EX-shared/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "EX-shared-run.log",
+      "sha256": "cd2c73c3568d3c47eedd8aceb5f5f681200f6b2cedfba0c1b0c89bc76992767a"
+    },
+    {
+      "case_id": "EX-lifecycle",
+      "step": "lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--no-deps",
+        "--format-version=1",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/EX-lifecycle/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "EX-lifecycle-lock.log",
+      "sha256": "b430c8097962ed9124b7a8df648c74908fba891a0ad52591103c9c94e0e4fb45"
+    },
+    {
+      "case_id": "EX-lifecycle",
+      "step": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "/tmp/modorch-cleanroom-oikaxjlq/.agents/skills/modorch-app-development/scripts/preflight.py",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/EX-lifecycle/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "EX-lifecycle-preflight.log",
+      "sha256": "6b00bf6b32a855e71974370fe6a929225c20b5f61417afc7e9a4c6bd80804a19"
+    },
+    {
+      "case_id": "EX-lifecycle",
+      "step": "check",
+      "command": [
+        "cargo",
+        "check",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/EX-lifecycle/Cargo.toml",
+        "--locked",
+        "--offline",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "EX-lifecycle-check.log",
+      "sha256": "98d7e3897add1e769f840cea5af41c69a80bb40da94a4d3e4d42b991f8860092"
+    },
+    {
+      "case_id": "EX-lifecycle",
+      "step": "test",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/EX-lifecycle/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "EX-lifecycle-test.log",
+      "sha256": "59cb97144dd772c15cd84511f3a3758e450a5c50702b7314849484f8646ff1ac"
+    },
+    {
+      "case_id": "EX-lifecycle",
+      "step": "run",
+      "command": [
+        "cargo",
+        "run",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/EX-lifecycle/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "EX-lifecycle-run.log",
+      "sha256": "a2f42e25edb8415740ffb4a00808d63196314c640841cbc9c39522a35cd7ec9b"
+    },
+    {
+      "case_id": "AE-006",
+      "step": "lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--no-deps",
+        "--format-version=1",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-006/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-006-lock.log",
+      "sha256": "6d90a949ac22ea840682daf38ef4cdfde558f4201790488f5508127b18782c2f"
+    },
+    {
+      "case_id": "AE-006",
+      "step": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "/tmp/modorch-cleanroom-oikaxjlq/.agents/skills/modorch-app-development/scripts/preflight.py",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-006/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-006-preflight.log",
+      "sha256": "6b00bf6b32a855e71974370fe6a929225c20b5f61417afc7e9a4c6bd80804a19"
+    },
+    {
+      "case_id": "AE-006",
+      "step": "check",
+      "command": [
+        "cargo",
+        "check",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-006/Cargo.toml",
+        "--locked",
+        "--offline",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-006-check.log",
+      "sha256": "6095c50347cd56921e750236c77ff62f35f24503838f95a9a9c156e68416f53d"
+    },
+    {
+      "case_id": "AE-006",
+      "step": "test",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-006/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-006-test.log",
+      "sha256": "ae551f219f3c2d66d11e8d48a406ace5e52469bac7f7e68d2e1ca1a35d6ac6dd"
+    },
+    {
+      "case_id": "AE-006",
+      "step": "run",
+      "command": [
+        "cargo",
+        "run",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-006/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-006-run.log",
+      "sha256": "694397527c423ac44bf4643fa7299675c4bc11a406445add0f04b21e1f9946b8"
+    },
+    {
+      "case_id": "AE-012",
+      "step": "lock",
+      "command": [
+        "cargo",
+        "metadata",
+        "--no-deps",
+        "--format-version=1",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-012/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-012-lock.log",
+      "sha256": "85b498d86bb3eae96ddf91c21d0b3c9ff0d30db3d0e3d9ec3cd45e95767b5e81"
+    },
+    {
+      "case_id": "AE-012",
+      "step": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "/tmp/modorch-cleanroom-oikaxjlq/.agents/skills/modorch-app-development/scripts/preflight.py",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-012/Cargo.toml"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-012-preflight.log",
+      "sha256": "6b00bf6b32a855e71974370fe6a929225c20b5f61417afc7e9a4c6bd80804a19"
+    },
+    {
+      "case_id": "AE-012",
+      "step": "check",
+      "command": [
+        "cargo",
+        "check",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-012/Cargo.toml",
+        "--locked",
+        "--offline",
+        "--all-targets"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-012-check.log",
+      "sha256": "135f113bc9b79340736508c893a78335980bf8fe7c771156dfea0a15983c468b"
+    },
+    {
+      "case_id": "AE-012",
+      "step": "test",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-012/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-012-test.log",
+      "sha256": "96b9c2db1ff77a9decae178f897e63fc8837c841faa16e388a538f7a62b3d154"
+    },
+    {
+      "case_id": "AE-012",
+      "step": "run",
+      "command": [
+        "cargo",
+        "run",
+        "--manifest-path",
+        "/tmp/modorch-cleanroom-oikaxjlq/AE-012/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-012-run.log",
+      "sha256": "0d821d8211be118793e69352e223b39beec36772dbffa81bb6d5be487f6caea8"
+    },
+    {
+      "case_id": "AE-007",
+      "step": "tooling",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_tooling.ToolingTests.test_preflight_rejects_mismatch"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-007-tooling.log",
+      "sha256": "5faf227877bef3601b656ca42516eb379a86ae538bdb62764387bb78a3d1e589"
+    },
+    {
+      "case_id": "AE-008",
+      "step": "tooling",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_tooling.ToolingTests.test_missing_toolchain_reports_notrun"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-008-tooling.log",
+      "sha256": "ca79fd1f8083f4322a30e51529aa52f64e8e66cda39f21aaad7a34a4a8c51269"
+    },
+    {
+      "case_id": "AE-009",
+      "step": "tooling",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_tooling.ToolingTests.test_drift_detects_stale_snapshot"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-009-tooling.log",
+      "sha256": "7e027a8578c01bab40edc5fd0386e02d97f52b6b933d5982cdeb5824311f8951"
+    },
+    {
+      "case_id": "AE-010",
+      "step": "tooling",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_tooling.ToolingTests.test_preflight_rejects_mismatch"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-010-tooling.log",
+      "sha256": "ac8a18ba1a1ec82d9834551f2f065be77df8bd9648752b522490e04083f3ed07"
+    },
+    {
+      "case_id": "AE-011",
+      "step": "tooling",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_tooling.ToolingTests.test_bundle_rejects_traversal_symlinks_duplicates_and_budgets"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "AE-011-tooling.log",
+      "sha256": "d577ce294f5fbd4e9ad4ab464851155181041ed5a059d6760ac0dd7b0b801765"
+    },
+    {
+      "case_id": "VAL-gate",
+      "step": "tooling",
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_tooling.ToolingTests.test_gate_rejects_notrun_or_missing"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "mode": "fixture",
+      "evidence": "VAL-gate-tooling.log",
+      "sha256": "bb4834080ca581082868fdcea88a4f76d5f84913e23586e84d0b3e120b48ef19"
+    }
+  ]
+}

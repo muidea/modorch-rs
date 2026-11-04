@@ -1,6 +1,10 @@
 # 消息与并发语义
 
-Topic 与 Destination 决定接收者；LaneKey 只影响目标组件内部的串行域：Partitioned 使用稳定 FNV-1a 映射固定 shard，Dynamic 使用逻辑 Key 定位有界 Lane；它不改变路由目标。SubscriptionSpec 的 topic_pattern 支持 `+`、尾部 `#` 和 `:parameter`，匹配方向为订阅模式到实际主题。
+Topic 与 Destination 决定接收者；LaneKey 只影响目标组件内部的串行域：Partitioned 使用稳定 FNV-1a 映射固定 shard，Dynamic 使用逻辑 Key 定位有界 Lane；它不改变路由目标。SubscriptionSpec 的 topic_pattern 是 MQTT Topic Filter，匹配方向为订阅到实际 Topic Name。`+` 独占一层，匹配恰好一层（含空层）；`#` 独占最后一层，匹配零或多层。`:parameter` 是字面量。根 `+` / `#` 不匹配以 `$` 起始的 Name，`$SYS/#` 可以。
+
+Name / Filter 均非空、无 NUL、最多 65535 UTF-8 字节；Name 不得含 `+/#`，Filter 不得含嵌入通配或中间 `#`。保留前后 `/` 和空层，大小写敏感，不 trim、不做 Unicode 归一化。`topic_matches` 对任何非法输入返回 false；订阅和所有消息入口返回 InvalidConfig。标准合法但超出 HubLimits.max_topic_bytes 返回 ResourceLimit（local topic byte budget），默认本地预算为 1024。Destination::Named 是独立目标标签，不按 Topic Name 解析。
+
+公共 helper、预编译索引和真实路由共用内部 TopicFilter 语义。`$share/{group}/{filter}` 只按基础 Filter 字面路径匹配，不创建共享消费组；本框架没有 MQTT Broker、QoS、Session 或 Retained。迁移影响见[迁移记录](migration/0.1-development.md)，验证见[本轮报告](validation/2026-11-04/release-0.0.2/README.md)。
 
 | 调用 | 成功含义 | 满队列 | 调用者超时/取消 |
 |---|---|---|---|

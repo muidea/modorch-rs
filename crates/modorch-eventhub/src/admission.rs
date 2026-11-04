@@ -86,7 +86,7 @@ impl EventHub {
     }
     /// Wait within a bounded admission budget, then return Accepted only; forbidden inside a Handler.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     pub async fn command_wait<T: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -133,7 +133,7 @@ impl EventHub {
     }
     /// Wait for bounded admission, then return a request handle with a separate response wait budget.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     pub async fn request_wait<T: Send + Sync + 'static, R: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -268,7 +268,7 @@ impl EventHub {
 impl ExternalEventHub {
     /// Wait within a bounded admission budget, then return Accepted only; forbidden inside a Handler.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     pub async fn command_wait<T: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -288,7 +288,7 @@ impl ExternalEventHub {
     }
     /// Wait for bounded admission, then return a request handle with a separate response wait budget.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     pub async fn request_wait<T: Send + Sync + 'static, R: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -308,7 +308,7 @@ impl ExternalEventHub {
     }
     /// Wait independently for each fanout target at most once; partial results do not imply completion.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     pub async fn publish_wait<T: Send + Sync + 'static>(
         &self,
         topic: &str,

@@ -1,0 +1,25 @@
+$ ["cargo", "run", "-p", "basic-app", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s
+     Running `target/debug/basic-app`
+basic-app: stopped
+$ ["cargo", "run", "-p", "shared-service", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s
+     Running `target/debug/shared-service`
+hello from a leased service
+shared-service: released=true
+$ ["cargo", "run", "-p", "event-messaging", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s
+     Running `target/debug/event-messaging`
+event-messaging: accepted=2, processed=2
+$ ["cargo", "run", "-p", "request-response", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.08s
+     Running `target/debug/request-response`
+request-response: completed=42, timeout=Indeterminate
+$ ["cargo", "run", "-p", "scheduled-tasks", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.09s
+     Running `target/debug/scheduled-tasks`
+scheduled-tasks: once completed, ticks>=2, drained
+$ ["cargo", "run", "-p", "lifecycle", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.12s
+     Running `target/debug/lifecycle`
+lifecycle: setup failed, compensated, primary error retained

@@ -1,0 +1,21 @@
+{
+  "framework_packages": {
+    "modorch": "0.0.2",
+    "modorch-config": "0.0.2",
+    "modorch-core": "0.0.2",
+    "modorch-registry": "0.0.2",
+    "modorch-eventhub": "0.0.2",
+    "modorch-observe": "0.0.2",
+    "modorch-runtime": "0.0.2",
+    "modorch-scheduler": "0.0.2"
+  },
+  "skill_revision": "1.0.5",
+  "contracts_revision": "1.1.0",
+  "registry_dependencies": "unchanged from ccc77ce",
+  "lockfiles_sha256": {
+    "Cargo.lock": "c2a1285c3ec110b1f6ae738120928429ebe4ae640d3907323a6e7316f41fa7df",
+    "templates/minimal-app/Cargo.lock": "a72cf90796f29a81110347291aa2f634c08fda59334cb7e37a046897bffc5296",
+    "templates/modular-service/Cargo.lock": "7086213944c59bb86e7a1f7e58ce11ede12ac3b72aed0891e9296f3b5602fd1c",
+    "tests/fixtures/external-app/Cargo.lock": "0ec44f7036e89d93674e51a50cb7e618e816d39aa150497a8a98d446cd616756"
+  }
+}

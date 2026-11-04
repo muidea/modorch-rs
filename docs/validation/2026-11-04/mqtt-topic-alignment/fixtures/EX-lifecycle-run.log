@@ -1,0 +1,5 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling modorch-minimal-template v0.0.1 (/tmp/modorch-cleanroom-oikaxjlq/EX-lifecycle)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 12.64s
+     Running `/home/rangh/aispace/modorch-rs/target/debug/modorch-minimal-template`
+lifecycle: setup failed, compensated, primary error retained

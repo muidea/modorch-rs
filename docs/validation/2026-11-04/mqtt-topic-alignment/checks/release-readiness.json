@@ -1,0 +1,16 @@
+{
+  "status": "Candidate",
+  "blockers": [
+    "AE-001: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-002: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-003: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-004: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-005: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-006: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-007: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-008: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-010: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-011: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-012: actual Agent execution/review evidence NotRun, missing or failed"
+  ]
+}

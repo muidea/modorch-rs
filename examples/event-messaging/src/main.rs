@@ -3,6 +3,7 @@ use std::sync::{
     Arc,
     atomic::{AtomicUsize, Ordering},
 };
+const FILTER: &str = "configuration/+/v1";
 const TOPIC: &str = "configuration/changed/v1";
 struct Changed {
     revision: usize,
@@ -41,7 +42,7 @@ impl Module for Consumer {
             subscriptions: vec![SubscriptionSpec::new(
                 self.subscription,
                 ComponentRef::module(self.id),
-                TOPIC,
+                FILTER,
             )],
         }))
     }

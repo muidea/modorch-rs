@@ -1,6 +1,6 @@
 # 版本与兼容性
 
-所有框架 crate 使用同一 `0.0.1` 版本系列，Rust Edition 2024、Cargo resolver 3、MIT 许可证。0.x 期间公共 API 仍可按小版本演进，尚无正式 Registry 发布或包名占用声明。稳定 API 仅通过 Facade 引入，业务 DTO 版本由能力 Owner 管理。
+所有框架 crate 使用同一 `0.0.2` 版本系列，Rust Edition 2024、Cargo resolver 3、MIT 许可证。0.x 期间公共 API 仍可按小版本演进，尚无正式 Registry 发布或包名占用声明。稳定 API 仅通过 Facade 引入，业务 DTO 版本由能力 Owner 管理。
 
 Feature 表：
 
@@ -31,3 +31,9 @@ Cargo Feature 是加法组合，不能隔离同一依赖图中不同消费者的
 新增默认边界：等待提交全局 1024／每目标 256，Topic 和 LaneKey 1024 字节，Header 32 项／8192 字节，订阅 65536，每 Owner Task 256；均可显式配置。Concurrent 最大额度改为 4096，并预建该数量的 Tokio Worker 及一个 Dispatcher。生命周期日志改为默认只保留最近 1024 项；需要更长诊断窗口可配置 journal_capacity，淘汰数量通过 RuntimeMetrics 查询。状态观察者不再保留回复，RequestHandle::wait 仍返回 Arc<R>，消息顺序、已接受工作排空和代际关闭合同保持。
 
 执行资源补充 spawn_cpu_wait / spawn_blocking_io_wait、TaskHandle / BlockingTaskHandle 的 wait_finished，以及按类别和 Owner 的资源指标。ExecutionResources 增加 max_waiters（1024）和 max_waiters_per_owner（128），结构体字面量需补字段或使用 ..Default::default()；TaskMetrics 增加容量、类别及 owner_resources。既有立即式提交与 wait 的结果可读边界保持；新增 wait_finished 用于确认任务自身资源归还。动态 Lane 工厂移至路由锁外，max_lanes 同时限制构造中与活跃的 Lane，MailboxMetrics 增加 preparing_lanes；等待式消息准入现在严格复核期限，零等待窗口返回 AdmissionTimeout。
+
+## 2026-11-04 MQTT Topic 对齐（破坏性行为变更）
+
+本轮发布 0.0.2 Candidate；已发布 v0.0.1 的源码/Bundle 不被改写。新开发树 Contract revision 1.1.0 / Skill revision 1.0.5，须按新框架指纹选包。
+
+`:id` 从单层通配改为字面量，迁移 `orders/:id/changed` 为 `orders/+/changed`。`+` 现在包含空层，`orders/#` 包含 `orders`；根 `+/#` 排除 `$` 名称，系统树用 `$SYS/#` 显式订阅。中间/嵌入通配非法，所有消息入口拒绝空 Name、NUL、wildcard 和超 65535 UTF-8 字节。标准合法但超本地 Topic 预算（默认 1024）由 InvalidConfig 改为 ResourceLimit；Named destination 等其他元数据校验保持原约束。没有 Legacy matcher。迁移须审计 Handler 对空层的假设和 ACL 的扩大匹配范围。API 字符串字段、Destination、Lane、Accepted 和请求超时含义保持；详见[迁移步骤](migration/0.1-development.md)。

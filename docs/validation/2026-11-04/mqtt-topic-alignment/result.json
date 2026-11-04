@@ -1,0 +1,226 @@
+{
+  "result": {
+    "task": "按 MQTT Topic 对齐设计完成实现与本地验收",
+    "framework_version": "0.0.1",
+    "skill": "modorch-framework-maintenance",
+    "skill_revision": "1.0.4",
+    "changed_files": [
+      ".agents/skills/modorch-app-development/SKILL.md",
+      ".agents/skills/modorch-app-development/references/api-compatibility.md",
+      ".agents/skills/modorch-app-development/references/application.md",
+      ".agents/skills/modorch-app-development/references/contracts/README.md",
+      ".agents/skills/modorch-app-development/references/contracts/compatibility-contract.md",
+      ".agents/skills/modorch-app-development/references/contracts/component-contract.md",
+      ".agents/skills/modorch-app-development/references/contracts/dependency-contract.md",
+      ".agents/skills/modorch-app-development/references/contracts/lifecycle-contract.md",
+      ".agents/skills/modorch-app-development/references/contracts/messaging-contract.md",
+      ".agents/skills/modorch-app-development/references/contracts/resource-contract.md",
+      ".agents/skills/modorch-app-development/references/contracts/scheduler-contract.md",
+      ".agents/skills/modorch-app-development/references/contracts/validation-contract.md",
+      ".agents/skills/modorch-app-development/references/framework-identity.json",
+      ".agents/skills/modorch-app-development/references/sources.json",
+      ".agents/skills/modorch-app-development/references/validation.md",
+      ".agents/skills/modorch-framework-maintenance/SKILL.md",
+      ".agents/skills/modorch-framework-maintenance/references/compatibility.md",
+      ".agents/skills/modorch-framework-maintenance/references/contract-change.md",
+      ".agents/skills/modorch-framework-maintenance/references/contracts/README.md",
+      ".agents/skills/modorch-framework-maintenance/references/contracts/compatibility-contract.md",
+      ".agents/skills/modorch-framework-maintenance/references/contracts/component-contract.md",
+      ".agents/skills/modorch-framework-maintenance/references/contracts/dependency-contract.md",
+      ".agents/skills/modorch-framework-maintenance/references/contracts/lifecycle-contract.md",
+      ".agents/skills/modorch-framework-maintenance/references/contracts/messaging-contract.md",
+      ".agents/skills/modorch-framework-maintenance/references/contracts/resource-contract.md",
+      ".agents/skills/modorch-framework-maintenance/references/contracts/scheduler-contract.md",
+      ".agents/skills/modorch-framework-maintenance/references/contracts/validation-contract.md",
+      ".agents/skills/modorch-framework-maintenance/references/framework-identity.json",
+      ".agents/skills/modorch-framework-maintenance/references/release-gates.md",
+      ".agents/skills/modorch-framework-maintenance/references/sources.json",
+      ".agents/skills/modorch-framework-maintenance/references/validation.md",
+      ".agents/skills/modorch-module-development/SKILL.md",
+      ".agents/skills/modorch-module-development/references/component-model.md",
+      ".agents/skills/modorch-module-development/references/contracts/README.md",
+      ".agents/skills/modorch-module-development/references/contracts/compatibility-contract.md",
+      ".agents/skills/modorch-module-development/references/contracts/component-contract.md",
+      ".agents/skills/modorch-module-development/references/contracts/dependency-contract.md",
+      ".agents/skills/modorch-module-development/references/contracts/lifecycle-contract.md",
+      ".agents/skills/modorch-module-development/references/contracts/messaging-contract.md",
+      ".agents/skills/modorch-module-development/references/contracts/resource-contract.md",
+      ".agents/skills/modorch-module-development/references/contracts/scheduler-contract.md",
+      ".agents/skills/modorch-module-development/references/contracts/validation-contract.md",
+      ".agents/skills/modorch-module-development/references/framework-identity.json",
+      ".agents/skills/modorch-module-development/references/lifecycle.md",
+      ".agents/skills/modorch-module-development/references/messaging.md",
+      ".agents/skills/modorch-module-development/references/sources.json",
+      ".agents/skills/modorch-module-development/references/validation.md",
+      "CHANGELOG.md",
+      "contracts/README.md",
+      "contracts/compatibility-contract.md",
+      "contracts/component-contract.md",
+      "contracts/dependency-contract.md",
+      "contracts/lifecycle-contract.md",
+      "contracts/messaging-contract.md",
+      "contracts/resource-contract.md",
+      "contracts/scheduler-contract.md",
+      "contracts/validation-contract.md",
+      "crates/modorch-eventhub/src/lib.rs",
+      "crates/modorch-eventhub/src/limits.rs",
+      "crates/modorch-eventhub/src/routing.rs",
+      "crates/modorch-eventhub/src/topic.rs",
+      "crates/modorch-eventhub/src/types.rs",
+      "crates/modorch-eventhub/src/workers.rs",
+      "crates/modorch-eventhub/tests/concurrency.rs",
+      "crates/modorch-eventhub/tests/support/topic_vectors.rs",
+      "crates/modorch-eventhub/tests/topic_conformance.rs",
+      "docs/Modorch-RS-Framework-Design.md",
+      "docs/architecture/eventhub.md",
+      "docs/compatibility.md",
+      "docs/guides/messaging.md",
+      "docs/message-semantics.md",
+      "docs/migration/0.1-development.md",
+      "docs/modorch_rs_mqtt_topic_alignment_design.md",
+      "docs/public-api.md",
+      "docs/reference/capabilities.json",
+      "docs/reference/capability-matrix.md",
+      "docs/reference/compatibility.md",
+      "docs/testing-guide.md",
+      "examples/event-messaging/src/main.rs",
+      "tests/agent-evals/test_tooling.py",
+      "tests/contracts/mapping.json",
+      "tools/doc-validation/README.md",
+      "tools/doc-validation/run.py",
+      "tools/doc-validation/verify.py",
+      "tools/skill-packaging/BUNDLE-README.md",
+      "tools/skill-packaging/README.md",
+      "tools/skill-packaging/bundle.py",
+      "tools/skill-packaging/sync.py"
+    ],
+    "validation": [
+      {
+        "command": "[[\"rustc\", \"--version\", \"--verbose\"], [\"cargo\", \"--version\"], [\"python3\", \"--version\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/versions.log"
+      },
+      {
+        "command": "[[\"cargo\", \"fmt\", \"--all\", \"--\", \"--check\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/fmt.log"
+      },
+      {
+        "command": "[[\"cargo\", \"check\", \"--workspace\", \"--all-targets\", \"--all-features\", \"--locked\", \"--offline\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/check.log"
+      },
+      {
+        "command": "[[\"cargo\", \"clippy\", \"--workspace\", \"--all-targets\", \"--all-features\", \"--locked\", \"--offline\", \"--\", \"-D\", \"warnings\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/clippy.log"
+      },
+      {
+        "command": "[[\"cargo\", \"test\", \"--workspace\", \"--all-features\", \"--locked\", \"--offline\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/test.log"
+      },
+      {
+        "command": "[[\"cargo\", \"test\", \"--doc\", \"--workspace\", \"--all-features\", \"--locked\", \"--offline\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/doctest.log"
+      },
+      {
+        "command": "[[\"cargo\", \"doc\", \"--workspace\", \"--all-features\", \"--no-deps\", \"--locked\", \"--offline\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/rustdoc.log"
+      },
+      {
+        "command": "[[\"cargo\", \"+1.85.0\", \"check\", \"--workspace\", \"--all-targets\", \"--all-features\", \"--locked\", \"--offline\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/msrv.log"
+      },
+      {
+        "command": "[[\"cargo\", \"check\", \"-p\", \"modorch\", \"--no-default-features\", \"--features\", \"\", \"--locked\", \"--offline\"], [\"cargo\", \"check\", \"-p\", \"modorch\", \"--no-default-features\", \"--features\", \"eventhub\", \"--locked\", \"--offline\"], [\"cargo\", \"check\", \"-p\", \"modorch\", \"--no-default-features\", \"--features\", \"scheduler\", \"--locked\", \"--offline\"], [\"cargo\", \"check\", \"-p\", \"modorch\", \"--no-default-features\", \"--features\", \"runtime\", \"--locked\", \"--offline\"], [\"cargo\", \"check\", \"-p\", \"modorch\", \"--no-default-features\", \"--features\", \"config-toml\", \"--locked\", \"--offline\"], [\"cargo\", \"check\", \"-p\", \"modorch\", \"--no-default-features\", \"--features\", \"observability\", \"--locked\", \"--offline\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/features.log"
+      },
+      {
+        "command": "[[\"cargo\", \"run\", \"-p\", \"basic-app\", \"--locked\", \"--offline\"], [\"cargo\", \"run\", \"-p\", \"shared-service\", \"--locked\", \"--offline\"], [\"cargo\", \"run\", \"-p\", \"event-messaging\", \"--locked\", \"--offline\"], [\"cargo\", \"run\", \"-p\", \"request-response\", \"--locked\", \"--offline\"], [\"cargo\", \"run\", \"-p\", \"scheduled-tasks\", \"--locked\", \"--offline\"], [\"cargo\", \"run\", \"-p\", \"lifecycle\", \"--locked\", \"--offline\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/examples.log"
+      },
+      {
+        "command": "[[\"cargo\", \"fmt\", \"--manifest-path\", \"/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml\", \"--\", \"--check\"], [\"cargo\", \"check\", \"--manifest-path\", \"/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml\", \"--locked\", \"--offline\"], [\"cargo\", \"test\", \"--manifest-path\", \"/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml\", \"--locked\", \"--offline\"], [\"cargo\", \"run\", \"--manifest-path\", \"/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml\", \"--locked\", \"--offline\"], [\"cargo\", \"fmt\", \"--manifest-path\", \"/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml\", \"--\", \"--check\"], [\"cargo\", \"check\", \"--manifest-path\", \"/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml\", \"--locked\", \"--offline\"], [\"cargo\", \"test\", \"--manifest-path\", \"/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml\", \"--locked\", \"--offline\"], [\"cargo\", \"run\", \"--manifest-path\", \"/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml\", \"--locked\", \"--offline\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/templates.log"
+      },
+      {
+        "command": "[[\"cargo\", \"run\", \"--manifest-path\", \"tests/fixtures/external-app/Cargo.toml\", \"--locked\", \"--offline\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/external.log"
+      },
+      {
+        "command": "[[\"/usr/bin/python3\", \"-m\", \"unittest\", \"discover\", \"-s\", \"tests/agent-evals\", \"-p\", \"test_*.py\", \"-v\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/tooling-tests.log"
+      },
+      {
+        "command": "[[\"skill-hub\", \"validate\", \"--pattern\", \"modorch-*\", \"--links\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/skills-format.log"
+      },
+      {
+        "command": "[\"python3\", \"tests/agent-evals/fixture-replay.py\", \"--output\", \"docs/validation/2026-11-04/mqtt-topic-alignment/fixtures\"]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/bundle-install.log"
+      },
+      {
+        "command": "[[\"/usr/bin/python3\", \"tools/doc-validation/run.py\", \"--results\", \"/home/rangh/aispace/modorch-rs/docs/validation/2026-11-04/mqtt-topic-alignment/checks/test.log\", \"--tooling-results\", \"/home/rangh/aispace/modorch-rs/docs/validation/2026-11-04/mqtt-topic-alignment/checks/tooling-tests.log\"]]",
+        "status": "Passed",
+        "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/checks/static.log"
+      },
+      {
+        "command": "route-measurement.py / route-measurement-pinned.py / mixed-measurement.py",
+        "status": "Passed",
+        "evidence": "measurement-index.json"
+      }
+    ],
+    "contract_checks": [
+      {
+        "rule_id": "MSG-TOPIC-001",
+        "status": "Passed",
+        "evidence": "checks/test.log and checks/static.log"
+      },
+      {
+        "rule_id": "MSG-TOPIC-002",
+        "status": "Passed",
+        "evidence": "checks/test.log and checks/static.log"
+      },
+      {
+        "rule_id": "MSG-TOPIC-003",
+        "status": "Passed",
+        "evidence": "checks/test.log and checks/static.log"
+      },
+      {
+        "rule_id": "MSG-TOPIC-004",
+        "status": "Passed",
+        "evidence": "checks/test.log and checks/static.log"
+      },
+      {
+        "rule_id": "MSG-TOPIC-005",
+        "status": "Passed",
+        "evidence": "checks/test.log and checks/static.log"
+      },
+      {
+        "rule_id": "MSG-TOPIC-006",
+        "status": "Passed",
+        "evidence": "checks/tooling-tests.log and checks/static.log"
+      }
+    ],
+    "limitations": [
+      "发布仍 Candidate，12 项独立 Agent 为 NotRun；fixture 不是独立 Agent",
+      "仅 Linux x86_64 / Rust 1.94.0 验证；MSRV 1.85.0 编译通过，其他平台及远程 CI 未执行",
+      "Topic 对齐不包含 MQTT 网络/QoS/Session/Retained/共享组",
+      "严格校验增加查找开销；短时并发/RSS 测量不构成生产 SLO",
+      "未提交、推送或发布；旧 v0.0.1 保持原内容"
+    ],
+    "unresolved": [],
+    "overall_status": "Passed"
+  }
+}

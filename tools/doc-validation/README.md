@@ -4,11 +4,11 @@ Python 3.11+ 标准库即可执行静态检查；Cargo 及锁定依赖用于行�
 
 ```bash
 python3 tools/doc-validation/run.py
-python3 tools/doc-validation/run.py --results <真实-workspace-test.log>
+python3 tools/doc-validation/run.py --results <真实-workspace-test.log> --tooling-results <真实-unittest-v-log>
 python3 tools/doc-validation/affected.py
 ```
 
-run.py 分别检查本地链接、真实测试函数映射、Skill 格式与引用、能力证据和生成快照；没有 --results 时，Contract 检查只证明映射存在，不声称测试执行通过。远程链接不主动联网检查。
+run.py 分别检查本地链接、真实测试函数映射、Skill 格式与引用、能力证据和生成快照；没有 --results 时，Contract 检查只证明映射存在，不声称测试执行通过。tooling_tests 单独映射 Python 门禁，只有传入 --tooling-results 且含真实通过行才报告工具执行 Passed。远程链接不主动联网检查。
 
 完整本地验收保留每条命令、退出码和原始日志：
 

@@ -1,0 +1,25 @@
+{
+  "framework_sha256": "f2d460b6daf7da5b55254380e1375a28e4119ebfd08d5bf51ce6f6a3821f87e7",
+  "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+  "measurements": {
+    "route-performance": {
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/route-performance/results.json",
+      "sha256": "b86b865747fbeeeedc3816bf825bae4748e661e60977ab774a5698d92ceebe04",
+      "status": "Passed"
+    },
+    "route-performance-pinned": {
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/route-performance-pinned/results.json",
+      "sha256": "cdd99c5d9c0197ef0448fdb963b6b7dd887de2bc16e2e02584dc84cca4d0150f",
+      "status": "Passed"
+    },
+    "mixed-performance": {
+      "evidence": "docs/validation/2026-11-04/mqtt-topic-alignment/mixed-performance/summary.json",
+      "sha256": "1f8f020d0bd78da7cc8d914f769b4d3aa9f99455fe06a74d4ef58c46c110ed07",
+      "status": "Passed"
+    }
+  },
+  "status": "Passed",
+  "limits": [
+    "Local measurements only; added validation has measurable lookup cost; no production SLO guarantee"
+  ]
+}

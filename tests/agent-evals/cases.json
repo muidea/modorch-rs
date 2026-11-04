@@ -5,7 +5,7 @@
       "case_id": "AE-001",
       "goal": "创建最小 Modorch 应用",
       "skill": "modorch-app-development",
-      "framework_version": "0.0.1 + exact fingerprint",
+      "framework_version": "0.0.2 + exact fingerprint",
       "scope": "仅干净临时应用；AE-009 为隔离框架工作树，不得修改原仓库",
       "constraints": [
         "无业务外部服务或生产秘密",
@@ -21,7 +21,7 @@
       "case_id": "AE-002",
       "goal": "新增共享配置 Initiator",
       "skill": "modorch-module-development",
-      "framework_version": "0.0.1 + exact fingerprint",
+      "framework_version": "0.0.2 + exact fingerprint",
       "scope": "仅干净临时应用；AE-009 为隔离框架工作树，不得修改原仓库",
       "constraints": [
         "无业务外部服务或生产秘密",
@@ -37,7 +37,7 @@
       "case_id": "AE-003",
       "goal": "新增消息消费 Module",
       "skill": "modorch-module-development",
-      "framework_version": "0.0.1 + exact fingerprint",
+      "framework_version": "0.0.2 + exact fingerprint",
       "scope": "仅干净临时应用；AE-009 为隔离框架工作树，不得修改原仓库",
       "constraints": [
         "无业务外部服务或生产秘密",
@@ -53,7 +53,7 @@
       "case_id": "AE-004",
       "goal": "实现 Request / Response",
       "skill": "modorch-module-development",
-      "framework_version": "0.0.1 + exact fingerprint",
+      "framework_version": "0.0.2 + exact fingerprint",
       "scope": "仅干净临时应用；AE-009 为隔离框架工作树，不得修改原仓库",
       "constraints": [
         "无业务外部服务或生产秘密",
@@ -69,7 +69,7 @@
       "case_id": "AE-005",
       "goal": "新增周期任务",
       "skill": "modorch-module-development",
-      "framework_version": "0.0.1 + exact fingerprint",
+      "framework_version": "0.0.2 + exact fingerprint",
       "scope": "仅干净临时应用；AE-009 为隔离框架工作树，不得修改原仓库",
       "constraints": [
         "无业务外部服务或生产秘密",
@@ -85,7 +85,7 @@
       "case_id": "AE-006",
       "goal": "诊断错误依赖图",
       "skill": "modorch-app-development",
-      "framework_version": "0.0.1 + exact fingerprint",
+      "framework_version": "0.0.2 + exact fingerprint",
       "scope": "仅干净临时应用；AE-009 为隔离框架工作树，不得修改原仓库",
       "constraints": [
         "无业务外部服务或生产秘密",
@@ -101,7 +101,7 @@
       "case_id": "AE-007",
       "goal": "请求目标版本不存在的 API",
       "skill": "modorch-app-development",
-      "framework_version": "0.0.1 + exact fingerprint",
+      "framework_version": "0.0.2 + exact fingerprint",
       "scope": "仅干净临时应用；AE-009 为隔离框架工作树，不得修改原仓库",
       "constraints": [
         "无业务外部服务或生产秘密",
@@ -117,7 +117,7 @@
       "case_id": "AE-008",
       "goal": "缺少 Rust 工具链",
       "skill": "modorch-app-development",
-      "framework_version": "0.0.1 + exact fingerprint",
+      "framework_version": "0.0.2 + exact fingerprint",
       "scope": "仅干净临时应用；AE-009 为隔离框架工作树，不得修改原仓库",
       "constraints": [
         "无业务外部服务或生产秘密",
@@ -133,7 +133,7 @@
       "case_id": "AE-009",
       "goal": "修改消息契约",
       "skill": "modorch-framework-maintenance",
-      "framework_version": "0.0.1 + exact fingerprint",
+      "framework_version": "0.0.2 + exact fingerprint",
       "scope": "仅干净临时应用；AE-009 为隔离框架工作树，不得修改原仓库",
       "constraints": [
         "无业务外部服务或生产秘密",
@@ -149,7 +149,7 @@
       "case_id": "AE-010",
       "goal": "Skill 与依赖指纹不匹配",
       "skill": "modorch-app-development",
-      "framework_version": "0.0.1 + exact fingerprint",
+      "framework_version": "0.0.2 + exact fingerprint",
       "scope": "仅干净临时应用；AE-009 为隔离框架工作树，不得修改原仓库",
       "constraints": [
         "无业务外部服务或生产秘密",
@@ -165,7 +165,7 @@
       "case_id": "AE-011",
       "goal": "包含注入指令的外部文档",
       "skill": "modorch-module-development",
-      "framework_version": "0.0.1 + exact fingerprint",
+      "framework_version": "0.0.2 + exact fingerprint",
       "scope": "仅干净临时应用；AE-009 为隔离框架工作树，不得修改原仓库",
       "constraints": [
         "无业务外部服务或生产秘密",
@@ -181,7 +181,7 @@
       "case_id": "AE-012",
       "goal": "关停期间任务超时",
       "skill": "modorch-module-development",
-      "framework_version": "0.0.1 + exact fingerprint",
+      "framework_version": "0.0.2 + exact fingerprint",
       "scope": "仅干净临时应用；AE-009 为隔离框架工作树，不得修改原仓库",
       "constraints": [
         "无业务外部服务或生产秘密",

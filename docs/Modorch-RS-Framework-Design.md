@@ -4,7 +4,7 @@
 > **Cargo 主包：** `modorch`  
 > **文档类型：** 独立、完整的框架技术设计规范  
 > **适用范围：** 单进程、常驻型和任务驱动型 Rust 后端应用  
-> **规范状态：** 0.0.1 当前实现说明（2026-11-02 刷新，基线 `37bdc93`）；公开签名以源码/Rustdoc 为准，行为承诺由 Contracts 与执行证据共同确认
+> **规范状态：** 0.0.2 当前实现说明（2026-11-02 刷新，基线 `37bdc93`）；公开签名以源码/Rustdoc 为准，行为承诺由 Contracts 与执行证据共同确认
 
 ## 1. 框架定位、目标与边界
 
@@ -178,7 +178,7 @@ my-app/
 
 ### 3.3 Cargo / 版本策略
 
-根工作区使用 resolver 3、Edition 2024、版本 0.0.1、MIT、MSRV 1.85。当前尚无正式 Registry 发布声明。实际依赖与 Feature 定义见 [Facade manifest](../crates/modorch/Cargo.toml) 与 [兼容性说明](compatibility.md)。
+根工作区使用 resolver 3、Edition 2024、版本 0.0.2、MIT、MSRV 1.85。当前尚无正式 Registry 发布声明。实际依赖与 Feature 定义见 [Facade manifest](../crates/modorch/Cargo.toml) 与 [兼容性说明](compatibility.md)。
 
 默认开启 runtime/eventhub/scheduler；runtime 同时启用 eventhub 与 scheduler，core/registry 不可选，config-toml 与 observability 可选。没有库级 signals Feature；信号由宿主 Tokio 提供。Feature 是编译时加法，运行时选择由 ComponentSelection 完成。
 
@@ -338,11 +338,11 @@ Framework 提供可选 TOML schema/转换工具，但进程配置文件路径、
 [订阅类型源码](../crates/modorch-eventhub/src/types.rs)
 
 - `SubscriptionId` 是唯一订阅身份，不能与业务 destination matcher 混用。
-- `topic_pattern` 支持单段 `+`、多段 `#` 与参数段（`/:id`）风格，统一采用 `/` 作为路径分隔符；订阅模式匹配事件真实 Topic，**不进行双向随意匹配**。
+- `topic_pattern` 采用 MQTT Topic Filter：`+` 独占单层（含空层），`#` 独占末层并含零层；`:id` 是字面量。根通配不匹配 `$`，保留 `/` 空层；单向匹配已校验的 Topic Name。Name/Filter 均非空、无 NUL、最多 65535 UTF-8 字节，Name 禁止 `+/#`。超本地预算返回 ResourceLimit，协议非法返回 InvalidConfig；细则见[消息语义](message-semantics.md)。
 - 路由按 `topic + destination` 双维度筛选；`lane_key` 不参与订阅匹配。
 - 启动订阅必须在模块 Ready 前完成；运行时订阅变更通过独立控制面串行提交。
 - `subscribe/unsubscribe` 返回**已生效回执**，拒绝操作不能稍后偷偷执行；取消订阅不等价于已有 Handler 已排空。
-- 当前不使用路由匹配缓存。索引、订阅变更和入队共享线性化边界；回执含订阅 generation。
+- 当前不使用匹配结果缓存；Filter 在订阅安装时编译，helper 和索引复用同一 matcher，`:id` 进入精确索引。索引、订阅变更和入队共享线性化边界；回执含订阅 generation。
 - 启用和停机阶段不可产生向已禁用模块的“幽灵路由”。
 
 ### 7.4 四种执行策略与 Rust 所有权
@@ -503,7 +503,7 @@ sequenceDiagram
 
 ## 14. 公共 API 表面与兼容承诺
 
-唯一调用入口为 modorch；[Facade 源码](../crates/modorch/src/lib.rs) 定义完整导出和 prelude。Markdown 不重复维护全量签名。公开字段和错误变体在0.0.1 开发阶段可能变化，迁移须复核结构体字面量、穷举匹配和 Feature。
+唯一调用入口为 modorch；[Facade 源码](../crates/modorch/src/lib.rs) 定义完整导出和 prelude。Markdown 不重复维护全量签名。公开字段和错误变体在 0.0.2 开发阶段可能变化，迁移须复核结构体字面量、穷举匹配和 Feature。
 
 StartupError.source 为 Box<FrameworkError>，标准 Error::source 暴露原始 FrameworkError；cleanup 与 ApplicationHandle 保留。ShutdownOptions.timeout 限制调用者等待而不取消关闭事务。具体边界见 [公共 API](public-api.md)、[兼容性](compatibility.md) 与本次文档验收记录。
 
@@ -609,4 +609,4 @@ cargo test -p modorch-eventhub --test concurrency -- --nocapture
 
 ### 17.2 文档验收定义
 
-本文件按 **Modorch-RS 0.0.1 当前实现** 刷新；验收清单的执行证据由独立验证报告记录。框架实现只有在公共 API、依赖图验证、消息正确性、并发边界、资源生命周期、停机可靠性以及跨仓库集成测试全部满足本文验收要求后，才可宣称符合本设计。
+本文件按 **Modorch-RS 0.0.2 当前实现** 刷新；验收清单的执行证据由独立验证报告记录。框架实现只有在公共 API、依赖图验证、消息正确性、并发边界、资源生命周期、停机可靠性以及跨仓库集成测试全部满足本文验收要求后，才可宣称符合本设计。

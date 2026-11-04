@@ -1,6 +1,6 @@
 # 限制与非目标
 
-适用 0.0.1；状态及证据以[能力矩阵](capability-matrix.md)为准。
+适用 0.0.2；状态及证据以[能力矩阵](capability-matrix.md)为准。
 
 - 只承诺单进程、单 Application 内受管通信。无持久化队列、跨进程 Transport、exactly-once、跨资源事务和动态插件 ABI。
 - 请求超时不是回滚；Restart 不重放消息。技术 retryable 不等于业务幂等。

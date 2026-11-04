@@ -1,0 +1,21 @@
+{
+  "local_checks": "Passed",
+  "release": "Candidate",
+  "framework_sha256": "0f74320ad90fe433f60b4a5992db5a9addcd40f4aec1fb6ae66317205368ff17",
+  "delivery_sha256": "e70cee31398cbcfbc20d6d89787b7f03cc1e8d54c873e4742a08dbcddf7b9fd9",
+  "blockers": [
+    "AE-001: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-002: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-003: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-004: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-005: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-006: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-007: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-008: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-010: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-011: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-012: actual Agent execution/review evidence NotRun, missing or failed"
+  ],
+  "workflow_change": "not included; original CI configuration retained",
+  "publish_transport": "GitHub HTTPS using existing OAuth credential; no account/global Git configuration changed"
+}

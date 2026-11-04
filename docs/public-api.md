@@ -74,3 +74,7 @@ HubMetrics 增加 admission（等待者、等待/在途声明字节）和 worker
 `TaskMetrics.cpu` / `blocking_io` 提供容量、可用槽位、排队、执行、等待者及累计完成/失败/启动前取消计数，并区分全局额度、Owner 额度、类别容量、等待者上限、等待超时与宿主执行器拒绝。反压计数按尝试累计，包含等待内部重试，不等于最终业务失败数；`admitted` 在注册任务时累计，执行器拒绝或丢弃会另计 executor_failures / canceled_before_start。排队和执行 P95/P99、准入等待 P99 为累计微秒指数桶估计，取消/超时也计入实际等待耗时，不是业务端到端延迟。`owner_resources` 按 Owner 提供共享额度、等待者及 Async/CPU/BlockingIo 排队与执行分布，收尾阶段已离开执行分布但仍可能短暂占用额度。快照各字段独立采样，不承诺瞬时等式一致。
 
 `completed` 包含已开始后正常、失败或协作取消退出的工作，`failed` 是其中错误结果的子集。Owner 指标只保留当前有 Scheduler/任务/等待者持有的额度条目；没有存活持有者时清理条目，累计类别指标仍保留。
+
+## MQTT Topic Name 与 Filter
+
+SubscriptionSpec.topic_pattern 和 MessageEnvelope.topic 保持字符串。`topic_matches(filter, name)` 采用 MQTT 3.1.1/5.0 §4.7，非法任一输入返回 false。订阅安装预编译同一 Filter；Name / Filter 均非空、无 NUL、≤65535 UTF-8 字节，Name 禁止 `+/#`。`+` 含空层，末尾 `#` 含零层，根通配排除 `$`，`:id` 是字面量；不 trim、不归一化。所有即时、external、wait 消息入口校验 Name；subscribe 和 install 校验 Filter，失败不改变路由/代际。协议非法 InvalidConfig、本地 Topic 预算超限 ResourceLimit；默认预算 1024。Destination / LaneKey 与 Topic 规则独立。详见[消息契约](../contracts/messaging-contract.md)与[迁移](migration/0.1-development.md)。

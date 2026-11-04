@@ -34,7 +34,7 @@ fn io_error(error: std::io::Error) -> FrameworkError {
 #[async_trait]
 impl Lifecycle for Http {
     async fn setup(&mut self, _: &SetupContext) -> FrameworkResult<()> {
-        let listener = TcpListener::bind("127.0.0.1:0").await.map_err(io_error)?;
+        let listener = TcpListener::bind("127.0.0.2:0").await.map_err(io_error)?;
         *self.address.lock().unwrap() = Some(listener.local_addr().map_err(io_error)?);
         self.listener = Some(listener);
         Ok(())

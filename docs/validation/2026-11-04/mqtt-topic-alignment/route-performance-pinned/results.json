@@ -1,0 +1,2224 @@
+{
+  "status": "Passed",
+  "baseline_commit": "ccc77ce9501cd3e942677bba51b6ff3efb1c63f6",
+  "versions": "rustc 1.94.0 (4a4ef493e 2026-03-02)\nbinary: rustc\ncommit-hash: 4a4ef493e3a1488c6e321570238084b38948f6db\ncommit-date: 2026-03-02\nhost: x86_64-unknown-linux-gnu\nrelease: 1.94.0\nLLVM version: 21.1.8\n",
+  "sources_sha256": {
+    "current/topic.rs": "448d7636f3057c0666af43376e01eb9460855b1d814768c947d83eb6949e5f17",
+    "current/main.rs": "097e4f5fed13241ec9f334ad327a459e1eec2f169042478730a557a945291d49",
+    "current/routing.rs": "9d30565e6960d942840ce80498c607cb87b166c3a0234b7355eb21eead40ad3b",
+    "baseline/topic.rs": "448d7636f3057c0666af43376e01eb9460855b1d814768c947d83eb6949e5f17",
+    "baseline/main.rs": "33aaba0e00440d3d93bcce27a26720e759c0a8c50802d43267bb63bcce1b8cf2",
+    "baseline/routing.rs": "c87feae637bbf2295b6aef17dc6b83b10a118b3f16139e2eb6c7fafe35cb7bfd"
+  },
+  "limits": [
+    "Actual routing.rs included with minimal DTO/error stubs; not full EventHub, lock contention or payload cost",
+    "Linux RSS deltas include allocator/page effects, not precise retained heap",
+    "Five samples per scenario, no SLO or cross-platform inference"
+  ],
+  "summary": [
+    {
+      "entries": 64,
+      "mode": "exact",
+      "destination": "broadcast",
+      "baseline_median_ns": 302.866376,
+      "baseline_median_rss_kib": 132,
+      "current_median_ns": 334.48544,
+      "current_median_rss_kib": 68,
+      "time_ratio": 1.1043993870088769
+    },
+    {
+      "entries": 64,
+      "mode": "exact",
+      "destination": "directed",
+      "baseline_median_ns": 275.124662,
+      "baseline_median_rss_kib": 132,
+      "current_median_ns": 316.426774,
+      "current_median_rss_kib": 132,
+      "time_ratio": 1.1501214456739615
+    },
+    {
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "baseline_median_ns": 9440.226,
+      "baseline_median_rss_kib": 124,
+      "current_median_ns": 17867.853,
+      "current_median_rss_kib": 124,
+      "time_ratio": 1.8927357247591317
+    },
+    {
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "directed",
+      "baseline_median_ns": 368.41765,
+      "baseline_median_rss_kib": 124,
+      "current_median_ns": 444.275888,
+      "current_median_rss_kib": 60,
+      "time_ratio": 1.2059028333740254
+    },
+    {
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "broadcast",
+      "baseline_median_ns": 331.339754,
+      "baseline_median_rss_kib": 4352,
+      "current_median_ns": 386.088942,
+      "current_median_rss_kib": 4288,
+      "time_ratio": 1.165235796004122
+    },
+    {
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "directed",
+      "baseline_median_ns": 255.618606,
+      "baseline_median_rss_kib": 4352,
+      "current_median_ns": 294.280546,
+      "current_median_rss_kib": 4352,
+      "time_ratio": 1.1512485362665659
+    },
+    {
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "baseline_median_ns": 1138956.201,
+      "baseline_median_rss_kib": 3840,
+      "current_median_ns": 1050830.954,
+      "current_median_rss_kib": 3776,
+      "time_ratio": 0.9226263073833513
+    },
+    {
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "directed",
+      "baseline_median_ns": 522.637444,
+      "baseline_median_rss_kib": 3904,
+      "current_median_ns": 652.841366,
+      "current_median_rss_kib": 3712,
+      "time_ratio": 1.2491285756402866
+    }
+  ],
+  "runs": [
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 0,
+      "ns_per_lookup": 289.63829,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 0,
+      "ns_per_lookup": 334.48544,
+      "rss_index_growth_kib": 68
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 1,
+      "ns_per_lookup": 269.626352,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 1,
+      "ns_per_lookup": 313.722604,
+      "rss_index_growth_kib": 68
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 2,
+      "ns_per_lookup": 318.281072,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 2,
+      "ns_per_lookup": 450.356088,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 3,
+      "ns_per_lookup": 426.81083,
+      "rss_index_growth_kib": 68
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 3,
+      "ns_per_lookup": 302.866376,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 4,
+      "ns_per_lookup": 252.606772,
+      "rss_index_growth_kib": 68
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 4,
+      "ns_per_lookup": 267.174724,
+      "rss_index_growth_kib": 68
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 0,
+      "ns_per_lookup": 299.634442,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 0,
+      "ns_per_lookup": 325.445068,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 1,
+      "ns_per_lookup": 306.380664,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 1,
+      "ns_per_lookup": 275.124662,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 2,
+      "ns_per_lookup": 223.537392,
+      "rss_index_growth_kib": 68
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 2,
+      "ns_per_lookup": 298.633144,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 3,
+      "ns_per_lookup": 316.426774,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 3,
+      "ns_per_lookup": 263.442244,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 4,
+      "ns_per_lookup": 276.699428,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 4,
+      "ns_per_lookup": 363.397736,
+      "rss_index_growth_kib": 132
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 0,
+      "ns_per_lookup": 9440.226,
+      "rss_index_growth_kib": 124
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 0,
+      "ns_per_lookup": 17867.853,
+      "rss_index_growth_kib": 124
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 1,
+      "ns_per_lookup": 17426.054,
+      "rss_index_growth_kib": 60
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 1,
+      "ns_per_lookup": 40460.206,
+      "rss_index_growth_kib": 124
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 2,
+      "ns_per_lookup": 14984.144,
+      "rss_index_growth_kib": 60
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 2,
+      "ns_per_lookup": 61301.192,
+      "rss_index_growth_kib": 124
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 3,
+      "ns_per_lookup": 48457.551,
+      "rss_index_growth_kib": 124
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 3,
+      "ns_per_lookup": 7671.976,
+      "rss_index_growth_kib": 124
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 4,
+      "ns_per_lookup": 7907.364,
+      "rss_index_growth_kib": 124
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 4,
+      "ns_per_lookup": 8229.008,
+      "rss_index_growth_kib": 60
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 0,
+      "ns_per_lookup": 467.230518,
+      "rss_index_growth_kib": 60
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 0,
+      "ns_per_lookup": 444.794016,
+      "rss_index_growth_kib": 60
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 1,
+      "ns_per_lookup": 434.953154,
+      "rss_index_growth_kib": 60
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 1,
+      "ns_per_lookup": 368.41765,
+      "rss_index_growth_kib": 124
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 2,
+      "ns_per_lookup": 403.772402,
+      "rss_index_growth_kib": 124
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 2,
+      "ns_per_lookup": 444.275888,
+      "rss_index_growth_kib": 60
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 3,
+      "ns_per_lookup": 412.56104,
+      "rss_index_growth_kib": 60
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 3,
+      "ns_per_lookup": 302.263104,
+      "rss_index_growth_kib": 124
+    },
+    {
+      "label": "baseline",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 4,
+      "ns_per_lookup": 332.025472,
+      "rss_index_growth_kib": 124
+    },
+    {
+      "label": "current",
+      "entries": 64,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 4,
+      "ns_per_lookup": 521.822088,
+      "rss_index_growth_kib": 60
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 0,
+      "ns_per_lookup": 331.339754,
+      "rss_index_growth_kib": 4352
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 0,
+      "ns_per_lookup": 386.088942,
+      "rss_index_growth_kib": 4288
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 1,
+      "ns_per_lookup": 480.866568,
+      "rss_index_growth_kib": 4288
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 1,
+      "ns_per_lookup": 561.177426,
+      "rss_index_growth_kib": 4352
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 2,
+      "ns_per_lookup": 351.166176,
+      "rss_index_growth_kib": 4352
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 2,
+      "ns_per_lookup": 549.671926,
+      "rss_index_growth_kib": 4288
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 3,
+      "ns_per_lookup": 319.276674,
+      "rss_index_growth_kib": 4288
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 3,
+      "ns_per_lookup": 301.513496,
+      "rss_index_growth_kib": 4352
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 4,
+      "ns_per_lookup": 265.390402,
+      "rss_index_growth_kib": 4288
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "broadcast",
+      "iterations": 500000,
+      "repeat": 4,
+      "ns_per_lookup": 258.370774,
+      "rss_index_growth_kib": 4352
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 0,
+      "ns_per_lookup": 299.189748,
+      "rss_index_growth_kib": 4352
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 0,
+      "ns_per_lookup": 301.484818,
+      "rss_index_growth_kib": 4352
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 1,
+      "ns_per_lookup": 341.424192,
+      "rss_index_growth_kib": 4288
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 1,
+      "ns_per_lookup": 255.618606,
+      "rss_index_growth_kib": 4352
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 2,
+      "ns_per_lookup": 259.99939,
+      "rss_index_growth_kib": 4288
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 2,
+      "ns_per_lookup": 274.471942,
+      "rss_index_growth_kib": 4352
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 3,
+      "ns_per_lookup": 282.51176,
+      "rss_index_growth_kib": 4288
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 3,
+      "ns_per_lookup": 208.589556,
+      "rss_index_growth_kib": 4352
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 4,
+      "ns_per_lookup": 219.461524,
+      "rss_index_growth_kib": 4352
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "exact",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 4,
+      "ns_per_lookup": 294.280546,
+      "rss_index_growth_kib": 4352
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 0,
+      "ns_per_lookup": 1138956.201,
+      "rss_index_growth_kib": 3840
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 0,
+      "ns_per_lookup": 1203378.969,
+      "rss_index_growth_kib": 3776
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 1,
+      "ns_per_lookup": 1050830.954,
+      "rss_index_growth_kib": 3776
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 1,
+      "ns_per_lookup": 1329598.48,
+      "rss_index_growth_kib": 3904
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 2,
+      "ns_per_lookup": 1237971.045,
+      "rss_index_growth_kib": 3840
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 2,
+      "ns_per_lookup": 995342.179,
+      "rss_index_growth_kib": 3776
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 3,
+      "ns_per_lookup": 827619.48,
+      "rss_index_growth_kib": 3776
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 3,
+      "ns_per_lookup": 979788.425,
+      "rss_index_growth_kib": 3904
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 4,
+      "ns_per_lookup": 956123.25,
+      "rss_index_growth_kib": 3840
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "broadcast",
+      "iterations": 1000,
+      "repeat": 4,
+      "ns_per_lookup": 1389189.751,
+      "rss_index_growth_kib": 3712
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 0,
+      "ns_per_lookup": 720.259416,
+      "rss_index_growth_kib": 3904
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 0,
+      "ns_per_lookup": 652.841366,
+      "rss_index_growth_kib": 3776
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 1,
+      "ns_per_lookup": 629.53568,
+      "rss_index_growth_kib": 3776
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 1,
+      "ns_per_lookup": 592.861864,
+      "rss_index_growth_kib": 3840
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 2,
+      "ns_per_lookup": 522.637444,
+      "rss_index_growth_kib": 3840
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 2,
+      "ns_per_lookup": 421.920836,
+      "rss_index_growth_kib": 3712
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 3,
+      "ns_per_lookup": 978.91719,
+      "rss_index_growth_kib": 3712
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 3,
+      "ns_per_lookup": 440.842358,
+      "rss_index_growth_kib": 3904
+    },
+    {
+      "label": "baseline",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 4,
+      "ns_per_lookup": 515.902732,
+      "rss_index_growth_kib": 3904
+    },
+    {
+      "label": "current",
+      "entries": 4096,
+      "mode": "wildcard",
+      "destination": "directed",
+      "iterations": 500000,
+      "repeat": 4,
+      "ns_per_lookup": 717.081194,
+      "rss_index_growth_kib": 3712
+    }
+  ],
+  "commands": [
+    {
+      "command": [
+        "rustc",
+        "--edition=2024",
+        "-O",
+        "-Adead_code",
+        "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-04/mqtt-topic-alignment/route-performance-pinned/baseline/main.rs",
+        "-o",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "rustc",
+        "--edition=2024",
+        "-O",
+        "-Adead_code",
+        "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-04/mqtt-topic-alignment/route-performance-pinned/current/main.rs",
+        "-o",
+        "/tmp/modorch-topic-routes-xqpok44s/current"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":289.63829,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":334.48544,\"rss_index_growth_kib\":68}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":269.626352,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":313.722604,\"rss_index_growth_kib\":68}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":318.281072,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":450.356088,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":426.81083,\"rss_index_growth_kib\":68}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":302.866376,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":252.606772,\"rss_index_growth_kib\":68}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":267.174724,\"rss_index_growth_kib\":68}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":299.634442,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":325.445068,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":306.380664,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":275.124662,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":223.537392,\"rss_index_growth_kib\":68}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":298.633144,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":316.426774,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":263.442244,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":276.699428,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":363.397736,\"rss_index_growth_kib\":132}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":9440.226,\"rss_index_growth_kib\":124}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":17867.853,\"rss_index_growth_kib\":124}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":17426.054,\"rss_index_growth_kib\":60}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":40460.206,\"rss_index_growth_kib\":124}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":14984.144,\"rss_index_growth_kib\":60}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":61301.192,\"rss_index_growth_kib\":124}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":48457.551,\"rss_index_growth_kib\":124}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":7671.976,\"rss_index_growth_kib\":124}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":7907.364,\"rss_index_growth_kib\":124}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":8229.008,\"rss_index_growth_kib\":60}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":467.230518,\"rss_index_growth_kib\":60}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":444.794016,\"rss_index_growth_kib\":60}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":434.953154,\"rss_index_growth_kib\":60}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":368.41765,\"rss_index_growth_kib\":124}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":403.772402,\"rss_index_growth_kib\":124}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":444.275888,\"rss_index_growth_kib\":60}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":412.56104,\"rss_index_growth_kib\":60}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":302.263104,\"rss_index_growth_kib\":124}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "64",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":332.025472,\"rss_index_growth_kib\":124}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "64",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":521.822088,\"rss_index_growth_kib\":60}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":331.339754,\"rss_index_growth_kib\":4352}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":386.088942,\"rss_index_growth_kib\":4288}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":480.866568,\"rss_index_growth_kib\":4288}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":561.177426,\"rss_index_growth_kib\":4352}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":351.166176,\"rss_index_growth_kib\":4352}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":549.671926,\"rss_index_growth_kib\":4288}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":319.276674,\"rss_index_growth_kib\":4288}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":301.513496,\"rss_index_growth_kib\":4352}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":265.390402,\"rss_index_growth_kib\":4288}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "exact",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":258.370774,\"rss_index_growth_kib\":4352}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":299.189748,\"rss_index_growth_kib\":4352}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":301.484818,\"rss_index_growth_kib\":4352}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":341.424192,\"rss_index_growth_kib\":4288}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":255.618606,\"rss_index_growth_kib\":4352}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":259.99939,\"rss_index_growth_kib\":4288}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":274.471942,\"rss_index_growth_kib\":4352}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":282.51176,\"rss_index_growth_kib\":4288}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":208.589556,\"rss_index_growth_kib\":4352}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":219.461524,\"rss_index_growth_kib\":4352}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "exact",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":294.280546,\"rss_index_growth_kib\":4352}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":1138956.201,\"rss_index_growth_kib\":3840}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":1203378.969,\"rss_index_growth_kib\":3776}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":1050830.954,\"rss_index_growth_kib\":3776}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":1329598.48,\"rss_index_growth_kib\":3904}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":1237971.045,\"rss_index_growth_kib\":3840}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":995342.179,\"rss_index_growth_kib\":3776}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":827619.48,\"rss_index_growth_kib\":3776}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":979788.425,\"rss_index_growth_kib\":3904}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":956123.25,\"rss_index_growth_kib\":3840}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "1000",
+        "wildcard",
+        "broadcast"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":1389189.751,\"rss_index_growth_kib\":3712}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":720.259416,\"rss_index_growth_kib\":3904}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":652.841366,\"rss_index_growth_kib\":3776}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":629.53568,\"rss_index_growth_kib\":3776}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":592.861864,\"rss_index_growth_kib\":3840}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":522.637444,\"rss_index_growth_kib\":3840}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":421.920836,\"rss_index_growth_kib\":3712}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":978.91719,\"rss_index_growth_kib\":3712}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":440.842358,\"rss_index_growth_kib\":3904}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/baseline",
+        "4096",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":515.902732,\"rss_index_growth_kib\":3904}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "7",
+        "/tmp/modorch-topic-routes-xqpok44s/current",
+        "4096",
+        "500000",
+        "wildcard",
+        "directed"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "{\"ns_per_lookup\":717.081194,\"rss_index_growth_kib\":3712}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "rustc",
+        "-Vv"
+      ],
+      "cwd": "/home/rangh/aispace/modorch-rs",
+      "exit_code": 0,
+      "stdout": "rustc 1.94.0 (4a4ef493e 2026-03-02)\nbinary: rustc\ncommit-hash: 4a4ef493e3a1488c6e321570238084b38948f6db\ncommit-date: 2026-03-02\nhost: x86_64-unknown-linux-gnu\nrelease: 1.94.0\nLLVM version: 21.1.8\n",
+      "stderr": ""
+    }
+  ]
+}

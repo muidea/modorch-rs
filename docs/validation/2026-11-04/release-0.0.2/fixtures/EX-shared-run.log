@@ -1,0 +1,5 @@
+   Compiling modorch-minimal-template v0.0.2 (/tmp/modorch-cleanroom-p45dvame/EX-shared)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.45s
+     Running `/home/rangh/aispace/modorch-rs/target/debug/modorch-minimal-template`
+hello from a leased service
+shared-service: released=true

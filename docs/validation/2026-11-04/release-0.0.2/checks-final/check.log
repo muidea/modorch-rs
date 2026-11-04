@@ -1,0 +1,2 @@
+$ ["cargo", "check", "--workspace", "--all-targets", "--all-features", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.17s

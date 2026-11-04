@@ -1,0 +1,41 @@
+$ ["cargo", "run", "-p", "basic-app", "--locked", "--offline"]
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+   Compiling modorch-eventhub v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+   Compiling modorch-runtime v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch v0.0.1 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling basic-app v0.0.1 (/home/rangh/aispace/modorch-rs/examples/basic-app)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 16.43s
+     Running `target/debug/basic-app`
+basic-app: stopped
+$ ["cargo", "run", "-p", "shared-service", "--locked", "--offline"]
+    Blocking waiting for file lock on artifact directory
+   Compiling shared-service v0.0.1 (/home/rangh/aispace/modorch-rs/examples/shared-service)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 7.73s
+     Running `target/debug/shared-service`
+hello from a leased service
+shared-service: released=true
+$ ["cargo", "run", "-p", "event-messaging", "--locked", "--offline"]
+    Blocking waiting for file lock on artifact directory
+   Compiling event-messaging v0.0.1 (/home/rangh/aispace/modorch-rs/examples/event-messaging)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 11.67s
+     Running `target/debug/event-messaging`
+event-messaging: accepted=2, processed=2
+$ ["cargo", "run", "-p", "request-response", "--locked", "--offline"]
+    Blocking waiting for file lock on artifact directory
+   Compiling request-response v0.0.1 (/home/rangh/aispace/modorch-rs/examples/request-response)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 10.97s
+     Running `target/debug/request-response`
+request-response: completed=42, timeout=Indeterminate
+$ ["cargo", "run", "-p", "scheduled-tasks", "--locked", "--offline"]
+    Blocking waiting for file lock on artifact directory
+   Compiling scheduled-tasks v0.0.1 (/home/rangh/aispace/modorch-rs/examples/scheduled-tasks)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.86s
+     Running `target/debug/scheduled-tasks`
+scheduled-tasks: once completed, ticks>=2, drained
+$ ["cargo", "run", "-p", "lifecycle", "--locked", "--offline"]
+    Blocking waiting for file lock on artifact directory
+   Compiling lifecycle v0.0.1 (/home/rangh/aispace/modorch-rs/examples/lifecycle)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.70s
+     Running `target/debug/lifecycle`
+lifecycle: setup failed, compensated, primary error retained

@@ -20,7 +20,7 @@
 //! ```
 //!
 //! # Stability
-//! Development API 0.0.1, accessed through modorch::config with config-toml enabled.
+//! Development API 0.0.2, accessed through modorch::config with config-toml enabled.
 //! There is no implicit file, signal, global configuration or network lifecycle.
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]
@@ -33,7 +33,7 @@ use std::{collections::BTreeMap, time::Duration};
 #[serde(deny_unknown_fields)]
 /// Strict optional TOML composition schema; file loading and environment merging belong to the host.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct CompositionConfig {
     /// Application composition settings.
@@ -55,7 +55,7 @@ pub struct CompositionConfig {
 #[serde(deny_unknown_fields)]
 /// Application identity in the composition schema.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ApplicationConfig {
     /// Application-local name; nonempty when used for application identity.
@@ -65,7 +65,7 @@ pub struct ApplicationConfig {
 #[serde(deny_unknown_fields)]
 /// Explicit enable flag and owner-defined component configuration.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ComponentSettings {
     #[serde(default)]
@@ -79,7 +79,7 @@ pub struct ComponentSettings {
 #[serde(default, deny_unknown_fields)]
 /// Composition mailbox defaults; only reject is accepted by this TOML adapter.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct MessagingConfig {
     /// Per-component mailbox capacity; must be positive.
@@ -102,7 +102,7 @@ impl Default for MessagingConfig {
 #[serde(default, deny_unknown_fields)]
 /// Caller wait budget for checked shutdown.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ShutdownConfig {
     /// Positive caller shutdown wait limit in seconds.
@@ -118,7 +118,7 @@ impl Default for ShutdownConfig {
 impl CompositionConfig {
     /// Parse strict TOML and reject unknown or invalid composition settings.
     ///
-    /// Contract: DEP-001. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     pub fn parse(input: &str) -> FrameworkResult<Self> {
         let config: Self =
             toml::from_str(input).map_err(|e| FrameworkError::InvalidConfig(e.to_string()))?;
@@ -136,7 +136,7 @@ impl CompositionConfig {
     }
     /// Convert enabled TOML entries into an explicit ComponentSelection.
     ///
-    /// Contract: DEP-001. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     pub fn selection(&self) -> FrameworkResult<ComponentSelection> {
         let mut selection = ComponentSelection::new();
         for (kind, components) in [
@@ -161,7 +161,7 @@ impl CompositionConfig {
     }
     /// Return the configured caller shutdown wait budget.
     ///
-    /// Contract: DEP-001. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     pub fn grace_period(&self) -> Duration {
         Duration::from_secs(self.shutdown.grace_period_secs)
     }

@@ -1,0 +1,692 @@
+{
+  "recorded_at": "2026-11-04T09:49:38.677692+00:00",
+  "framework_sha256": "0f74320ad90fe433f60b4a5992db5a9addcd40f4aec1fb6ae66317205368ff17",
+  "delivery_sha256": "e70cee31398cbcfbc20d6d89787b7f03cc1e8d54c873e4742a08dbcddf7b9fd9",
+  "checks": [
+    {
+      "id": "versions",
+      "command": [
+        [
+          "rustc",
+          "--version",
+          "--verbose"
+        ],
+        [
+          "cargo",
+          "--version"
+        ],
+        [
+          "python3",
+          "--version"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/versions.log",
+      "sha256": "ceb03bd9ac5baf0de406cfd299bb8035c5e560e0e5bc2201c35da0e44afa3a1a"
+    },
+    {
+      "id": "fmt",
+      "command": [
+        [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/fmt.log",
+      "sha256": "645a0cf09b7ddac9e017edef0748e8b7fe7ea9a44118d74f631475af5398d130"
+    },
+    {
+      "id": "check",
+      "command": [
+        [
+          "cargo",
+          "check",
+          "--workspace",
+          "--all-targets",
+          "--all-features",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/check.log",
+      "sha256": "95ef0fd6deae90007675e4537374b58a5cc5903696ef685a34e972191b30ce92"
+    },
+    {
+      "id": "clippy",
+      "command": [
+        [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--all-targets",
+          "--all-features",
+          "--locked",
+          "--offline",
+          "--",
+          "-D",
+          "warnings"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/clippy.log",
+      "sha256": "b8594815934f9dfb09d61401a93d7d054a75587262ca548107f653cff71e9230"
+    },
+    {
+      "id": "test",
+      "command": [
+        [
+          "cargo",
+          "test",
+          "--workspace",
+          "--all-features",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/test.log",
+      "sha256": "66a6e38960bc341d42a3acc4b99fef19480a64bcab7076d79190444b55ea97f2"
+    },
+    {
+      "id": "doctest",
+      "command": [
+        [
+          "cargo",
+          "test",
+          "--doc",
+          "--workspace",
+          "--all-features",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/doctest.log",
+      "sha256": "0afd4ce447fb2e0eca069eef0652368c95d12c5f01d172285ba0905022c27521"
+    },
+    {
+      "id": "rustdoc",
+      "command": [
+        [
+          "cargo",
+          "doc",
+          "--workspace",
+          "--all-features",
+          "--no-deps",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {
+        "RUSTDOCFLAGS": "-D warnings"
+      },
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/rustdoc.log",
+      "sha256": "d58f1e6972c3105bff964f986fbdf3ab259dcbec22ebc58efadce1159939f39e"
+    },
+    {
+      "id": "msrv",
+      "command": [
+        [
+          "cargo",
+          "+1.85.0",
+          "check",
+          "--workspace",
+          "--all-targets",
+          "--all-features",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/msrv.log",
+      "sha256": "a57f5a4a0f7208f230fb56ec810df2991891e286a27b3bf18be79a8631ce581b"
+    },
+    {
+      "id": "features",
+      "command": [
+        [
+          "cargo",
+          "check",
+          "-p",
+          "modorch",
+          "--no-default-features",
+          "--features",
+          "",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "check",
+          "-p",
+          "modorch",
+          "--no-default-features",
+          "--features",
+          "eventhub",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "check",
+          "-p",
+          "modorch",
+          "--no-default-features",
+          "--features",
+          "scheduler",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "check",
+          "-p",
+          "modorch",
+          "--no-default-features",
+          "--features",
+          "runtime",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "check",
+          "-p",
+          "modorch",
+          "--no-default-features",
+          "--features",
+          "config-toml",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "check",
+          "-p",
+          "modorch",
+          "--no-default-features",
+          "--features",
+          "observability",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/features.log",
+      "sha256": "941e5a3c1c8c2b4155d3f178ca8a2a85490474a2c3b0fad62f03ec375f9d6e37"
+    },
+    {
+      "id": "examples",
+      "command": [
+        [
+          "cargo",
+          "run",
+          "-p",
+          "basic-app",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "shared-service",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "event-messaging",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "request-response",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "scheduled-tasks",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "lifecycle",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/examples.log",
+      "sha256": "c95e0aa773b48de3f2c42ace72db1e24720e0f65128a8717123e0a4718a02fda"
+    },
+    {
+      "id": "templates",
+      "command": [
+        [
+          "cargo",
+          "fmt",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml",
+          "--",
+          "--check"
+        ],
+        [
+          "cargo",
+          "check",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "test",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "fmt",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml",
+          "--",
+          "--check"
+        ],
+        [
+          "cargo",
+          "check",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "test",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/templates.log",
+      "sha256": "514ca3c4f49bc05244f729c63e330abb3bb5560f4d2998638f0f29a6b3412d98"
+    },
+    {
+      "id": "external",
+      "command": [
+        [
+          "cargo",
+          "run",
+          "--manifest-path",
+          "tests/fixtures/external-app/Cargo.toml",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/external.log",
+      "sha256": "28dce76bd6942acb6c4654ae34e587834ce9e3b910d1744843a7eb6cfaef918c"
+    },
+    {
+      "id": "tooling-tests",
+      "command": [
+        [
+          "/usr/bin/python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/agent-evals",
+          "-p",
+          "test_*.py",
+          "-v"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/tooling-tests.log",
+      "sha256": "172687bc43e6b0f4bc6fff8c6afda9ab6b8e2618b5edb8354a604174195f6427"
+    },
+    {
+      "id": "skills-format",
+      "command": [
+        [
+          "skill-hub",
+          "validate",
+          "--pattern",
+          "modorch-*",
+          "--links"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/skills-format.log",
+      "sha256": "0d70263411dad6fb165ddf672a896159b294617d4cb3a18161796f866967874e"
+    },
+    {
+      "id": "bundle-install",
+      "command": [
+        "python3",
+        "tests/agent-evals/fixture-replay.py",
+        "--output",
+        "docs/validation/2026-11-04/release-0.0.2/fixtures"
+      ],
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/bundle-install.log",
+      "sha256": "05e0c6a732eb7a6c60da2b5aff5df9969670d76bf9a452e4dfc50afe55eb1015"
+    },
+    {
+      "id": "static",
+      "command": [
+        [
+          "/usr/bin/python3",
+          "tools/doc-validation/run.py",
+          "--results",
+          "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-04/release-0.0.2/checks-final/test.log",
+          "--tooling-results",
+          "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-04/release-0.0.2/checks-final/tooling-tests.log"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks-final/static.log",
+      "sha256": "6456da4d19ff27321f57a0ff530678f1df82fbdda9786aea2e2b0102cf92e58c"
+    }
+  ],
+  "agent_evals": [
+    {
+      "case_id": "AE-001",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "4b1f72b3f589da36cc8038b04e3e2cc9ea56f508d2288517a2c5510c4ef36a31",
+      "agent_version": null,
+      "goal_sha256": "54d886c4c7943d9b636c21e6d953ab79fb24ed6a2a1ed4e4885f22216bb1dd7a",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "54d886c4c7943d9b636c21e6d953ab79fb24ed6a2a1ed4e4885f22216bb1dd7a"
+      },
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/agents/AE-001/record.json",
+      "sha256": "00360896bde2779aece4f286ad3a17c028357ca7f5e2780f36f62e6ddbb092bf"
+    },
+    {
+      "case_id": "AE-002",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "4b1f72b3f589da36cc8038b04e3e2cc9ea56f508d2288517a2c5510c4ef36a31",
+      "agent_version": null,
+      "goal_sha256": "194791cedf7ed16497af8f156169aaa81ba4e946bbfab1e8e2aa3f0c9dd46ad0",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "194791cedf7ed16497af8f156169aaa81ba4e946bbfab1e8e2aa3f0c9dd46ad0"
+      },
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/agents/AE-002/record.json",
+      "sha256": "7dfca1f8a44297d7d81d68561bceeca6b2e8fea95c475fe1c4938465b08a1524"
+    },
+    {
+      "case_id": "AE-003",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "4b1f72b3f589da36cc8038b04e3e2cc9ea56f508d2288517a2c5510c4ef36a31",
+      "agent_version": null,
+      "goal_sha256": "2c3d63e41f7d2aed188edf470010ab0d18a0d5b3328faf4c50ec826d1fdfbf53",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "2c3d63e41f7d2aed188edf470010ab0d18a0d5b3328faf4c50ec826d1fdfbf53"
+      },
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/agents/AE-003/record.json",
+      "sha256": "06b53fae725420f34af0bed5acddea88a5ed8faf6e4070fb6bf7fa023eead956"
+    },
+    {
+      "case_id": "AE-004",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "4b1f72b3f589da36cc8038b04e3e2cc9ea56f508d2288517a2c5510c4ef36a31",
+      "agent_version": null,
+      "goal_sha256": "da96e5d104c3b768c5ab65ac25594b3c3f102f0de72b69e9abd6878c0a05cd59",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "da96e5d104c3b768c5ab65ac25594b3c3f102f0de72b69e9abd6878c0a05cd59"
+      },
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/agents/AE-004/record.json",
+      "sha256": "e1037259aacf0177de6ef5a67adfb8f536c7e9244153221658104a573a90084c"
+    },
+    {
+      "case_id": "AE-005",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "4b1f72b3f589da36cc8038b04e3e2cc9ea56f508d2288517a2c5510c4ef36a31",
+      "agent_version": null,
+      "goal_sha256": "da96f99698c3be81eb57c3401ba82fde74aa9d15f3f8b4615da9716a385eb5d3",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "da96f99698c3be81eb57c3401ba82fde74aa9d15f3f8b4615da9716a385eb5d3"
+      },
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/agents/AE-005/record.json",
+      "sha256": "26c36515af115c389ab2c2afa5d5047c9b2ba6c04fcef39df14e4a352ce13ffc"
+    },
+    {
+      "case_id": "AE-006",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "4b1f72b3f589da36cc8038b04e3e2cc9ea56f508d2288517a2c5510c4ef36a31",
+      "agent_version": null,
+      "goal_sha256": "dcc57940bb3a9881c05127ac77e7651b830543690d098729f470e645b6ad1cbe",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "dcc57940bb3a9881c05127ac77e7651b830543690d098729f470e645b6ad1cbe"
+      },
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/agents/AE-006/record.json",
+      "sha256": "b923e6dfd4fbf35b0b05f70dedff15517c125ad10ac1055324c146837ae5a074"
+    },
+    {
+      "case_id": "AE-007",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "4b1f72b3f589da36cc8038b04e3e2cc9ea56f508d2288517a2c5510c4ef36a31",
+      "agent_version": null,
+      "goal_sha256": "28c116ab3dced00c47e426698829230eef2fd1d297498b6ace4d4eb799b683d4",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "28c116ab3dced00c47e426698829230eef2fd1d297498b6ace4d4eb799b683d4"
+      },
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/agents/AE-007/record.json",
+      "sha256": "7c3edd8f22b215e099353acec88429966c1ac65b09dcec7adfbce26f11277530"
+    },
+    {
+      "case_id": "AE-008",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "4b1f72b3f589da36cc8038b04e3e2cc9ea56f508d2288517a2c5510c4ef36a31",
+      "agent_version": null,
+      "goal_sha256": "c918b1cd5dc53d93ae7f8a9353964d91b89464180d4aa9cd56fb744609a167e4",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "c918b1cd5dc53d93ae7f8a9353964d91b89464180d4aa9cd56fb744609a167e4"
+      },
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/agents/AE-008/record.json",
+      "sha256": "5edb17e4e65f1b82f63b057c6b2de2efd1bba35fdac8b2bb802bf25b08bee17f"
+    },
+    {
+      "case_id": "AE-009",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "4b1f72b3f589da36cc8038b04e3e2cc9ea56f508d2288517a2c5510c4ef36a31",
+      "agent_version": null,
+      "goal_sha256": "d9ae28ab1d5373612bc97bce06fb356ff9854979288f002f57c260f54d1ccdd3",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "d9ae28ab1d5373612bc97bce06fb356ff9854979288f002f57c260f54d1ccdd3"
+      },
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/agents/AE-009/record.json",
+      "sha256": "04c905dfb6d2d91666343dca15aa2316f21b4d550190febf662e44341509285e"
+    },
+    {
+      "case_id": "AE-010",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "4b1f72b3f589da36cc8038b04e3e2cc9ea56f508d2288517a2c5510c4ef36a31",
+      "agent_version": null,
+      "goal_sha256": "f06293bbe18b986beb0fa941b53c8d9fc2825a831a707e54fc4a0532f7de0d56",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "f06293bbe18b986beb0fa941b53c8d9fc2825a831a707e54fc4a0532f7de0d56"
+      },
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/agents/AE-010/record.json",
+      "sha256": "e2d44aa50fa111be38273ab234b62fd63c51c21dca050d4b6a7706283c547dda"
+    },
+    {
+      "case_id": "AE-011",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "4b1f72b3f589da36cc8038b04e3e2cc9ea56f508d2288517a2c5510c4ef36a31",
+      "agent_version": null,
+      "goal_sha256": "a9a68569d472ae8d33bc6cf72a5f0b21c571dddc6bd4e38194ab559283fa3842",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "a9a68569d472ae8d33bc6cf72a5f0b21c571dddc6bd4e38194ab559283fa3842"
+      },
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/agents/AE-011/record.json",
+      "sha256": "61869e1eeadf14fbbf747865fe080d28b74b85065c30278f847a1e218ba34143"
+    },
+    {
+      "case_id": "AE-012",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "4b1f72b3f589da36cc8038b04e3e2cc9ea56f508d2288517a2c5510c4ef36a31",
+      "agent_version": null,
+      "goal_sha256": "285225c0a0647e3012c11773bf6538547b349883869442379eda76e8458f7179",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "285225c0a0647e3012c11773bf6538547b349883869442379eda76e8458f7179"
+      },
+      "evidence": "docs/validation/2026-11-04/release-0.0.2/agents/AE-012/record.json",
+      "sha256": "1c3c5673ad83b7ecf6c33819020e0df1cb6baf0f88d44c7049d240a58e77e570"
+    }
+  ],
+  "claimed_hosts": []
+}

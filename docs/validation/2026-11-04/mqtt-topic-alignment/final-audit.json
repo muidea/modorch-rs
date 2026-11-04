@@ -1,0 +1,34 @@
+{
+  "local_status": "Passed",
+  "release_status": "Candidate",
+  "blockers": [
+    "AE-001: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-002: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-003: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-004: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-005: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-006: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-007: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-008: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-010: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-011: actual Agent execution/review evidence NotRun, missing or failed",
+    "AE-012: actual Agent execution/review evidence NotRun, missing or failed"
+  ],
+  "framework_sha256": "f2d460b6daf7da5b55254380e1375a28e4119ebfd08d5bf51ce6f6a3821f87e7",
+  "delivery_sha256": "5ac3b56bb45061789d8a2cb886b93c1fa81659c7b2ee2fdbeb8f736a4d7549dc",
+  "evidence_sha256": {
+    "checks/verification.json": "c9954b1bd7ca2e06a486bebfa305bd0d1839444ae1dc094ec4ccc5efd161c39a",
+    "checks/release-readiness.json": "ad2df5860dd292638dacddf8df58a8009fcab4b4c8df851c715f6199234a9e39",
+    "final-links-fixed.log": "9d69866c3aee1efca66ea3c91ce4f706cac6ad12c37cabac83d30c7a2beb0bce",
+    "measurement-index.json": "107e1af06da171de8e27b41c6192ea3839c808b9f58aa8ff6d5b3be5bff64961",
+    "fixtures/summary.json": "ef25afdc510e94f9a2c797b153bceb282d957a79324c8c420bc344fdfcd91953",
+    "skill-hub-status.json": "0c952548b3733030b3650ed8947aa2c69f595468e6943a540d4e20d1c1d8ee86",
+    "result.json": "0cabb211621bc94409a54dc1477143f167d02063b0ae8631b9fbc201caa6f8c7",
+    "result-validation.log": "c801c033ee3f38425810f309fb2951eb2ffc8c2f49a522925d0732dfcd01a6e3"
+  },
+  "validation_notes": [
+    "final-links.log retained the first failed report-link check; corrected relative report link passed in final-links-fixed.log",
+    "Standalone tools/skill-packaging/validate-report.py requires --schema; final report validated using the installed Skill script with its bundled schema"
+  ],
+  "git_actions": "No commit, push or release performed"
+}

@@ -82,7 +82,7 @@ impl Drop for DrainGuard {
 #[derive(Clone, Debug)]
 /// Combined application snapshots; fields are sampled independently.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct RuntimeMetrics {
     /// Isolated application identity attached to this snapshot.

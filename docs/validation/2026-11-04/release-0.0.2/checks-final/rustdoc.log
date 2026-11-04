@@ -1,0 +1,3 @@
+$ ["cargo", "doc", "--workspace", "--all-features", "--no-deps", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.11s
+   Generated /home/rangh/aispace/modorch-rs/target/doc/basic_app/index.html and 19 other files

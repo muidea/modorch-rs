@@ -106,7 +106,7 @@ def main():
                    "status": "Passed" if valid else "Failed", "exit_code": 0 if valid else 1,
                    "evidence": str(output.relative_to(ROOT)), "sha256": hashlib.sha256(output.read_bytes()).hexdigest()})
     save()
-    record("static", [[sys.executable, "tools/doc-validation/run.py", "--results", str(args.output / "test.log")]])
+    record("static", [[sys.executable, "tools/doc-validation/run.py", "--results", str(args.output / "test.log"), "--tooling-results", str(args.output / "tooling-tests.log")]])
     readiness = gate.validate(report)
     (args.output / "release-readiness.json").write_text(json.dumps(readiness, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"local_checks": "Passed" if all(row["status"] == "Passed" for row in checks) else "Failed", "release": readiness["status"]}))

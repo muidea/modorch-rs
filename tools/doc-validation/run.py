@@ -67,7 +67,7 @@ def links(root=ROOT):
     return {"local_links_checked": checked, "remote_links": "NotRun (offline gate)"}
 
 
-def contracts(root=ROOT, results=None):
+def contracts(root=ROOT, results=None, tooling_results=None):
     mapping = load(root / "tests/contracts/mapping.json")
     ids, semantics = set(), set()
     log = pathlib.Path(results).read_text() if results else None
@@ -88,12 +88,23 @@ def contracts(root=ROOT, results=None):
             raise ValueError(f"no actual passing result: {row['test_id']}")
     if semantics != {f"SEM-{i:03}" for i in range(1, 13)}:
         raise ValueError("SEM-001..012 mapping is incomplete")
+    tooling_log = pathlib.Path(tooling_results).read_text() if tooling_results else None
+    for row in mapping.get("tooling_tests", []):
+        body = (root / row["contract"]).read_text()
+        source = (root / row["source"]).read_text()
+        if row["test_id"] in ids or row["test_id"] not in body or row["rule_id"] not in body:
+            raise ValueError("invalid tooling Contract Test ID: " + row["test_id"])
+        ids.add(row["test_id"])
+        if not re.search(r"(?m)^    def " + re.escape(row["name"]) + r"\(self\):", source):
+            raise ValueError("missing mapped tooling test: " + row["name"])
+        if tooling_log is not None and not re.search(r"(?m)^" + re.escape(row["name"]) + r" \([^\n]+\) \.\.\. ok$", tooling_log):
+            raise ValueError("no actual passing tooling result: " + row["test_id"])
     python_source = (root / "tests/agent-evals/test_tooling.py").read_text()
     for filename in ("compatibility-contract.md", "validation-contract.md"):
         for name in re.findall(r"\[(test_\w+)\]", (root / "contracts" / filename).read_text()):
             if f"def {name}(" not in python_source:
                 raise ValueError(f"missing tooling contract test: {name}")
-    return {"contract_tests": len(ids), "test_execution": "Passed" if log is not None else "NotRun (mapping only)"}
+    return {"contract_tests": len(ids), "test_execution": "Passed" if log is not None else "NotRun (mapping only)", "tooling_execution": "Passed" if tooling_log is not None else "NotRun (mapping only)"}
 
 
 def frontmatter(path):
@@ -124,7 +135,7 @@ def frontmatter(path):
         raise ValueError("Skill name must match its directory")
     if len(result["name"]) > 64 or not 1 <= len(result.get("description", "")) <= 1024:
         raise ValueError("Skill metadata length is invalid")
-    if result["metadata"].get("version") != "1.0.3":
+    if result["metadata"].get("version") != "1.0.5":
         raise ValueError("Skill revision missing or inconsistent")
     return result, body
 
@@ -184,8 +195,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("kind", nargs="?", choices=["links", "contracts", "skills", "matrix", "drift", "all"], default="all")
     parser.add_argument("--results", type=pathlib.Path)
+    parser.add_argument("--tooling-results", type=pathlib.Path)
     args = parser.parse_args()
-    checks = {"links": links, "contracts": lambda: contracts(results=args.results), "skills": skills, "matrix": matrix, "drift": drift}
+    checks = {"links": links, "contracts": lambda: contracts(results=args.results, tooling_results=args.tooling_results), "skills": skills, "matrix": matrix, "drift": drift}
     reports = []
     for name, check in checks.items():
         if args.kind not in ("all", name):

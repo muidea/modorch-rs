@@ -1,0 +1,13 @@
+{
+  "status": "Passed",
+  "framework_version": "0.0.1",
+  "features": [
+    "config-toml",
+    "default",
+    "eventhub",
+    "runtime",
+    "scheduler"
+  ],
+  "framework_sha256": "f2d460b6daf7da5b55254380e1375a28e4119ebfd08d5bf51ce6f6a3821f87e7",
+  "skill_revision": "1.0.4"
+}

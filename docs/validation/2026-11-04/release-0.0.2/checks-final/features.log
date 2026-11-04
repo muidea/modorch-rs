@@ -1,0 +1,12 @@
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.10s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "eventhub", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "scheduler", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "runtime", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "config-toml", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "observability", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s

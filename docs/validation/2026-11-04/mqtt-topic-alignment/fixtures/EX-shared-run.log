@@ -1,0 +1,6 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling modorch-minimal-template v0.0.1 (/tmp/modorch-cleanroom-oikaxjlq/EX-shared)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 7.30s
+     Running `/home/rangh/aispace/modorch-rs/target/debug/modorch-minimal-template`
+hello from a leased service
+shared-service: released=true

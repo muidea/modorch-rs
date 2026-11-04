@@ -1,0 +1,80 @@
+{
+  "status": "Passed",
+  "binary_sha256": "c1fd1333b1209f1f82b2eca9bf73a802dafe939bf6c8434f0e6b9f6077d9626e",
+  "limits": [
+    "Local short workload, concurrent host load; not a production latency SLO or long-duration memory guarantee",
+    "RSS budget 8192 KiB bounds three-cycle idle growth, not precise heap allocation"
+  ],
+  "runs": [
+    {
+      "command": [
+        "/home/rangh/aispace/modorch-rs/target/release/mixed-load",
+        "--policy",
+        "concurrent",
+        "--seconds",
+        "2",
+        "--cycles",
+        "3",
+        "--subscriptions",
+        "1024",
+        "--cpu-iterations",
+        "10000",
+        "--async-ms",
+        "1",
+        "--blocking-ms",
+        "1",
+        "--idle-ms",
+        "200",
+        "--recover",
+        "true",
+        "--max-idle-rss-growth-kib",
+        "8192"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "files": {
+        "concurrent.json": "345e9dbe4f163945fb48481f23d099de8a35e31e4ea430f1513f4d2b27325b50",
+        "concurrent.log": "32e086f31fa62012ccacb3b1b70e263c6bcd1ada6804962433e3c5a83f0227d7"
+      },
+      "successful_per_active_second": 45826.87104461628,
+      "idle_rss_growth_kib": 1920,
+      "recoveries": 3,
+      "errors": []
+    },
+    {
+      "command": [
+        "/home/rangh/aispace/modorch-rs/target/release/mixed-load",
+        "--policy",
+        "dynamic",
+        "--seconds",
+        "2",
+        "--cycles",
+        "3",
+        "--subscriptions",
+        "1024",
+        "--cpu-iterations",
+        "10000",
+        "--async-ms",
+        "1",
+        "--blocking-ms",
+        "1",
+        "--idle-ms",
+        "200",
+        "--recover",
+        "true",
+        "--max-idle-rss-growth-kib",
+        "8192"
+      ],
+      "exit_code": 0,
+      "status": "Passed",
+      "files": {
+        "dynamic.json": "a4bb9e8c643376f6e66a656c0dabdef4df287bd0568f23424f845b6e9acaaadf",
+        "dynamic.log": "32e086f31fa62012ccacb3b1b70e263c6bcd1ada6804962433e3c5a83f0227d7"
+      },
+      "successful_per_active_second": 52951.30824087753,
+      "idle_rss_growth_kib": 1248,
+      "recoveries": 3,
+      "errors": []
+    }
+  ]
+}

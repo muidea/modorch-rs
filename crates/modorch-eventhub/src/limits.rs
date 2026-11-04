@@ -16,7 +16,9 @@ pub struct HubLimits {
     pub max_in_flight_bytes_per_target: Option<usize>,
     /// Optional maximum declared cost of one message.
     pub max_message_bytes: Option<usize>,
-    /// Maximum UTF-8 bytes in a topic or named destination.
+    /// Local UTF-8 byte budget for Topic Names, Filters and named destinations.
+    /// Defaults to 1024, independent of MQTT's 65535-byte Name/Filter ceiling.
+    /// Legal Names/Filters exceeding this budget return ResourceLimit.
     pub max_topic_bytes: usize,
     /// Maximum UTF-8 bytes in a lane key.
     pub max_lane_key_bytes: usize,
@@ -47,7 +49,7 @@ impl Default for HubLimits {
 impl HubLimits {
     /// Reject invalid or overflowing resource limits before any work is created.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.1; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
     pub fn validate(&self) -> FrameworkResult<()> {
         if [
             self.max_waiters,
@@ -73,17 +75,31 @@ impl HubLimits {
         }
         Ok(())
     }
+    pub(crate) fn subscription(&self, pattern: &str) -> FrameworkResult<topic::TopicFilter> {
+        let filter = topic::TopicFilter::parse(pattern)?;
+        self.topic_budget(pattern)?;
+        Ok(filter)
+    }
+    fn topic_budget(&self, raw: &str) -> FrameworkResult<()> {
+        if raw.len() > self.max_topic_bytes {
+            return Err(FrameworkError::ResourceLimit(
+                "local topic byte budget".into(),
+            ));
+        }
+        Ok(())
+    }
     pub(crate) fn message(
         &self,
         topic: &str,
         destination: &Destination,
         options: &MessageOptions,
     ) -> FrameworkResult<usize> {
+        topic::validate_name(topic)?;
+        self.topic_budget(topic)?;
         let header_bytes = options.headers.iter().try_fold(0usize, |n, (k, v)| {
             n.checked_add(k.len())?.checked_add(v.len())
         });
-        if topic.len() > self.max_topic_bytes
-            || matches!(destination, Destination::Named(name) if name.len() > self.max_topic_bytes)
+        if matches!(destination, Destination::Named(name) if name.len() > self.max_topic_bytes)
             || options
                 .lane_key
                 .as_ref()
@@ -126,7 +142,7 @@ impl HubLimits {
 #[derive(Clone, Copy, Debug, Default)]
 /// Current admission waiters and declared retained payload costs.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct AdmissionMetrics {
     /// Current bounded resource/admission waiters.

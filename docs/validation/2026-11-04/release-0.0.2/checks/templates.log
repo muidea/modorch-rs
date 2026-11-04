@@ -1,0 +1,32 @@
+$ ["cargo", "fmt", "--manifest-path", "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml", "--", "--check"]
+$ ["cargo", "check", "--manifest-path", "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.06s
+$ ["cargo", "test", "--manifest-path", "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml", "--locked", "--offline"]
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.20s
+     Running unittests src/main.rs (target/debug/deps/modorch_minimal_template-e26c6899bdc3a8e5)
+
+running 1 test
+test shutdown_timeout_keeps_the_owner_until_actual_exit ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+$ ["cargo", "run", "--manifest-path", "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.14s
+     Running `target/debug/modorch-minimal-template`
+shutdown: timeout retained resources, retry drained
+$ ["cargo", "fmt", "--manifest-path", "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml", "--", "--check"]
+$ ["cargo", "check", "--manifest-path", "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.17s
+$ ["cargo", "test", "--manifest-path", "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml", "--locked", "--offline"]
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.21s
+     Running unittests src/main.rs (target/debug/deps/modorch_modular_template-33149f3ef71f1758)
+
+running 1 test
+test config_service_request_and_timer_are_integrated ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+$ ["cargo", "run", "--manifest-path", "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.12s
+     Running `target/debug/modorch-modular-template`
+modular-service: hello 42, ticks>=2, drained

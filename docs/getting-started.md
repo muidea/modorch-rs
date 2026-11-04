@@ -1,6 +1,6 @@
 # 从零运行 Modorch 应用
 
-> Applies to: modorch 0.0.1 当前开发树；Rust >= 1.85，Edition 2024
+> Applies to: modorch 0.0.2 当前开发树；Rust >= 1.85，Edition 2024
 > Capability status: Verified；2026-11-02，Linux x86_64 / Rust 1.94；其他平台 NotRun
 
 ## Goal
@@ -46,7 +46,7 @@ cargo run --manifest-path /tmp/modorch-hello/Cargo.toml --locked --offline
 
 ## Validation commands
 
-上面的 check/test/run 是干净目录 smoke；框架本身使用 CONTRIBUTING 中完整门禁。完整日志见[本次验证](validation/2026-11-02/release-0.0.1/README.md)。
+上面的 check/test/run 是干净目录 smoke；框架本身使用 CONTRIBUTING 中完整门禁。完整日志见[本次验证](validation/2026-11-04/release-0.0.2/README.md)。
 
 ## Related API / Examples / Tests
 

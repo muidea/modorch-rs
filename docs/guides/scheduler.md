@@ -1,8 +1,8 @@
 # 后台、周期和阻塞任务
 
-> Applies to: modorch 0.0.1 开发树，按框架指纹匹配
-> Capability status: Verified（仅[本次验证](../validation/2026-11-02/release-0.0.1/README.md)列出的命令与 Linux / Rust 1.94 范围）
-> Last validated: 2026-11-02；本地日志，远程 CI NotRun
+> Applies to: modorch 0.0.2 开发树，按框架指纹匹配
+> Capability status: Verified（仅[本次验证](../validation/2026-11-04/release-0.0.2/README.md)列出的命令与 Linux / Rust 1.94 范围）
+> Last validated: 2026-11-04；本地日志，远程 CI NotRun
 
 ## Goal
 

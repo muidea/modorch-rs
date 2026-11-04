@@ -1,0 +1,10 @@
+$ ["skill-hub", "feedback", "--pattern", "modorch-*", "--force"]
+项目路径: /home/rangh/aispace/modorch-rs
+total:   3
+applied: 3
+planned: 0
+skipped: 0
+failed:  0
+- [applied] modorch-app-development
+- [applied] modorch-framework-maintenance
+- [applied] modorch-module-development

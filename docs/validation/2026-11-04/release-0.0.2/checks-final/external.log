@@ -1,0 +1,3 @@
+$ ["cargo", "run", "--manifest-path", "tests/fixtures/external-app/Cargo.toml", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running `target/debug/modorch-external-consumer`

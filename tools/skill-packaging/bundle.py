@@ -14,7 +14,7 @@ import tempfile
 from preflight import digest
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-REVISION = "1.0.3"
+REVISION = "1.0.5"
 MAX_ARCHIVE_BYTES = 16 * 1024 * 1024
 
 
@@ -39,9 +39,9 @@ def build(output, root=ROOT):
     files = {name: sha(data) for name, data in sorted(content.items())}
     manifest = {
         "format_version": 1, "bundle_revision": REVISION,
-        "framework_version": "0.0.1", "framework_identity": framework["identity"],
+        "framework_version": "0.0.2", "framework_identity": framework["identity"],
         "compatible_versions": framework["compatible_versions"],
-        "contracts_revision": "1.0.0", "files": files,
+        "contracts_revision": "1.1.0", "files": files,
         "tree_sha256": digest(files),
         "hash_algorithm": "sha256(sorted UTF-8 path + NUL + lowercase file sha256 + LF)",
         "release_status": "Candidate; consult release-gate evidence before publication",

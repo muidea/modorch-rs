@@ -4,7 +4,7 @@ use std::ops::Bound::{Included, Unbounded};
 pub(crate) struct RouteIndex {
     entries: BTreeMap<SubscriptionId, SubscriptionSpec>,
     exact: BTreeMap<String, BTreeMap<ComponentRef, BTreeSet<SubscriptionId>>>,
-    wildcard: BTreeMap<ComponentRef, BTreeMap<SubscriptionId, Vec<String>>>,
+    wildcard: BTreeMap<ComponentRef, BTreeMap<SubscriptionId, topic::TopicFilter>>,
 }
 impl RouteIndex {
     pub fn len(&self) -> usize {
@@ -13,19 +13,17 @@ impl RouteIndex {
     pub fn contains_key(&self, id: &SubscriptionId) -> bool {
         self.entries.contains_key(id)
     }
-    pub fn insert(&mut self, id: SubscriptionId, spec: SubscriptionSpec) {
-        if spec
-            .topic_pattern
-            .split('/')
-            .any(|s| s == "+" || s == "#" || s.starts_with(':'))
-        {
+    pub fn insert(
+        &mut self,
+        id: SubscriptionId,
+        spec: SubscriptionSpec,
+        filter: topic::TopicFilter,
+    ) {
+        if filter.has_wildcards() {
             self.wildcard
                 .entry(spec.target.clone())
                 .or_default()
-                .insert(
-                    id,
-                    spec.topic_pattern.split('/').map(str::to_owned).collect(),
-                );
+                .insert(id, filter);
         } else {
             self.exact
                 .entry(spec.topic_pattern.clone())
@@ -85,9 +83,13 @@ impl RouteIndex {
         topic: &'a str,
         destination: &'a Destination,
     ) -> impl Iterator<Item = &'a SubscriptionSpec> {
-        let eligible = move |s: &&SubscriptionSpec| match &s.destination_pattern {
-            DestinationPattern::Any => true,
-            DestinationPattern::Exact(d) => d == destination,
+        let valid = topic::validate_name(topic).is_ok();
+        let eligible = move |s: &&SubscriptionSpec| {
+            valid
+                && match &s.destination_pattern {
+                    DestinationPattern::Any => true,
+                    DestinationPattern::Exact(d) => d == destination,
+                }
         };
         let exact = self
             .exact
@@ -99,25 +101,52 @@ impl RouteIndex {
             .filter(eligible);
         let wildcard = Self::targets(&self.wildcard, destination)
             .flat_map(|(_, patterns)| patterns)
-            .filter_map(move |(id, pattern)| {
+            .filter_map(move |(id, filter)| {
                 let spec = &self.entries[id];
                 if !eligible(&spec) {
                     return None;
                 }
-                let mut actual = topic.split('/');
-                for segment in pattern {
-                    if segment == "#" {
-                        return Some(spec);
-                    }
-                    let value = actual.next()?;
-                    if value.is_empty()
-                        || !(segment == "+" || segment.starts_with(':') || segment == value)
-                    {
-                        return None;
-                    }
-                }
-                actual.next().is_none().then_some(spec)
+                filter.matches_validated(topic).then_some(spec)
             });
         exact.chain(wildcard)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn mqtt_vectors_agree_with_helper_and_route_index() {
+        for &(id, pattern, topic, filter_valid, name_valid, matched) in
+            crate::topic_vectors::VECTORS
+        {
+            assert_eq!(topic_matches(pattern, topic), matched, "helper: {id}");
+            assert_eq!(
+                topic::validate_name(topic).is_ok(),
+                name_valid,
+                "name: {id}"
+            );
+            let filter = topic::TopicFilter::parse(pattern);
+            assert_eq!(filter.is_ok(), filter_valid, "filter: {id}");
+            if let Ok(filter) = filter {
+                let mut index = RouteIndex::default();
+                let target = ComponentRef::module("conformance");
+                index.insert(1, SubscriptionSpec::new(1, target, pattern), filter);
+                assert_eq!(
+                    index.matching(topic, &Destination::Broadcast).count(),
+                    usize::from(matched),
+                    "index: {id}"
+                );
+                if pattern.contains(':') {
+                    assert!(
+                        index.wildcard.is_empty(),
+                        "literal filter must use exact index"
+                    );
+                }
+                index.remove(&1).unwrap();
+                assert!(index.exact.is_empty() && index.wildcard.is_empty());
+                assert_eq!(index.matching(topic, &Destination::Broadcast).count(), 0);
+            }
+        }
     }
 }

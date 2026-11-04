@@ -3,7 +3,7 @@ use crate::*;
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 /// Supervised component lifecycle state within an application generation.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum ComponentState {
     /// Running start and readiness hooks.
@@ -24,7 +24,7 @@ pub enum ComponentState {
 #[derive(Clone, Debug)]
 /// Latest component state, generation, cumulative restart count and failure.
 ///
-/// Development API for modorch 0.0.1. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ComponentHealth {
     /// Current lifecycle state, as indicated by the enclosing type.

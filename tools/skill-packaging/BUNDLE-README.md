@@ -1,6 +1,6 @@
-# Modorch Skills 1.0.3 Candidate
+# Modorch Skills 1.0.5 Candidate
 
-Framework: modorch 0.0.1 development tree, exact source fingerprint in manifest.json.
+Framework: modorch 0.0.2 development tree, exact source fingerprint in manifest.json.
 License: MIT. Requires Rust >= 1.85, Cargo, Python >= 3.11 and a resolved lockfile/cache.
 
 This bundle contains complete Agent Skills in skills/. Adding a Cargo dependency does

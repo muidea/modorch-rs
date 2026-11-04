@@ -110,7 +110,7 @@ async fn serial_fifo_dynamic_subscriptions_and_typed_requests() {
         .subscribe(SubscriptionSpec::new(
             2,
             ComponentRef::module("a"),
-            "test/:id",
+            "test/+",
         ))
         .unwrap();
     assert!(added.generation > removed.generation);
@@ -370,7 +370,7 @@ async fn partitioned_same_key_is_fifo_and_independent_shards_progress() {
 }
 #[test]
 fn patterns_are_directional_and_segment_based() {
-    assert!(topic_matches("orders/+/:id/#", "orders/create/42/a"));
+    assert!(topic_matches("orders/+/+/#", "orders/create/42/a"));
     assert!(topic_matches("orders/#", "orders"));
     assert!(!topic_matches("orders/x", "orders/+"));
     assert!(!topic_matches("orders/+", "orders/x/y"));
@@ -1472,8 +1472,11 @@ async fn metadata_and_subscription_bounds_reject_before_dispatch() {
         hub.subscribe(SubscriptionSpec::new(2, ComponentRef::module("a"), "other")),
         Err(FrameworkError::ResourceLimit(_))
     ));
+    assert!(matches!(
+        hub.command("test/long", dest("a"), 0usize, Default::default()),
+        Err(FrameworkError::ResourceLimit(_))
+    ));
     for (topic, options) in [
-        ("test/long", MessageOptions::default()),
         (
             "test/x",
             MessageOptions {
