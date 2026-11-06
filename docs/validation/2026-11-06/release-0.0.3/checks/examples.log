@@ -1,0 +1,66 @@
+$ ["cargo", "run", "-p", "basic-app", "--locked", "--offline"]
+   Compiling modorch-core v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+   Compiling modorch-eventhub v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+   Compiling modorch-registry v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+   Compiling modorch-scheduler v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+   Compiling modorch-runtime v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling basic-app v0.0.3 (/home/rangh/aispace/modorch-rs/examples/basic-app)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 17.80s
+     Running `target/debug/basic-app`
+basic-app: stopped
+$ ["cargo", "run", "-p", "shared-service", "--locked", "--offline"]
+   Compiling shared-service v0.0.3 (/home/rangh/aispace/modorch-rs/examples/shared-service)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.53s
+     Running `target/debug/shared-service`
+hello from a leased service
+shared-service: released=true
+$ ["cargo", "run", "-p", "event-messaging", "--locked", "--offline"]
+   Compiling event-messaging v0.0.3 (/home/rangh/aispace/modorch-rs/examples/event-messaging)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.06s
+     Running `target/debug/event-messaging`
+event-messaging: accepted=2, processed=2
+$ ["cargo", "run", "-p", "request-response", "--locked", "--offline"]
+   Compiling request-response v0.0.3 (/home/rangh/aispace/modorch-rs/examples/request-response)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.00s
+     Running `target/debug/request-response`
+request-response: completed=42, timeout=Indeterminate
+$ ["cargo", "run", "-p", "scheduled-tasks", "--locked", "--offline"]
+   Compiling scheduled-tasks v0.0.3 (/home/rangh/aispace/modorch-rs/examples/scheduled-tasks)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.28s
+     Running `target/debug/scheduled-tasks`
+scheduled-tasks: once completed, ticks>=2, drained
+$ ["cargo", "run", "-p", "lifecycle", "--locked", "--offline"]
+   Compiling lifecycle v0.0.3 (/home/rangh/aispace/modorch-rs/examples/lifecycle)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.68s
+     Running `target/debug/lifecycle`
+lifecycle: setup failed, compensated, primary error retained
+$ ["cargo", "run", "-p", "minimal-app", "--locked", "--offline"]
+    Blocking waiting for file lock on artifact directory
+   Compiling modorch-core v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+   Compiling modorch-eventhub v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+   Compiling modorch-scheduler v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+   Compiling modorch-registry v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+   Compiling modorch-runtime v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling minimal-app v0.0.3 (/home/rangh/aispace/modorch-rs/examples/minimal-app)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 14.81s
+     Running `target/debug/minimal-app`
+$ ["cargo", "run", "-p", "stateful-initiator", "--locked", "--offline"]
+    Blocking waiting for file lock on artifact directory
+   Compiling stateful-initiator v0.0.3 (/home/rangh/aispace/modorch-rs/examples/stateful-initiator)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.18s
+     Running `target/debug/stateful-initiator`
+hello from a leased service
+$ ["cargo", "run", "-p", "multi-module", "--locked", "--offline"]
+    Blocking waiting for file lock on artifact directory
+   Compiling multi-module v0.0.3 (/home/rangh/aispace/modorch-rs/examples/multi-module)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.43s
+     Running `target/debug/multi-module`
+stored orders: 1
+$ ["cargo", "run", "-p", "graceful-http", "--locked", "--offline", "--", "--once"]
+    Blocking waiting for file lock on artifact directory
+   Compiling graceful-http v0.0.3 (/home/rangh/aispace/modorch-rs/examples/graceful-http)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.85s
+     Running `target/debug/graceful-http --once`
+http://127.0.0.2:50243

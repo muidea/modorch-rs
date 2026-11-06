@@ -8,7 +8,7 @@ use std::{
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 /// Execution class; ordering policy is configured separately on the component.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum TaskClass {
     /// Owned asynchronous work on the host Tokio runtime.
@@ -21,7 +21,7 @@ pub enum TaskClass {
 #[derive(Clone, Copy, Debug, Default)]
 /// Current per-owner task quota, waiters and execution distribution.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct OwnerTaskMetrics {
     /// Maximum admitted tasks in the relevant global or owner scope.
@@ -46,7 +46,7 @@ pub struct OwnerTaskMetrics {
 #[derive(Clone, Copy, Debug, Default)]
 /// Bounded executor counters and approximate latency quantiles.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ExecutionResourceMetrics {
     /// Maximum queued or admitted count for this bounded domain.

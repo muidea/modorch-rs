@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.3 Candidate — Module 入口增强（2026-11-06）
+
+- Module 增加可选 activate_ingress，初始启动与监督重建统一入口屏障；公开 API 默认无操作，保留服务发布边界。
+- 修复重建激活失败绕过补偿与重试的问题；完整激活成功后统一发布相关组件 Ready。
+- TCP 预绑定示例改用未 listen 的 TcpSocket，HTTP 示例以普通 Module 实现；增加真实网络、关闭、代际和预算回归。
+- Contract 1.2.0 / Skill 1.0.7 绑定新开发树指纹；迁移见 [记录](docs/migration/0.1-development.md)，证据见 [验收](docs/validation/2026-11-06/release-0.0.3/README.md)。
+
 ## 0.0.2 Candidate — MQTT Topic 对齐（2026-11-04）
 
 - **Breaking**：Topic Filter 统一 MQTT 3.1.1/5.0；`:id` 是字面量，单层通配改用 `+`。支持空层、`#` 零层与 `$` 根通配排除。

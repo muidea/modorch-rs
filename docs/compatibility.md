@@ -1,6 +1,6 @@
 # 版本与兼容性
 
-所有框架 crate 使用同一 `0.0.2` 版本系列，Rust Edition 2024、Cargo resolver 3、MIT 许可证。0.x 期间公共 API 仍可按小版本演进，尚无正式 Registry 发布或包名占用声明。稳定 API 仅通过 Facade 引入，业务 DTO 版本由能力 Owner 管理。
+所有框架 crate 使用同一 `0.0.3` 版本系列，Rust Edition 2024、Cargo resolver 3、MIT 许可证。0.x 期间公共 API 仍可按小版本演进，尚无正式 Registry 发布或包名占用声明。稳定 API 仅通过 Facade 引入，业务 DTO 版本由能力 Owner 管理。
 
 Feature 表：
 
@@ -37,3 +37,15 @@ Cargo Feature 是加法组合，不能隔离同一依赖图中不同消费者的
 本轮发布 0.0.2 Candidate；已发布 v0.0.1 的源码/Bundle 不被改写。新开发树 Contract revision 1.1.0 / Skill revision 1.0.5，须按新框架指纹选包。
 
 `:id` 从单层通配改为字面量，迁移 `orders/:id/changed` 为 `orders/+/changed`。`+` 现在包含空层，`orders/#` 包含 `orders`；根 `+/#` 排除 `$` 名称，系统树用 `$SYS/#` 显式订阅。中间/嵌入通配非法，所有消息入口拒绝空 Name、NUL、wildcard 和超 65535 UTF-8 字节。标准合法但超本地 Topic 预算（默认 1024）由 InvalidConfig 改为 ResourceLimit；Named destination 等其他元数据校验保持原约束。没有 Legacy matcher。迁移须审计 Handler 对空层的假设和 ACL 的扩大匹配范围。API 字符串字段、Destination、Lane、Accepted 和请求超时含义保持；详见[迁移步骤](migration/0.1-development.md)。
+
+## 2026-11-06 Module 入口增强（0.0.2 开发树）
+
+新增默认无操作的 `Module::activate_ingress`，覆盖时在 impl 添加 `#[async_trait]`，不覆盖的既有 Module 无需修改。同名固有方法在调用时可能遮蔽 trait 方法，可用 `<T as Module>::activate_ingress` 限定。只通过 Facade 引入 API，不放开 Module 的服务发布权限。
+
+将 start/ready 中的监听迁入 activate_ingress；setup 若预绑定，改用未 listen 的 TcpSocket，避免 TcpListener::bind 提前接受 TCP 握手。长期任务使用 ctx.tasks，入口消息使用 ctx.event_hub.external()，停止时保留任务/资源至实际退出。
+
+监督重建的激活失败现在会先补偿并在剩余累计预算内重试，预算耗尽才 FailFast；旧任务/服务能力失效，应用级 Hub 仍有效。需要依赖“激活失败立即全应用退出”的宿主应检查 FailurePolicy。框架版本仍为 0.0.2 开发树，已发布 v0.0.2 工件不含此变更；使用 Skill 1.0.6 / Contract 1.2.0 及新源码指纹。验证见[入口验收](validation/2026-11-06/module-ingress/README.md)。
+
+## 0.0.3 Candidate 发布（2026-11-06）
+
+0.0.3 包含上节 Module 入口增强及重建激活失败补偿；八个框架 crate、示例和模板统一版本，契约 revision 1.2.0，匹配 Skill 1.0.7。1.0.6 是 0.0.2 开发树的本地验证归档，0.0.3 须安装新指纹 Bundle。旧 v0.0.1 / v0.0.2 工件不覆盖。发布范围仍为 GitHub 预发布源码与 Candidate Skill Bundle，未 cargo publish。验证见 [0.0.3 验收](validation/2026-11-06/release-0.0.3/README.md)。

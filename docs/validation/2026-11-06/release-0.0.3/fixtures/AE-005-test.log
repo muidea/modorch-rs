@@ -1,0 +1,10 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling modorch-minimal-template v0.0.3 (/tmp/modorch-cleanroom-le2go9gk/AE-005)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.57s
+     Running unittests src/main.rs (/home/rangh/aispace/modorch-rs/target/debug/deps/modorch_minimal_template-66510d274a014990)
+
+running 1 test
+test timers_stop_and_dispatched_tasks_drain ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

@@ -1,0 +1,21 @@
+$ ["cargo", "doc", "--workspace", "--all-features", "--no-deps", "--locked", "--offline"]
+    Checking modorch-runtime v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+ Documenting modorch-runtime v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+    Checking modorch-observe v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+    Checking modorch v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch)
+ Documenting multi-module v0.0.2 (/home/rangh/aispace/modorch-rs/examples/multi-module)
+ Documenting shared-service v0.0.2 (/home/rangh/aispace/modorch-rs/examples/shared-service)
+ Documenting runtime-load v0.0.2 (/home/rangh/aispace/modorch-rs/examples/runtime-load)
+ Documenting basic-app v0.0.2 (/home/rangh/aispace/modorch-rs/examples/basic-app)
+ Documenting graceful-http v0.0.2 (/home/rangh/aispace/modorch-rs/examples/graceful-http)
+ Documenting event-messaging v0.0.2 (/home/rangh/aispace/modorch-rs/examples/event-messaging)
+ Documenting minimal-app v0.0.2 (/home/rangh/aispace/modorch-rs/examples/minimal-app)
+ Documenting request-response v0.0.2 (/home/rangh/aispace/modorch-rs/examples/request-response)
+ Documenting scheduled-tasks v0.0.2 (/home/rangh/aispace/modorch-rs/examples/scheduled-tasks)
+ Documenting stateful-initiator v0.0.2 (/home/rangh/aispace/modorch-rs/examples/stateful-initiator)
+ Documenting lifecycle v0.0.2 (/home/rangh/aispace/modorch-rs/examples/lifecycle)
+ Documenting mixed-load v0.0.2 (/home/rangh/aispace/modorch-rs/examples/mixed-load)
+ Documenting modorch v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch)
+ Documenting modorch-observe v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 13.66s
+   Generated /home/rangh/aispace/modorch-rs/target/doc/basic_app/index.html and 19 other files

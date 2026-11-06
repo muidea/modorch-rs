@@ -1,0 +1,28 @@
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "", "--locked", "--offline"]
+    Checking modorch-core v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+    Checking modorch-registry v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+    Checking modorch v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.74s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "eventhub", "--locked", "--offline"]
+    Checking modorch-eventhub v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+    Checking modorch v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.85s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "scheduler", "--locked", "--offline"]
+    Checking modorch-scheduler v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+    Checking modorch v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.72s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "runtime", "--locked", "--offline"]
+    Checking modorch-eventhub v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+    Checking modorch-runtime v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+    Checking modorch v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.02s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "config-toml", "--locked", "--offline"]
+    Checking modorch-core v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+    Checking modorch-registry v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+    Checking modorch-config v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-config)
+    Checking modorch v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.97s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "observability", "--locked", "--offline"]
+    Checking modorch-observe v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+    Checking modorch v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.20s

@@ -5,20 +5,20 @@
       "id": "components",
       "capability": "注册与显式启用",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "COMP-001",
         "COMP-002"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "dependencies",
       "capability": "依赖 DAG / 显式闭包",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "DEP-001",
@@ -26,191 +26,191 @@
         "DEP-003",
         "DEP-004"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "host-isolation",
       "capability": "宿主所有权与应用隔离",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "LIFE-001"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "startup-cleanup",
       "capability": "部分启动 / 清理重试",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "LIFE-002"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "shutdown",
       "capability": "检查式关闭 / Force",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "LIFE-003",
         "LIFE-004"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "supervision",
       "capability": "StopDependents / Restart",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "LIFE-005",
         "LIFE-006"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "messages",
       "capability": "Event / Command / typed Request",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "MSG-EVT-001",
         "MSG-CMD-001",
         "MSG-REQ-004"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "execution",
       "capability": "Serial / Partitioned / Concurrent",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "MSG-EXEC-001",
         "MSG-LANE-002"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "dynamic-lanes",
       "capability": "Dynamic 有界构造与回收",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "MSG-LANE-001"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "bounded-admission",
       "capability": "有界队列 / 字节 / 等待者",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "MSG-BOUND-001"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "routing",
       "capability": "订阅控制面 / 定向路由",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "MSG-ROUTE-001"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "reply-ownership",
       "capability": "回复消费 / 轻量观察",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "MSG-REPLY-001"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "tasks",
       "capability": "Owner Task / Timer / CPU / Blocking I/O",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "SCH-001",
         "SCH-002",
         "SCH-003"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "services",
       "capability": "类型化服务 / Borrowed / 租约",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "RES-001",
         "RES-002",
         "RES-003"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "observability",
       "capability": "观测快照与有界标签",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "OBS-001"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "configuration",
       "capability": "config-toml 严格装配",
       "status": "Verified",
-      "version": "0.0.2 + 当前源码指纹",
+      "version": "0.0.3 + 当前源码指纹",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "CFG-001"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "开发期可变 API；仅对应行为测试与本地平台，不推定生产 SLO。"
     },
     {
       "id": "durable-transport",
       "capability": "跨进程 / 持久化 / exactly-once",
       "status": "Unsupported",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "platform": "不适用",
       "rules": [],
       "evidence": "",
@@ -220,7 +220,7 @@
       "id": "plugin-abi",
       "capability": "动态插件 ABI / 热装载",
       "status": "Unsupported",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "platform": "不适用",
       "rules": [],
       "evidence": "",
@@ -230,7 +230,7 @@
       "id": "safe-force",
       "capability": "任意外部副作用安全强杀 / 自动回滚",
       "status": "Unsupported",
-      "version": "0.0.2",
+      "version": "0.0.3",
       "platform": "不适用",
       "rules": [],
       "evidence": "",
@@ -240,7 +240,7 @@
       "id": "agent-hosts",
       "capability": "多宿主实际 Agent E2E",
       "status": "Implemented",
-      "version": "Skill 1.0.5 Candidate",
+      "version": "Skill 1.0.7 Candidate",
       "platform": "独立宿主 NotRun",
       "rules": [],
       "evidence": "",
@@ -260,7 +260,7 @@
       "id": "mqtt-topics",
       "capability": "MQTT Topic Name / Filter 标准对齐",
       "status": "Verified",
-      "version": "0.0.2 开发树 / Contract 1.1.0",
+      "version": "0.0.3 开发树 / Contract 1.2.0",
       "platform": "Linux x86_64, Rust 1.94.0; MSRV 1.85 check",
       "rules": [
         "MSG-TOPIC-001",
@@ -269,8 +269,24 @@
         "MSG-TOPIC-004",
         "MSG-TOPIC-005"
       ],
-      "evidence": "docs/validation/2026-11-04/release-0.0.2/checks/test.log",
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
       "limits": "仅 Topic 匹配标准；无 MQTT 网络、QoS、Session 或共享组。破坏性语义迁移见 compatibility。"
+    },
+    {
+      "id": "module-ingress",
+      "capability": "Module / Initiator 统一入口激活",
+      "status": "Verified",
+      "version": "0.0.3 开发树 / Contract 1.2.0",
+      "platform": "Linux x86_64 / Rust 1.94；MSRV 1.85 check",
+      "rules": [
+        "LIFE-INGRESS-001",
+        "LIFE-INGRESS-002",
+        "LIFE-INGRESS-003",
+        "LIFE-INGRESS-004",
+        "LIFE-INGRESS-005"
+      ],
+      "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
+      "limits": "TCP 屏障为组件契约；Hub 不绑定生产者代际；无 MQTT Broker/QoS/Session，独立 Agent NotRun。"
     }
   ]
 }

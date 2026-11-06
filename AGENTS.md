@@ -1,6 +1,6 @@
 # Modorch-RS 仓库工作规则
 
-- 这是 Rust 框架库，当前 0.0.2 开发期，公开入口为 modorch Facade。只有 Initiator 与 Module 两种角色；Module 可有私有状态。
+- 这是 Rust 框架库，当前 0.0.3 开发期，公开入口为 modorch Facade。只有 Initiator 与 Module 两种角色；Module 可有私有状态。
 - 修改前读取 contracts/README.md、docs/reference/capability-matrix.md 与对应指南。docs/Modorch-RS-Framework-Design.md 按当前实现刷新；规划不能替代可调用 API。
 - 源码/Rustdoc 维护签名，Contracts 维护可观察保证；冲突须记录并修复，不能任选其一自证。行为规则与真实测试映射见 tests/contracts/mapping.json。
 - 应用持有 main、Runtime、信号、配置和 Subscriber。保持实例隔离、有界准入、Owner/代际与资源租约屏障；不要把 Accepted、超时、abort 当业务完成或正常资源释放。

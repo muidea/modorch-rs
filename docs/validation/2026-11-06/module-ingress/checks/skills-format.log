@@ -1,0 +1,15 @@
+$ ["skill-hub", "validate", "--pattern", "modorch-*", "--links"]
+验证技能合规性: modorch-*
+项目路径: /home/rangh/aispace/modorch-rs
+passed:   3
+failed:   0
+repaired: 0
+link issues: 0
+- [PASS] modorch-app-development
+- [PASS] modorch-framework-maintenance
+- [PASS] modorch-module-development
+
+==================================================
+✅ 验证通过！
+本地技能合规性验证完成
+==================================================

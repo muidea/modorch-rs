@@ -1,4 +1,4 @@
-> Generated snapshot; source: docs/testing-guide.md; source sha256: 950dab9bca305390cca5eec0a89c5b285c2ba2affda365d1a2291f83beb1e562; revision 1.0.5. Do not edit.
+> Generated snapshot; source: docs/testing-guide.md; source sha256: 9bb3cffc3ad6f589747830b4f91f9d3141edaaeb394579547d9588bfd713763c; revision 1.0.7. Do not edit.
 
 # 验证与证据维护
 
@@ -9,3 +9,5 @@ Contracts 的 Test ID 映射在 tests/contracts/mapping.json。修改行为时�
 Rustdoc 缺少公共条目说明在 CI 作为错误；cargo doc 不运行 doctest。模板在仓库内单独 check/test，也必须初始化到干净外部目录后运行。Skill 安装需检测哈希篡改、路径穿越、符号链接和冲突，重复安装应幂等。
 
 Agent E2E 与 fixture replay 分开记录。tests/agent-evals/cases.json 固定输入、范围与验收；run.py 记录实际宿主命令、版本、diff、日志和报告。缺少独立 Agent 执行证据保留 NotRun，release-gate.py 返回非零并维持 Candidate。
+
+Module / Initiator 入口以 crates/modorch/tests/ingress.rs 的真实 TCP 用例核对：全体 ready 前不可连接、部分激活失败/panic/任务配额补偿、真实绑定错误、取消启动等待、慢连接关闭固定点、重建失败补偿与预算、Context Hub 互通和跨应用隔离。旧服务能力代际测试继续使用 supervision.rs；应用级 Hub 不随重建失效。

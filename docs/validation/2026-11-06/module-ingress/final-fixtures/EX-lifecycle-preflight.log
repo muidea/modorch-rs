@@ -1,0 +1,12 @@
+{
+  "status": "Passed",
+  "framework_version": "0.0.2",
+  "features": [
+    "default",
+    "eventhub",
+    "runtime",
+    "scheduler"
+  ],
+  "framework_sha256": "f1c2f863fb3be622575de8fe18cead7056fe6f6da15ce96356bbf336c33ee5af",
+  "skill_revision": "1.0.6"
+}

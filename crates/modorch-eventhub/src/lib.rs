@@ -22,7 +22,7 @@
 //! ```
 //!
 //! # Stability
-//! Development API 0.0.2. No durable delivery, automatic retry or cross-process transport.
+//! Development API 0.0.3. No durable delivery, automatic retry or cross-process transport.
 //! Install workers only inside a host Tokio runtime; application shutdown owns drain.
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]
@@ -113,13 +113,13 @@ struct Inner {
 #[derive(Clone)]
 /// Application-local bounded message routing and component execution domains.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct EventHub(Arc<Inner>);
 #[derive(Clone, Copy, Debug)]
 /// Message admission and execution snapshot; accepted is not business completion.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct HubMetrics {
     /// Isolated application identity attached to this snapshot.
@@ -140,13 +140,13 @@ pub struct HubMetrics {
 impl EventHub {
     /// Create a hub with default validated admission limits.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn new(tracker: OperationTracker, failures: FailureReporter) -> Self {
         Self::with_limits(tracker, failures, HubLimits::default()).expect("valid default limits")
     }
     /// Construct an application-scoped hub after validating all admission budgets.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn with_limits(
         tracker: OperationTracker,
         failures: FailureReporter,
@@ -183,7 +183,7 @@ impl EventHub {
     /// return ResourceLimit. Both leave subscriptions and generation unchanged.
     /// Duplicate IDs reject the change. See [`topic_matches`] for matching semantics.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn subscribe(&self, spec: SubscriptionSpec) -> FrameworkResult<SubscriptionReceipt> {
         let filter = self.0.budget.limits.subscription(&spec.topic_pattern)?;
         let mut r = self.0.routing.lock().unwrap();
@@ -213,7 +213,7 @@ impl EventHub {
     }
     /// Remove a subscription and return an already-effective generation receipt; accepted work is unaffected.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn unsubscribe(&self, id: SubscriptionId) -> FrameworkResult<SubscriptionReceipt> {
         let mut r = self.0.routing.lock().unwrap();
         if r.terminated {
@@ -372,7 +372,7 @@ impl EventHub {
     }
     /// Fan out an event and report each target admission; accepted does not mean completed.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn publish<T: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -430,7 +430,7 @@ impl EventHub {
     }
     /// Route to exactly one component and acknowledge admission only; routing or capacity errors reject it.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn command<T: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -462,7 +462,7 @@ impl EventHub {
     }
     /// Admit one typed request; await its RequestHandle for business completion, separately from admission.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn request<T: Send + Sync + 'static, R: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -602,7 +602,7 @@ impl EventHub {
     }
     /// Capture independently sampled counters; this snapshot is not a transactional view.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn metrics(&self) -> HubMetrics {
         let r = self.0.routing.lock().unwrap();
         let mut workers = self.0.workers.lock().unwrap();
@@ -652,7 +652,7 @@ pub struct ExternalEventHub(EventHub);
 impl EventHub {
     /// Create a capability that clears inherited causal privileges for each external submission.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn external(&self) -> ExternalEventHub {
         ExternalEventHub(self.clone())
     }
@@ -660,7 +660,7 @@ impl EventHub {
 impl ExternalEventHub {
     /// Route to exactly one component and acknowledge admission only; routing or capacity errors reject it.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn command<T: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -675,7 +675,7 @@ impl ExternalEventHub {
     }
     /// Admit one typed request; await its RequestHandle for business completion, separately from admission.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn request<T: Send + Sync + 'static, R: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -690,7 +690,7 @@ impl ExternalEventHub {
     }
     /// Fan out an event and report each target admission; accepted does not mean completed.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn publish<T: Send + Sync + 'static>(
         &self,
         topic: &str,
@@ -709,7 +709,7 @@ impl ExternalEventHub {
 #[derive(Clone, Debug)]
 /// Per-component mailbox depths, capacities and active or preparing lanes.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct MailboxMetrics {
     /// Resolved destination component.
@@ -728,7 +728,7 @@ pub struct MailboxMetrics {
 impl EventHub {
     /// Snapshot mailbox depths and active/preparing lane counts.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn mailbox_metrics(&self) -> Vec<MailboxMetrics> {
         let routing = self.0.routing.lock().unwrap();
         routing

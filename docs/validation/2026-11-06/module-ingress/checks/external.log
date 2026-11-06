@@ -1,0 +1,7 @@
+$ ["cargo", "run", "--manifest-path", "tests/fixtures/external-app/Cargo.toml", "--locked", "--offline"]
+   Compiling modorch-runtime v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch-observe v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+   Compiling modorch v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling modorch-external-consumer v0.0.2 (/home/rangh/aispace/modorch-rs/tests/fixtures/external-app)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.62s
+     Running `target/debug/modorch-external-consumer`

@@ -135,7 +135,7 @@ def frontmatter(path):
         raise ValueError("Skill name must match its directory")
     if len(result["name"]) > 64 or not 1 <= len(result.get("description", "")) <= 1024:
         raise ValueError("Skill metadata length is invalid")
-    if result["metadata"].get("version") != "1.0.5":
+    if result["metadata"].get("version") != "1.0.7":
         raise ValueError("Skill revision missing or inconsistent")
     return result, body
 

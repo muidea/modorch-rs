@@ -16,7 +16,7 @@
 //! ```
 //!
 //! # Stability
-//! Development API 0.0.2. Lifecycle phase and generation identities are process-local,
+//! Development API 0.0.3. Lifecycle phase and generation identities are process-local,
 //! not durable retry or transaction guarantees. The host controls actual wait budgets.
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]
@@ -27,44 +27,44 @@ use std::{collections::BTreeMap, num::NonZeroUsize, time::Duration};
 pub use semver::Version;
 /// Framework operation result with a structured FrameworkError.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type FrameworkResult<T> = Result<T, FrameworkError>;
 /// Application-supplied JSON component configuration; factories validate its schema.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type ComponentConfig = serde_json::Value;
 /// Component name, unique together with ComponentKind inside one application.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type ComponentId = String;
 /// Process-local identity of an isolated application tracker.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type ApplicationId = u64;
 /// Process-local identity of tracked work; not a durable idempotency key.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type OperationId = u64;
 /// Owner-defined, versioned message topic string.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type Topic = String;
 /// Logical ordering key; never selects a destination.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type LaneKey = String;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 /// The only two framework-level component roles.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum ComponentKind {
     /// Shared-resource provider role.
@@ -75,7 +75,7 @@ pub enum ComponentKind {
 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 /// Component identity: role plus application-local name.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ComponentRef {
     /// Framework component role or message intent, as indicated by this type.
@@ -86,7 +86,7 @@ pub struct ComponentRef {
 impl ComponentRef {
     /// Create a initiator-role component identity from an application-local name.
     ///
-    /// Contract: LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: LIFE-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn initiator(id: impl Into<String>) -> Self {
         Self {
             kind: ComponentKind::Initiator,
@@ -95,7 +95,7 @@ impl ComponentRef {
     }
     /// Create a module-role component identity from an application-local name.
     ///
-    /// Contract: LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: LIFE-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn module(id: impl Into<String>) -> Self {
         Self {
             kind: ComponentKind::Module,
@@ -111,7 +111,7 @@ impl std::fmt::Display for ComponentRef {
 #[derive(Clone, Debug, PartialEq, Eq)]
 /// Component execution domains and concurrency limits; Serial is the descriptor default.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum ExecutionPolicy {
     /// One mutable handler and bounded FIFO mailbox.
@@ -137,7 +137,7 @@ pub enum ExecutionPolicy {
 #[derive(Clone, Debug, PartialEq, Eq, Default)]
 /// Supervision policy; Restart rebuilds generations but never replays messages.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum FailurePolicy {
     #[default]
@@ -156,7 +156,7 @@ pub enum FailurePolicy {
 #[derive(Clone, Debug, PartialEq, Eq)]
 /// Stable metadata frozen at build time and checked against each created instance.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ComponentDescriptor {
     /// Identity local to its component or subscription scope.
@@ -179,7 +179,7 @@ pub struct ComponentDescriptor {
 impl ComponentDescriptor {
     /// Create metadata with Serial execution, mailbox capacity 64 and FailFast.
     ///
-    /// Contract: LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: LIFE-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn new(component: ComponentRef) -> Self {
         Self {
             id: component.id,
@@ -194,7 +194,7 @@ impl ComponentDescriptor {
     }
     /// Return the component identity attached to this value, if available.
     ///
-    /// Contract: LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: LIFE-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn component(&self) -> ComponentRef {
         ComponentRef {
             kind: self.kind,
@@ -205,7 +205,7 @@ impl ComponentDescriptor {
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 /// Observable lifecycle or execution boundary used in errors and diagnostics.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum Phase {
     /// Resource setup boundary.
@@ -234,7 +234,7 @@ pub enum Phase {
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 /// Application lifecycle state; a timeout is not proof of Stopped.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum ApplicationState {
     /// Built but not started.
@@ -267,7 +267,7 @@ pub enum ApplicationState {
 #[derive(Clone, Debug, PartialEq, Eq)]
 /// Snapshot of tracked operations and their component owners.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct PendingWork {
     /// Tracked operation count or owner snapshot.
@@ -278,7 +278,7 @@ pub struct PendingWork {
 #[derive(Clone, Debug, thiserror::Error)]
 /// Structured admission, execution, resource and lifecycle failures.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum FrameworkError {
     #[error("duplicate component: {0}")]
@@ -402,7 +402,7 @@ impl FrameworkError {
     }
     /// Return the tracked operation identity, if this boundary has one.
     ///
-    /// Contract: LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: LIFE-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn operation_id(&self) -> Option<OperationId> {
         match self {
             Self::CanceledBeforeStart(id) | Self::Indeterminate(id) => Some(*id),
@@ -412,7 +412,7 @@ impl FrameworkError {
     }
     /// Return the component identity attached to this value, if available.
     ///
-    /// Contract: LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: LIFE-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn component(&self) -> Option<&ComponentRef> {
         match self {
             Self::ExecutionFailed { component, .. }
@@ -427,7 +427,7 @@ impl FrameworkError {
     }
     /// Return the recorded lifecycle or execution phase, if available.
     ///
-    /// Contract: LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: LIFE-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn phase(&self) -> Option<Phase> {
         match self {
             Self::ExecutionFailed { phase, .. } | Self::StopIncomplete { phase, .. } => {
@@ -453,7 +453,7 @@ impl FrameworkError {
     }
     /// Follow execution wrappers to the original FrameworkError without discarding context.
     ///
-    /// Contract: LIFE-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: LIFE-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn root_cause(&self) -> &Self {
         match self {
             Self::ExecutionFailed {

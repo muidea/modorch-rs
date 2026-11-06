@@ -1,0 +1,4 @@
+    Checking modorch-runtime v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+    Checking modorch v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Checking modorch-modular-template v0.0.2 (/tmp/modorch-cleanroom-p75z68nr/AE-002)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.06s

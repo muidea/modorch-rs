@@ -1,0 +1,80 @@
+   Compiling tokio v1.50.0
+   Compiling modorch-core v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+   Compiling tokio-util v0.7.19
+   Compiling modorch-registry v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+   Compiling modorch-eventhub v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+   Compiling modorch-scheduler v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+   Compiling modorch-config v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-config)
+   Compiling modorch-runtime v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch-observe v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+   Compiling modorch v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch)
+error[E0308]: mismatched types
+   --> crates/modorch/tests/ingress.rs:258:17
+    |
+258 |         Ok(Some(self.handlers()))
+    |            ---- ^^^^^^^^^^^^^^^ expected `HandlerRegistration`, found `Result<Option<HandlerRegistration>, ...>`
+    |            |
+    |            arguments to this enum variant are incorrect
+    |
+    = note: expected enum `modorch::HandlerRegistration`
+               found enum `Result<Option<modorch::HandlerRegistration>, modorch::FrameworkError>`
+help: the type constructed contains `Result<Option<modorch::HandlerRegistration>, modorch::FrameworkError>` due to the type of the argument passed
+   --> crates/modorch/tests/ingress.rs:258:12
+    |
+258 |         Ok(Some(self.handlers()))
+    |            ^^^^^---------------^
+    |                 |
+    |                 this argument influences the type of `Some`
+note: tuple variant defined here
+   --> /home/rangh/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:608:5
+    |
+608 |     Some(#[stable(feature = "rust1", since = "1.0.0")] T),
+    |     ^^^^
+
+error[E0308]: mismatched types
+   --> crates/modorch/tests/ingress.rs:270:17
+    |
+270 |         Ok(Some(self.handlers()))
+    |            ---- ^^^^^^^^^^^^^^^ expected `HandlerRegistration`, found `Result<Option<HandlerRegistration>, ...>`
+    |            |
+    |            arguments to this enum variant are incorrect
+    |
+    = note: expected enum `modorch::HandlerRegistration`
+               found enum `Result<Option<modorch::HandlerRegistration>, modorch::FrameworkError>`
+help: the type constructed contains `Result<Option<modorch::HandlerRegistration>, modorch::FrameworkError>` due to the type of the argument passed
+   --> crates/modorch/tests/ingress.rs:270:12
+    |
+270 |         Ok(Some(self.handlers()))
+    |            ^^^^^---------------^
+    |                 |
+    |                 this argument influences the type of `Some`
+note: tuple variant defined here
+   --> /home/rangh/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:608:5
+    |
+608 |     Some(#[stable(feature = "rust1", since = "1.0.0")] T),
+    |     ^^^^
+
+error[E0277]: `ApplicationHandle` doesn't implement `Debug`
+    --> crates/modorch/tests/ingress.rs:432:25
+     |
+ 432 |     assert!(start.await.unwrap_err().is_cancelled());
+     |                         ^^^^^^^^^^ the trait `Debug` is not implemented for `ApplicationHandle`
+     |
+help: the trait `Debug` is implemented for `Result<T, E>`
+    --> /home/rangh/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:552:16
+     |
+ 552 | #[derive(Copy, Debug, Hash)]
+     |                ^^^^^
+     = note: required for `Result<ApplicationHandle, StartupError>` to implement `Debug`
+note: required by a bound in `Result::<T, E>::unwrap_err`
+    --> /home/rangh/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:1326:12
+     |
+1324 |     pub fn unwrap_err(self) -> E
+     |            ---------- required by a bound in this associated function
+1325 |     where
+1326 |         T: fmt::Debug,
+     |            ^^^^^^^^^^ required by this bound in `Result::<T, E>::unwrap_err`
+
+Some errors have detailed explanations: E0277, E0308.
+For more information about an error, try `rustc --explain E0277`.
+error: could not compile `modorch` (test "ingress") due to 3 previous errors

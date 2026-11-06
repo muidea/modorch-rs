@@ -3,7 +3,7 @@ use crate::*;
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 /// Supervised component lifecycle state within an application generation.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum ComponentState {
     /// Running start and readiness hooks.
@@ -24,7 +24,7 @@ pub enum ComponentState {
 #[derive(Clone, Debug)]
 /// Latest component state, generation, cumulative restart count and failure.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ComponentHealth {
     /// Current lifecycle state, as indicated by the enclosing type.
@@ -252,30 +252,44 @@ impl ApplicationHandle {
             self.backoff(*backoff).await?;
             self.inner.tracker.advance_owners(&owners)?;
             let boot = self.inner.tracker.close_owners(&owners);
-            let result = self
-                .inner
-                .tracker
-                .scope(boot.clone(), self.rebuild(&owners, &mut entries))
-                .await;
-            drop(boot);
+            // Activation belongs to the attempt: a later listener failure must
+            // compensate earlier listeners before consuming another generation.
+            let result = async {
+                let rebuilt = self
+                    .inner
+                    .tracker
+                    .scope(boot.clone(), self.rebuild(&owners, &mut entries))
+                    .await;
+                drop(boot);
+                rebuilt?;
+                self.inner.tracker.open_owners(&owners)?;
+                for entry in entries
+                    .iter_mut()
+                    .filter(|e| owners.contains(&e.descriptor.component()))
+                {
+                    let component = entry.descriptor.component();
+                    let ctx = self.inner.context(&entry.descriptor);
+                    let result = checked_hook(
+                        &self.inner.tracker,
+                        &component,
+                        Phase::ActivateIngress,
+                        entry.instance.activate_ingress(&ctx),
+                    )
+                    .await;
+                    self.inner
+                        .record(component, Phase::ActivateIngress, result.clone());
+                    result?;
+                }
+                Ok(())
+            }
+            .await;
             match result {
                 Ok(()) => {
-                    self.inner.tracker.open_owners(&owners)?;
                     for entry in entries
-                        .iter_mut()
+                        .iter()
                         .filter(|e| owners.contains(&e.descriptor.component()))
                     {
                         let component = entry.descriptor.component();
-                        let ctx = self.inner.context(&entry.descriptor);
-                        if let Instance::Initiator(initiator) = &mut entry.instance {
-                            checked_hook(
-                                &self.inner.tracker,
-                                &component,
-                                Phase::ActivateIngress,
-                                initiator.activate_ingress(&ctx),
-                            )
-                            .await?;
-                        }
                         let mut health = self.inner.component_health.lock().unwrap();
                         let status = health.get_mut(&component).unwrap();
                         status.state = ComponentState::Ready;

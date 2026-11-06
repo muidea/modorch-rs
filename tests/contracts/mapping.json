@@ -1,6 +1,6 @@
 {
-  "revision": "1.1.0",
-  "framework_version": "0.0.2",
+  "revision": "1.2.0",
+  "framework_version": "0.0.3",
   "tests": [
     {
       "rule_id": "COMP-001",
@@ -485,6 +485,106 @@
       "target": "topic_conformance",
       "name": "mqtt_destination_lane_and_component_dedup_remain_orthogonal",
       "source": "crates/modorch-eventhub/tests/topic_conformance.rs"
+    },
+    {
+      "rule_id": "LIFE-INGRESS-001",
+      "test_id": "CT-LIFE-INGRESS-001",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "ingress",
+      "name": "both_roles_wait_for_all_ready_before_tcp_listen_and_build_has_no_side_effects",
+      "source": "crates/modorch/tests/ingress.rs"
+    },
+    {
+      "rule_id": "LIFE-INGRESS-002",
+      "test_id": "CT-LIFE-INGRESS-002",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "ingress",
+      "name": "partial_activation_error_and_panic_preserve_cause_and_release_all_ports",
+      "source": "crates/modorch/tests/ingress.rs"
+    },
+    {
+      "rule_id": "LIFE-INGRESS-003",
+      "test_id": "CT-LIFE-INGRESS-003",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "ingress",
+      "name": "restart_activation_failure_compensates_before_retry_and_preserves_application_hub",
+      "source": "crates/modorch/tests/ingress.rs"
+    },
+    {
+      "rule_id": "LIFE-INGRESS-004",
+      "test_id": "CT-LIFE-INGRESS-004",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "ingress",
+      "name": "slow_connection_retains_resources_until_checked_shutdown_can_finish",
+      "source": "crates/modorch/tests/ingress.rs"
+    },
+    {
+      "rule_id": "LIFE-INGRESS-005",
+      "test_id": "CT-LIFE-INGRESS-005",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "ingress",
+      "name": "context_hubs_share_routing_and_different_applications_remain_isolated",
+      "source": "crates/modorch/tests/ingress.rs"
+    },
+    {
+      "rule_id": "LIFE-INGRESS-002",
+      "test_id": "CT-LIFE-INGRESS-002-CANCEL",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "ingress",
+      "name": "cancelled_start_wait_still_compensates_activated_module",
+      "source": "crates/modorch/tests/ingress.rs"
+    },
+    {
+      "rule_id": "LIFE-INGRESS-003",
+      "test_id": "CT-LIFE-INGRESS-003-BUDGET",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "ingress",
+      "name": "activation_retry_budget_exhaustion_closes_all_ingress_and_reports_activation_phase",
+      "source": "crates/modorch/tests/ingress.rs"
+    },
+    {
+      "rule_id": "LIFE-INGRESS-004",
+      "test_id": "CT-LIFE-INGRESS-004-LIMIT",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "ingress",
+      "name": "connection_task_limit_rejects_without_losing_listener_or_leaking_work",
+      "source": "crates/modorch/tests/ingress.rs"
+    },
+    {
+      "rule_id": "LIFE-INGRESS-002",
+      "test_id": "CT-LIFE-INGRESS-002-BIND",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "ingress",
+      "name": "real_bind_failure_in_activation_retains_source_and_compensates_previous_ingress",
+      "source": "crates/modorch/tests/ingress.rs"
+    },
+    {
+      "rule_id": "LIFE-INGRESS-002",
+      "test_id": "CT-LIFE-INGRESS-002-QUOTA",
+      "semantic_ids": [],
+      "contract": "contracts/lifecycle-contract.md",
+      "package": "modorch",
+      "target": "ingress",
+      "name": "listener_task_quota_failure_compensates_all_partially_activated_sockets",
+      "source": "crates/modorch/tests/ingress.rs"
     }
   ],
   "tooling_tests": [

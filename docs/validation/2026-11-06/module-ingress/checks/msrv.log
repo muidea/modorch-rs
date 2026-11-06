@@ -1,0 +1,17 @@
+$ ["cargo", "+1.85.0", "check", "--workspace", "--all-targets", "--all-features", "--locked", "--offline"]
+    Checking modorch-runtime v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+    Checking modorch-observe v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+    Checking modorch v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Checking multi-module v0.0.2 (/home/rangh/aispace/modorch-rs/examples/multi-module)
+    Checking stateful-initiator v0.0.2 (/home/rangh/aispace/modorch-rs/examples/stateful-initiator)
+    Checking event-messaging v0.0.2 (/home/rangh/aispace/modorch-rs/examples/event-messaging)
+    Checking lifecycle v0.0.2 (/home/rangh/aispace/modorch-rs/examples/lifecycle)
+    Checking minimal-app v0.0.2 (/home/rangh/aispace/modorch-rs/examples/minimal-app)
+    Checking shared-service v0.0.2 (/home/rangh/aispace/modorch-rs/examples/shared-service)
+    Checking graceful-http v0.0.2 (/home/rangh/aispace/modorch-rs/examples/graceful-http)
+    Checking basic-app v0.0.2 (/home/rangh/aispace/modorch-rs/examples/basic-app)
+    Checking request-response v0.0.2 (/home/rangh/aispace/modorch-rs/examples/request-response)
+    Checking mixed-load v0.0.2 (/home/rangh/aispace/modorch-rs/examples/mixed-load)
+    Checking scheduled-tasks v0.0.2 (/home/rangh/aispace/modorch-rs/examples/scheduled-tasks)
+    Checking runtime-load v0.0.2 (/home/rangh/aispace/modorch-rs/examples/runtime-load)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.10s

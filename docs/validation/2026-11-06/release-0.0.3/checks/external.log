@@ -1,0 +1,15 @@
+$ ["cargo", "run", "--manifest-path", "tests/fixtures/external-app/Cargo.toml", "--locked", "--offline"]
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on artifact directory
+   Compiling modorch-core v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-core)
+   Compiling modorch-registry v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-registry)
+   Compiling modorch-eventhub v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-eventhub)
+   Compiling modorch-scheduler v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-scheduler)
+   Compiling modorch-runtime v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+   Compiling modorch-observe v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+   Compiling modorch-config v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch-config)
+   Compiling modorch v0.0.3 (/home/rangh/aispace/modorch-rs/crates/modorch)
+   Compiling modorch-external-consumer v0.0.3 (/home/rangh/aispace/modorch-rs/tests/fixtures/external-app)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 26.13s
+     Running `target/debug/modorch-external-consumer`

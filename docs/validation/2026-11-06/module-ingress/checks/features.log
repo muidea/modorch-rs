@@ -1,0 +1,14 @@
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.10s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "eventhub", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "scheduler", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "runtime", "--locked", "--offline"]
+    Checking modorch-runtime v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+    Checking modorch v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.89s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "config-toml", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.06s
+$ ["cargo", "check", "-p", "modorch", "--no-default-features", "--features", "observability", "--locked", "--offline"]
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.06s

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python3",
+    "tools/doc-validation/release-gate.py",
+    "docs/validation/2026-11-06/module-ingress/verification.json"
+  ],
+  "exit_code": 1,
+  "status": "Failed",
+  "release_status": "Candidate",
+  "reason": "Actual independent Agent P0 evidence NotRun; no local-check blocker"
+}

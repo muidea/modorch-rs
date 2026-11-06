@@ -5,10 +5,10 @@
 > **编制日期**：2026-11-02  
 > **文档状态**：Candidate / 工程交付已建立，最终验证与独立 Agent 验收分别追踪  
 > **适用对象**：Modorch-RS 框架维护者、业务应用开发者、第三方模块开发者、AI Coding Agents、持续执行型 Harness Agents  
-> **框架基线**：Modorch-RS 0.0.2 发布树（源于开发基线 commit `37bdc93`，该历史提交版本为 0.1.0）；不以旧接口草案替代实际 API  
+> **框架基线**：Modorch-RS 0.0.3 发布树（源于开发基线 commit `37bdc93`，该历史提交版本为 0.1.0）；不以旧接口草案替代实际 API
 > **交付范围**：文档体系、公共契约、Agent 指令与 Skills、示例模板、分发机制、兼容性策略、自动化验证和发布门禁
 >
-> **重要声明**：本文是**文档与 Skill 建设的实施规范**；本次工程交付和未完成验收见 [追踪报告](validation/2026-11-04/release-0.0.2/README.md)，不能从规范中的要求推定全部通过。基线已有本地 Rust 1.94 / MSRV 1.85 验证；本规范要求针对本次交付重新执行并保存证据，远程 CI 与其他平台不得据此标为通过。任何未来目标 API 均不得被用户指南或 Skill 描述成已可调用的 API。
+> **重要声明**：本文是**文档与 Skill 建设的实施规范**；本次工程交付和未完成验收见 [追踪报告](validation/2026-11-06/release-0.0.3/README.md)，不能从规范中的要求推定全部通过。基线已有本地 Rust 1.94 / MSRV 1.85 验证；本规范要求针对本次交付重新执行并保存证据，远程 CI 与其他平台不得据此标为通过。任何未来目标 API 均不得被用户指南或 Skill 描述成已可调用的 API。
 
 ---
 
@@ -554,7 +554,7 @@ modorch-skills-<bundle-revision>/
 ```json
 {
   "schema_version": "1",
-  "bundle_revision": "0.0.2",
+  "bundle_revision": "0.0.3",
   "framework": {
     "name": "modorch",
     "compatible_versions": ["<explicit verified versions>"],
@@ -563,7 +563,7 @@ modorch-skills-<bundle-revision>/
   "skills": [
     {
       "name": "modorch-module-development",
-      "revision": "0.0.2",
+      "revision": "0.0.3",
       "path": "skills/modorch-module-development",
       "sha256": "<calculated digest>"
     }

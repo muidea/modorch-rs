@@ -30,7 +30,7 @@
 //! ```
 //!
 //! # Stability
-//! Development API 0.0.2, Rust 1.85+. Match the actual source fingerprint when using
+//! Development API 0.0.3, Rust 1.85+. Match the actual source fingerprint when using
 //! an Agent Skill. No Registry release or cross-process durability is implied.
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]
@@ -54,7 +54,7 @@ pub use modorch_runtime::{
 pub use modorch_scheduler::*;
 /// Common Facade imports; feature-gated capabilities remain feature-gated.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub mod prelude {
     #[cfg(feature = "scheduler")]

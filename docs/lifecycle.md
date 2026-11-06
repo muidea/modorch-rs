@@ -33,3 +33,7 @@ Restart 使用相同屏障，旧资源拆卸完毕才推进代际，按 DAG 重�
 max_attempts 表示故障 Owner 在本 Application 生命周期内的累计重建预算，每次尝试（含 Setup 失败）消耗一次；不会因短暂 Ready 而重置，防止崩溃循环无限重建。达到上限、旧资源无法成功拆卸或入口激活失败时转为 FailFast。backoff 等待可被正常停机打断。完整停机与按组件恢复共享事务锁；强制停机会中止恢复监督 Future，保留 Forced 语义。
 
 TaskScheduler、ServiceReader 和 ServiceHandle 绑定组件代际。旧任务提交器在新代际中返回 Closed，旧服务句柄返回 ServiceUnavailable，避免调用方在对象重建后继续通过旧能力访问资源。恢复历史见 ComponentHealth 与生命周期事务日志。外部 shutdown_checked 的超时仍只限制等待，不能通过超时绕过资源屏障。
+
+## 普通 Module 的入口激活
+
+Initiator 与 Module 均有默认无操作的 activate_ingress，所有相关 ready 通过后统一调用。TCP 入口仅在该 Hook listen，setup 可用 TcpSocket 预绑定。激活失败及 panic 进入检查式补偿；监督重建中的激活错误消耗同一次累计重启预算，补偿成功才可再试。旧任务和服务能力有代际约束，EventHub/ExternalEventHub 是应用级共享能力。详见 [入口契约](../contracts/lifecycle-contract.md)和 [HTTP 示例](../examples/graceful-http/src/main.rs)。

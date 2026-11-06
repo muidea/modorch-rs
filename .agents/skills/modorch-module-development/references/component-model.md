@@ -1,8 +1,8 @@
-> Generated snapshot; source: docs/concepts/component-model.md; source sha256: 81821b126c2b27567c05cff87c33a777530b766f7a7782a90a969d7fa35619e0; revision 1.0.5. Do not edit.
+> Generated snapshot; source: docs/concepts/component-model.md; source sha256: 58e1a798255aad66d1150ec11b5fa06da8d1ae8e70daa5deab37e913f1b4b6d8; revision 1.0.7. Do not edit.
 
 # 两种组件角色
 
-适用 0.0.2；角色语义见 [COMP-001 / COMP-002](contracts/component-contract.md)。
+适用 0.0.3；角色语义见 [COMP-001 / COMP-002](contracts/component-contract.md)。
 
 先判断是否需要向其他组件暴露受控资源实例：需要则选择 Initiator + Registry；主要提供消息/业务行为则选择 Module；不参与编排的帮助类型保持普通 Rust 类型。
 

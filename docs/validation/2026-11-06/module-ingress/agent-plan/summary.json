@@ -1,0 +1,232 @@
+{
+  "agent_evals": [
+    {
+      "case_id": "AE-001",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "54d886c4c7943d9b636c21e6d953ab79fb24ed6a2a1ed4e4885f22216bb1dd7a",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "54d886c4c7943d9b636c21e6d953ab79fb24ed6a2a1ed4e4885f22216bb1dd7a"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-001/record.json",
+      "sha256": "ccbf2a1964f3ce149d5426a4faa5c2e7db89949e83a97abe63d5a0378f5c6358"
+    },
+    {
+      "case_id": "AE-002",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "194791cedf7ed16497af8f156169aaa81ba4e946bbfab1e8e2aa3f0c9dd46ad0",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "194791cedf7ed16497af8f156169aaa81ba4e946bbfab1e8e2aa3f0c9dd46ad0"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-002/record.json",
+      "sha256": "e4498d13a56bf1d06045dff32a1ce9ea135dfa01a34bd8a5d67a166be79ac228"
+    },
+    {
+      "case_id": "AE-003",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "2c3d63e41f7d2aed188edf470010ab0d18a0d5b3328faf4c50ec826d1fdfbf53",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "2c3d63e41f7d2aed188edf470010ab0d18a0d5b3328faf4c50ec826d1fdfbf53"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-003/record.json",
+      "sha256": "1906305468a01a1e4c835da3b672955d895b6ad25d03a05a4352c5a44a3ad969"
+    },
+    {
+      "case_id": "AE-004",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "da96e5d104c3b768c5ab65ac25594b3c3f102f0de72b69e9abd6878c0a05cd59",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "da96e5d104c3b768c5ab65ac25594b3c3f102f0de72b69e9abd6878c0a05cd59"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-004/record.json",
+      "sha256": "1bd3e9a5197f5d9015cc06b84b194852067d5f00faeadc65679d104f8ab7f7fe"
+    },
+    {
+      "case_id": "AE-005",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "da96f99698c3be81eb57c3401ba82fde74aa9d15f3f8b4615da9716a385eb5d3",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "da96f99698c3be81eb57c3401ba82fde74aa9d15f3f8b4615da9716a385eb5d3"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-005/record.json",
+      "sha256": "ac9fb245074767336324f04a184316d88e9cc5a8096448dc491e53ee4affe2d3"
+    },
+    {
+      "case_id": "AE-006",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "dcc57940bb3a9881c05127ac77e7651b830543690d098729f470e645b6ad1cbe",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "dcc57940bb3a9881c05127ac77e7651b830543690d098729f470e645b6ad1cbe"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-006/record.json",
+      "sha256": "0bb456e499e647af2746b404daa243e9b0c62d3b8dc79ab5fc0602949e86e738"
+    },
+    {
+      "case_id": "AE-007",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "28c116ab3dced00c47e426698829230eef2fd1d297498b6ace4d4eb799b683d4",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "28c116ab3dced00c47e426698829230eef2fd1d297498b6ace4d4eb799b683d4"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-007/record.json",
+      "sha256": "62c3b8ccc59dadcb8582c41cf6d06267d8cca25cf3c07bbd58986b967ec0c331"
+    },
+    {
+      "case_id": "AE-008",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "c918b1cd5dc53d93ae7f8a9353964d91b89464180d4aa9cd56fb744609a167e4",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "c918b1cd5dc53d93ae7f8a9353964d91b89464180d4aa9cd56fb744609a167e4"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-008/record.json",
+      "sha256": "f49b3ff979a61046c499baebd8060542aa6b2d9b8fafd0147286206d5f88b1c9"
+    },
+    {
+      "case_id": "AE-009",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "d9ae28ab1d5373612bc97bce06fb356ff9854979288f002f57c260f54d1ccdd3",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "d9ae28ab1d5373612bc97bce06fb356ff9854979288f002f57c260f54d1ccdd3"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-009/record.json",
+      "sha256": "f8a78eddc96a07f5665fee36f5921c4e54a43eeaa9f39d69d07a4d27de73c2d7"
+    },
+    {
+      "case_id": "AE-010",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "f06293bbe18b986beb0fa941b53c8d9fc2825a831a707e54fc4a0532f7de0d56",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "f06293bbe18b986beb0fa941b53c8d9fc2825a831a707e54fc4a0532f7de0d56"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-010/record.json",
+      "sha256": "68a80cbc017eb07abde937fdeeb7d290b2d0ef2d4508df5a4688663caeba78b4"
+    },
+    {
+      "case_id": "AE-011",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "a9a68569d472ae8d33bc6cf72a5f0b21c571dddc6bd4e38194ab559283fa3842",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "a9a68569d472ae8d33bc6cf72a5f0b21c571dddc6bd4e38194ab559283fa3842"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-011/record.json",
+      "sha256": "f10f01b73c9dfd058cc8a1540c9fdbc79e72758556a0198e477960fc4fa9c257"
+    },
+    {
+      "case_id": "AE-012",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "285225c0a0647e3012c11773bf6538547b349883869442379eda76e8458f7179",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "285225c0a0647e3012c11773bf6538547b349883869442379eda76e8458f7179"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-012/record.json",
+      "sha256": "270211dbecaae83ce4489f6ab53b1af0c114c0df1c4c011903895f43f1119eba"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+    Blocking waiting for file lock on build directory
+    Checking modorch-runtime v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-runtime)
+    Checking modorch-observe v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch-observe)
+    Checking modorch v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Checking stateful-initiator v0.0.2 (/home/rangh/aispace/modorch-rs/examples/stateful-initiator)
+    Checking multi-module v0.0.2 (/home/rangh/aispace/modorch-rs/examples/multi-module)
+    Checking event-messaging v0.0.2 (/home/rangh/aispace/modorch-rs/examples/event-messaging)
+    Checking lifecycle v0.0.2 (/home/rangh/aispace/modorch-rs/examples/lifecycle)
+    Checking basic-app v0.0.2 (/home/rangh/aispace/modorch-rs/examples/basic-app)
+    Checking runtime-load v0.0.2 (/home/rangh/aispace/modorch-rs/examples/runtime-load)
+    Checking shared-service v0.0.2 (/home/rangh/aispace/modorch-rs/examples/shared-service)
+    Checking scheduled-tasks v0.0.2 (/home/rangh/aispace/modorch-rs/examples/scheduled-tasks)
+    Checking graceful-http v0.0.2 (/home/rangh/aispace/modorch-rs/examples/graceful-http)
+    Checking request-response v0.0.2 (/home/rangh/aispace/modorch-rs/examples/request-response)
+    Checking minimal-app v0.0.2 (/home/rangh/aispace/modorch-rs/examples/minimal-app)
+    Checking mixed-load v0.0.2 (/home/rangh/aispace/modorch-rs/examples/mixed-load)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 7.17s

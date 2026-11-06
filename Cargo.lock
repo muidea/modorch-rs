@@ -24,7 +24,7 @@ dependencies = [
 
 [[package]]
 name = "basic-app"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch",
  "tokio",
@@ -69,7 +69,7 @@ dependencies = [
 
 [[package]]
 name = "event-messaging"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch",
  "tokio",
@@ -134,7 +134,7 @@ dependencies = [
 
 [[package]]
 name = "graceful-http"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch",
  "tokio",
@@ -176,7 +176,7 @@ checksum = "b5b646652bf6661599e1da8901b3b9522896f01e736bad5f723fe7a3a27f899d"
 
 [[package]]
 name = "lifecycle"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch",
  "tokio",
@@ -218,7 +218,7 @@ checksum = "f8ca58f447f06ed17d5fc4043ce1b10dd205e060fb3ce5b979b8ed8e59ff3f79"
 
 [[package]]
 name = "minimal-app"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch",
  "tokio",
@@ -237,7 +237,7 @@ dependencies = [
 
 [[package]]
 name = "mixed-load"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch",
  "serde",
@@ -248,7 +248,7 @@ dependencies = [
 
 [[package]]
 name = "modorch"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "async-trait",
  "modorch-config",
@@ -265,7 +265,7 @@ dependencies = [
 
 [[package]]
 name = "modorch-config"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch-core",
  "modorch-registry",
@@ -277,7 +277,7 @@ dependencies = [
 
 [[package]]
 name = "modorch-core"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "loom",
  "semver",
@@ -289,7 +289,7 @@ dependencies = [
 
 [[package]]
 name = "modorch-eventhub"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "async-trait",
  "futures-util",
@@ -300,7 +300,7 @@ dependencies = [
 
 [[package]]
 name = "modorch-observe"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch-core",
  "modorch-runtime",
@@ -309,7 +309,7 @@ dependencies = [
 
 [[package]]
 name = "modorch-registry"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch-core",
  "tokio",
@@ -317,7 +317,7 @@ dependencies = [
 
 [[package]]
 name = "modorch-runtime"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "async-trait",
  "futures-util",
@@ -331,7 +331,7 @@ dependencies = [
 
 [[package]]
 name = "modorch-scheduler"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "futures-util",
  "modorch-core",
@@ -342,7 +342,7 @@ dependencies = [
 
 [[package]]
 name = "multi-module"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch",
  "tokio",
@@ -406,7 +406,7 @@ checksum = "d6f6ff9a378485b298a5286656da665ba74413d36db0979633275d2e708145d4"
 
 [[package]]
 name = "request-response"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch",
  "tokio",
@@ -414,7 +414,7 @@ dependencies = [
 
 [[package]]
 name = "runtime-load"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch",
  "serde_json",
@@ -429,7 +429,7 @@ checksum = "cf54715a573b99ac80df0bc206da022bcd442c974952c7b9720069370852e21f"
 
 [[package]]
 name = "scheduled-tasks"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch",
  "tokio",
@@ -510,7 +510,7 @@ dependencies = [
 
 [[package]]
 name = "shared-service"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch",
  "tokio",
@@ -556,7 +556,7 @@ dependencies = [
 
 [[package]]
 name = "stateful-initiator"
-version = "0.0.2"
+version = "0.0.3"
 dependencies = [
  "modorch",
  "tokio",

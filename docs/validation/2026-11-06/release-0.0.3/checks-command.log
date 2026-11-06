@@ -1,0 +1,17 @@
+versions: Passed
+fmt: Passed
+check: Passed
+clippy: Passed
+test: Passed
+doctest: Passed
+rustdoc: Passed
+msrv: Passed
+features: Passed
+examples: Passed
+templates: Passed
+external: Passed
+tooling-tests: Passed
+skills-format: Passed
+bundle-install: Passed
+static: Passed
+{"local_checks": "Passed"}

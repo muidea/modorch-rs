@@ -183,7 +183,7 @@ class ToolingTests(unittest.TestCase):
         schema = json.loads((ROOT / "tools/skill-packaging/result.schema.json").read_text())
         with self.assertRaises(ValueError):
             report_validator.validate({"result": {"overall_status": "Passed"}}, schema)
-        result = {"task": "test", "framework_version": "0.0.2", "skill": "modorch-app-development", "skill_revision": "1.0.0", "changed_files": [], "validation": [{"command": "cargo test", "status": "NotRun", "evidence": "toolchain missing"}], "contract_checks": [{"rule_id": "COMP-002", "status": "NotRun", "evidence": "not executed"}], "limitations": [], "unresolved": [], "overall_status": "Passed"}
+        result = {"task": "test", "framework_version": "0.0.3", "skill": "modorch-app-development", "skill_revision": "1.0.0", "changed_files": [], "validation": [{"command": "cargo test", "status": "NotRun", "evidence": "toolchain missing"}], "contract_checks": [{"rule_id": "COMP-002", "status": "NotRun", "evidence": "not executed"}], "limitations": [], "unresolved": [], "overall_status": "Passed"}
         with self.assertRaisesRegex(ValueError, "unexecuted"):
             report_validator.validate({"result": result}, schema)
         result["overall_status"] = "Blocked"
@@ -227,7 +227,7 @@ class ReleaseEvidenceTests(unittest.TestCase):
                 (directory / "command.json").write_text('["synthetic-policy-test"]')
                 for name in ("changes.diff", "stdout.log", "stderr.log", "validation.log"):
                     (directory / name).write_text("synthetic gate-policy test only\n")
-                result = {"task": "synthetic gate policy test", "framework_version": "0.0.2", "skill": cases[case_id]["skill"], "skill_revision": "1.0.5", "changed_files": [], "validation": [{"command": "synthetic", "status": "Passed", "evidence": "policy-test only"}], "contract_checks": [{"rule_id": "COMP-002", "status": "Passed", "evidence": "policy-test only"}], "limitations": ["synthetic"], "unresolved": [], "overall_status": "Passed"}
+                result = {"task": "synthetic gate policy test", "framework_version": "0.0.3", "skill": cases[case_id]["skill"], "skill_revision": "1.0.7", "changed_files": [], "validation": [{"command": "synthetic", "status": "Passed", "evidence": "policy-test only"}], "contract_checks": [{"rule_id": "COMP-002", "status": "Passed", "evidence": "policy-test only"}], "limitations": ["synthetic"], "unresolved": [], "overall_status": "Passed"}
                 (directory / "result.json").write_text(json.dumps({"result": result}))
                 record = {"case_id": case_id, "status": "Passed", "mode": "agent", "host": "synthetic-policy-test", "agent_version": "test", "review": {"status": "Passed", "notes": "synthetic gate policy test only"}, "goal_sha256": hashlib.sha256(goal.encode()).hexdigest(), "artifacts": {path.name: hashlib.sha256(path.read_bytes()).hexdigest() for path in directory.iterdir()}}
                 record["delivery_sha256"] = gate.current_delivery_sha256()

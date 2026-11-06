@@ -2,12 +2,12 @@
 name: modorch-module-development
 description: "在使用 Modorch-RS 的 Rust 应用中新增或修改 Initiator / Module、声明依赖、共享服务、Event/Command/Request、受管任务及生命周期测试时使用；不用于改 Runtime 核心语义。"
 license: MIT
-compatibility: "Rust >= 1.85, Cargo, Python >= 3.11; modorch 0.0.2 with matching source fingerprint"
+compatibility: "Rust >= 1.85, Cargo, Python >= 3.11; modorch 0.0.3 with matching source fingerprint"
 metadata:
-  version: "1.0.5"
-  modorch-skill-revision: "1.0.5"
-  framework-version: "0.0.2"
-  contracts-revision: "1.1.0"
+  version: "1.0.7"
+  modorch-skill-revision: "1.0.7"
+  framework-version: "0.0.3"
+  contracts-revision: "1.2.0"
   author: "Modorch-RS maintainers"
 ---
 
@@ -36,11 +36,12 @@ metadata:
 - Event 看逐目标准入；Command 只确认 Accepted；需要结果用 Request。Queued 超时 CanceledBeforeStart，Running 超时 Indeterminate，不能推断回滚或安全重试。
 - 默认 Serial；Partitioned 同 shard FIFO，Dynamic 有界且空闲回收副本，Concurrent 不保序。LaneKey 不改变目标；不同 Key 不保证固定分片不碰撞。
 - 长期/周期任务用 Owner TaskScheduler；实际单次/周期接口为 delay/interval。CPU 用 spawn_cpu，同步 I/O 用 spawn_blocking_io，不能阻塞 Handler 的宿主执行线程；必要时用有界准入等待。
+- Initiator / Module 均可覆盖默认 activate_ingress；全体相关 ready 后才 listen，setup 最多 bind 未 listen 的 TcpSocket。监听/连接用受管任务并优先响应取消，外部消息用 event_hub.external()；激活失败支持部分入口补偿，重建按累计预算清理后重试。代际失效限任务/服务能力，应用级 Hub 不随代际失效。
 - 服务操作保留 ServiceLease 到实际退出；wait 仅结果可读，wait_finished 确认任务自身资源归还。取消、StopIncomplete、Forced 均不能当正常排空。
 
 ## 执行流程
 
-先读取最近似的 module-template / modular-service 样例。实现稳定描述符和 Factory，声明 requires/optional。资源放 setup，共享接口由 Initiator export_services，操作期间持 ServiceLease。Module 返回一套可选 HandlerRegistration，多订阅共享执行域；实现消息/任务并接入应用的显式选择。补正常、错误、超时、取消和退出证据；确认旧代际句柄不可复用。
+先读取最近似的 module-template / modular-service 样例。实现稳定描述符和 Factory，声明 requires/optional。资源放 setup，共享接口由 Initiator export_services，操作期间持 ServiceLease。Module 返回一套可选 HandlerRegistration，多订阅共享执行域；实现消息/任务并接入应用的显式选择。补正常、错误、超时、取消和退出证据；确认旧代际任务/服务能力不可复用，应用级 Hub 保持有效。
 
 验证前读取[验证规范](references/validation.md)。先实现已授权范围，再运行适用 fmt/check/clippy/test/doc 与 smoke，记录原始命令和输出；无需为普通可逆编辑增加审批。模板初始化脚本仅创建新目录：
 

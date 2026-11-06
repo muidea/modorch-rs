@@ -4,7 +4,7 @@
 > **Cargo 主包：** `modorch`  
 > **文档类型：** 独立、完整的框架技术设计规范  
 > **适用范围：** 单进程、常驻型和任务驱动型 Rust 后端应用  
-> **规范状态：** 0.0.2 当前实现说明（2026-11-02 刷新，基线 `37bdc93`）；公开签名以源码/Rustdoc 为准，行为承诺由 Contracts 与执行证据共同确认
+> **规范状态：** 0.0.3 当前实现说明（2026-11-06 刷新，含 Module 入口增强；历史基线 `37bdc93`）；公开签名以源码/Rustdoc 为准，行为承诺由 Contracts 与执行证据共同确认
 
 ## 1. 框架定位、目标与边界
 
@@ -178,7 +178,7 @@ my-app/
 
 ### 3.3 Cargo / 版本策略
 
-根工作区使用 resolver 3、Edition 2024、版本 0.0.2、MIT、MSRV 1.85。当前尚无正式 Registry 发布声明。实际依赖与 Feature 定义见 [Facade manifest](../crates/modorch/Cargo.toml) 与 [兼容性说明](compatibility.md)。
+根工作区使用 resolver 3、Edition 2024、版本 0.0.3、MIT、MSRV 1.85。当前尚无正式 Registry 发布声明。实际依赖与 Feature 定义见 [Facade manifest](../crates/modorch/Cargo.toml) 与 [兼容性说明](compatibility.md)。
 
 默认开启 runtime/eventhub/scheduler；runtime 同时启用 eventhub 与 scheduler，core/registry 不可选，config-toml 与 observability 可选。没有库级 signals Feature；信号由宿主 Tokio 提供。Feature 是编译时加法，运行时选择由 ComponentSelection 完成。
 
@@ -204,7 +204,7 @@ my-app/
 
 真实定义见 [component.rs](../crates/modorch-runtime/src/component.rs)：Lifecycle 的 setup/start/ready/begin_shutdown/quiesce/teardown 使用 async-trait，支持对象安全的 Box<dyn Initiator/Module>。钩子默认返回成功；start 必须及时返回，长任务交给受管 Scheduler。
 
-Module::handlers 与 Initiator::event_endpoint 都返回可选的单套 HandlerRegistration，可包含多个订阅。Initiator::activate_ingress 在全体 ready 之后调用。不得把旧草案的 Vec<HandlerRegistration> 当作现有 API。
+Module::handlers 与 Initiator::event_endpoint 都返回可选的单套 HandlerRegistration，可包含多个订阅。Initiator::activate_ingress 与 Module::activate_ingress 在全体相关 ready 之后经 Instance 统一分发，全部成功才报告 Ready；setup 可 bind 未 listen 的 socket，实际 listen 留到激活。监督重建激活错误纳入单次尝试、补偿及累计预算；任务/服务能力受代际约束，应用级 Hub 不随代际失效。不得把旧草案的 Vec<HandlerRegistration> 当作现有 API。
 
 ### 4.3 ComponentDescriptor
 
@@ -301,7 +301,7 @@ Framework 提供可选 TOML schema/转换工具，但进程配置文件路径、
 
 | 场景 | 分类 | 理由 |
 |---|---|---|
-| HTTP RouteRegistry/Listener | Initiator | 多模块注册路由，统一关闭入口 |
+| HTTP RouteRegistry / Listener | 窄共享路由服务用 Initiator；私有入口用 Module | 两者统一 activate_ingress；受管任务与检查式关闭 |
 | 通用共享配置快照查询接口 | Initiator | 其他组件需要受控共享读取 |
 | 配置热更新、激活命令及通知 | Module | 可由 Module 私有持有配置并通过消息交互 |
 | 用量存储（私有 DuckDB owner） | Module | 其他组件只通过 typed Command/Request 操作 |
@@ -424,7 +424,7 @@ New → Initializing → Starting → Ready / Degraded / Recovering
 5. 检查外部/内部所需基础服务是否就绪。
 6. 按 Module 的拓扑次序 Factory Create + Setup，构造 HandlerFactory、安装 Mailbox 和订阅。
 7. 按 Initiator 的拓扑次序调用 Start，随后按 Module DAG 顺序调用 Start。两者均应快速返回；长任务交给 Scheduler。
-8. 框架等待各组件 Ready/Handler 注册确认，随后执行必要的 `activate_ingress`（例如 HTTP Initiator 启动实际接收），最后对外报告 Ready。
+8. 框架等待各组件 Ready/Handler 注册确认，随后执行必要的 `activate_ingress`（例如 HTTP Module 启动实际监听），最后对外报告 Ready。
 9. Supervisor 开始正常运行；任何核心启动失败触发有检查回执的部分启动回滚。
 
 `Start` 阶段不能依赖尚未 Ready 的目标进行同步请求；需要 Bootstrap 请求须显式声明可用的 Ready 条件或拆成独立的 Bootstrapping 机制。
@@ -503,7 +503,7 @@ sequenceDiagram
 
 ## 14. 公共 API 表面与兼容承诺
 
-唯一调用入口为 modorch；[Facade 源码](../crates/modorch/src/lib.rs) 定义完整导出和 prelude。Markdown 不重复维护全量签名。公开字段和错误变体在 0.0.2 开发阶段可能变化，迁移须复核结构体字面量、穷举匹配和 Feature。
+唯一调用入口为 modorch；[Facade 源码](../crates/modorch/src/lib.rs) 定义完整导出和 prelude。Markdown 不重复维护全量签名。公开字段和错误变体在 0.0.3 开发阶段可能变化，迁移须复核结构体字面量、穷举匹配和 Feature。
 
 StartupError.source 为 Box<FrameworkError>，标准 Error::source 暴露原始 FrameworkError；cleanup 与 ApplicationHandle 保留。ShutdownOptions.timeout 限制调用者等待而不取消关闭事务。具体边界见 [公共 API](public-api.md)、[兼容性](compatibility.md) 与本次文档验收记录。
 
@@ -609,4 +609,4 @@ cargo test -p modorch-eventhub --test concurrency -- --nocapture
 
 ### 17.2 文档验收定义
 
-本文件按 **Modorch-RS 0.0.2 当前实现** 刷新；验收清单的执行证据由独立验证报告记录。框架实现只有在公共 API、依赖图验证、消息正确性、并发边界、资源生命周期、停机可靠性以及跨仓库集成测试全部满足本文验收要求后，才可宣称符合本设计。
+本文件按 **Modorch-RS 0.0.3 当前实现** 刷新；验收清单的执行证据由独立验证报告记录。框架实现只有在公共 API、依赖图验证、消息正确性、并发边界、资源生命周期、停机可靠性以及跨仓库集成测试全部满足本文验收要求后，才可宣称符合本设计。

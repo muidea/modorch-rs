@@ -6,7 +6,7 @@ use std::{num::NonZeroUsize, panic::AssertUnwindSafe};
 #[derive(Clone)]
 /// Trusted handler identity and causal EventHub capability.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct HandlerContext {
     /// Causal message capability for trusted component child operations.
@@ -23,12 +23,12 @@ pub struct HandlerContext {
 #[async_trait]
 /// Exclusive mutable handler within one serial execution domain.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub trait SerialHandler: Send {
     /// Execute one message within the framework-provided causal context; return a shared reply or business error.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     async fn handle(
         &mut self,
         ctx: &HandlerContext,
@@ -40,12 +40,12 @@ pub trait SerialHandler: Send {
 #[async_trait]
 /// Send + Sync handler shared by a bounded set of workers; no ordering promise.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub trait ConcurrentHandler: Send + Sync {
     /// Execute one message within the framework-provided causal context; return a shared reply or business error.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     async fn handle(
         &self,
         ctx: &HandlerContext,
@@ -54,12 +54,12 @@ pub trait ConcurrentHandler: Send + Sync {
 }
 /// Creates independent serial handlers for fixed shards or dynamic lane instances.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub trait HandlerFactory: Send + Sync {
     /// Create a fresh serial handler for a fixed shard or monotonically assigned dynamic lane instance ID.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     fn create(&self, shard: usize) -> FrameworkResult<Box<dyn SerialHandler>>;
 }
 impl<F> HandlerFactory for F
@@ -72,7 +72,7 @@ where
 }
 /// One component-owned execution domain with any number of subscriptions.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum HandlerRegistration {
     /// One mutable handler and bounded FIFO mailbox.
@@ -120,7 +120,7 @@ enum Workers {
 impl EventHub {
     /// Install one validated execution domain and subscriptions; requires a current host Tokio runtime.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn install(
         &self,
         descriptor: &ComponentDescriptor,

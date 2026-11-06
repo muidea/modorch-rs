@@ -1,10 +1,10 @@
-> Generated snapshot; source: docs/guides/application.md; source sha256: 49fdf55320729cca2e930bc8f8196dfaf3c6a1c4d2fc892a6bb33c5b904dd962; revision 1.0.5. Do not edit.
+> Generated snapshot; source: docs/guides/application.md; source sha256: 5d73dbfac697be81aad919773072c1b23778422ff889d6e02110b528dfdaadb8; revision 1.0.7. Do not edit.
 
 # 装配和运行应用
 
-> Applies to: modorch 0.0.2 开发树，按框架指纹匹配
-> Capability status: Verified（仅本次验证（源码定位：`../validation/2026-11-04/release-0.0.2/README.md`；从匹配框架源码查询）列出的命令与 Linux / Rust 1.94 范围）
-> Last validated: 2026-11-04；本地日志，远程 CI NotRun
+> Applies to: modorch 0.0.3 开发树，按框架指纹匹配
+> Capability status: Verified（仅本次验证（源码定位：`../validation/2026-11-06/release-0.0.3/README.md`；从匹配框架源码查询）列出的命令与 Linux / Rust 1.94 范围）
+> Last validated: 2026-11-06；本地日志，远程 CI NotRun
 
 ## Goal
 

@@ -1,6 +1,6 @@
 # 文档索引
 
-当前 0.0.2 开发树；[能力矩阵](reference/capability-matrix.md)限定验证范围，[验收追踪](validation/2026-11-04/release-0.0.2/README.md)记录交付与未覆盖项。
+当前 0.0.3 开发树；[能力矩阵](reference/capability-matrix.md)限定验证范围，[验收追踪](validation/2026-11-06/release-0.0.3/README.md)记录交付与未覆盖项。
 
 | 读者 | 阅读路径 |
 |---|---|

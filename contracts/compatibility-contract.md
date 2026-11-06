@@ -3,7 +3,7 @@
 ## COMPAT-001：版本与来源匹配
 
 - Level: MUST
-- Applies to: 0.0.2 开发树；Skill revision 1.0.5
+- Applies to: 0.0.3 开发树；Skill revision 1.0.7
 - Status: Implemented；执行证据见本次验证报告
 - Precondition: 外部应用准备运行 Skill 或安装 Bundle。
 - Trigger: preflight 通过 Cargo metadata --locked --offline 读取实际解析依赖。
@@ -11,7 +11,7 @@
 - Boundaries: 0.x 不默认跨 minor 兼容；本次不声称 crates.io / docs.rs 已发布。未知来源或变更过的同版本源码必须 Blocked，缺工具为 NotRun，不能猜测 API。
 - Test ID: CT-COMPAT-001
 - Test: [test_preflight_rejects_mismatch](../tests/agent-evals/test_tooling.py)
-- Evidence: [验证报告](../docs/validation/2026-11-04/release-0.0.2/README.md)
+- Evidence: [验证报告](../docs/validation/2026-11-06/release-0.0.3/README.md)
 - Responsibility: Skill Maintainer / Release Owner
 
 ## COMPAT-002：公共变更与破坏性演进
@@ -25,13 +25,13 @@
 - Boundaries: 自动 affected-files 检查只定位影响与必跑项，不能替代人工语义复核；远程发布需显式授权。
 - Test ID: CT-COMPAT-002
 - Test: [test_drift_detects_stale_snapshot](../tests/agent-evals/test_tooling.py)
-- Evidence: [验证报告](../docs/validation/2026-11-04/release-0.0.2/README.md)
+- Evidence: [验证报告](../docs/validation/2026-11-06/release-0.0.3/README.md)
 - Responsibility: Framework / Docs / Skill Maintainers
 
 ## CFG-001：严格配置转换
 
 - Level: MUST
-- Applies to: 0.0.2 开发树
+- Applies to: 0.0.3 开发树
 - Status: Implemented，Verified 范围见能力矩阵
 - Precondition: 应用使用对应 Feature 或指标。
 - Trigger / Guarantee / Boundaries: 未知字段、非法容量及非 reject 发布策略在实例创建前拒绝；只有 enabled=true 转换为选择，配置文件加载和环境合并由宿主负责。
@@ -43,7 +43,7 @@
 ## OBS-001：有界诊断标签
 
 - Level: MUST
-- Applies to: 0.0.2 开发树
+- Applies to: 0.0.3 开发树
 - Status: Implemented，Verified 范围见能力矩阵
 - Precondition: 应用使用对应 Feature 或指标。
 - Trigger / Guarantee / Boundaries: 超过精确标签或字符串预算后聚合 overflow；已有标签继续精确累计，总量保持，快照不承诺跨字段原子性。

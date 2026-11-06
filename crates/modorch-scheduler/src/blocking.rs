@@ -6,7 +6,7 @@ use tokio::sync::{OwnedSemaphorePermit, oneshot};
 
 /// Owned synchronous work handed to a host executor; execute or drop it exactly once.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type BlockingJob = Box<dyn FnOnce() + Send + 'static>;
 /// Host adapter for a bounded execution resource. Enqueue promptly; do not run
@@ -14,7 +14,7 @@ pub type BlockingJob = Box<dyn FnOnce() + Send + 'static>;
 pub trait BlockingExecutor: Send + Sync {
     /// Submit an owned job promptly; an adapter must eventually execute or drop it and report rejection.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     fn execute(&self, job: BlockingJob) -> FrameworkResult<()>;
 }
 
@@ -63,7 +63,7 @@ impl Default for ExecutionResources {
 impl ExecutionResources {
     /// Reject invalid or overflowing resource limits before any work is created.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn validate(&self) -> FrameworkResult<()> {
         if self.cpu_threads == 0
             || self.blocking_io_threads == 0
@@ -170,31 +170,31 @@ pub struct BlockingTaskHandle<T> {
 impl<T> BlockingTaskHandle<T> {
     /// Return the tracked operation identity.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn operation_id(&self) -> OperationId {
         self.task.operation_id()
     }
     /// Read current task progress; CancelRequested does not prove termination.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn state(&self) -> TaskState {
         self.task.state()
     }
     /// Request cooperative cancellation; running work remains tracked until it actually exits.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn cancel(&self) {
         self.task.cancel();
     }
     /// Borrow the task-state observer without transferring ownership of its typed result.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn task(&self) -> &TaskHandle {
         &self.task
     }
     /// Wait for the task result without an implicit timeout; captures and permits may finish releasing afterward.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub async fn wait(self) -> FrameworkResult<T> {
         self.task.wait().await?;
         self.value.await.map_err(|_| FrameworkError::Cancelled)
@@ -209,7 +209,7 @@ impl<T> BlockingTaskHandle<T> {
 impl TaskScheduler {
     /// Submit owned CPU work to its bounded executor; quota rejection returns Backpressure.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn spawn_cpu<F, T>(&self, task: F) -> FrameworkResult<BlockingTaskHandle<T>>
     where
         F: FnOnce(CancellationToken) -> FrameworkResult<T> + Send + 'static,
@@ -219,7 +219,7 @@ impl TaskScheduler {
     }
     /// Submit owned synchronous I/O to its separate bounded executor; cancellation is cooperative.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn spawn_blocking_io<F, T>(&self, task: F) -> FrameworkResult<BlockingTaskHandle<T>>
     where
         F: FnOnce(CancellationToken) -> FrameworkResult<T> + Send + 'static,

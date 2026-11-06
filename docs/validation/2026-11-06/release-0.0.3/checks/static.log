@@ -1,0 +1,42 @@
+$ ["/usr/bin/python3", "tools/doc-validation/run.py", "--results", "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-06/release-0.0.3/checks/test.log", "--tooling-results", "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-06/release-0.0.3/checks/tooling-tests.log"]
+[
+  {
+    "check": "links",
+    "status": "Passed",
+    "details": {
+      "local_links_checked": 603,
+      "remote_links": "NotRun (offline gate)"
+    }
+  },
+  {
+    "check": "contracts",
+    "status": "Passed",
+    "details": {
+      "contract_tests": 57,
+      "test_execution": "Passed",
+      "tooling_execution": "Passed"
+    }
+  },
+  {
+    "check": "skills",
+    "status": "Passed",
+    "details": {
+      "skills_checked": 3,
+      "format": "Agent Skills open format; repository YAML subset"
+    }
+  },
+  {
+    "check": "matrix",
+    "status": "Passed",
+    "details": {
+      "capabilities_checked": 23
+    }
+  },
+  {
+    "check": "drift",
+    "status": "Passed",
+    "details": {
+      "snapshots": "current"
+    }
+  }
+]

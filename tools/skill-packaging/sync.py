@@ -20,8 +20,8 @@ SKILLS = {
 
 def generated(root=ROOT):
     metadata = json.loads(subprocess.check_output(["cargo", "metadata", "--format-version=1", "--all-features", "--locked", "--offline", "--filter-platform", target_triple()], cwd=root, text=True))
-    framework = {"framework_version": "0.0.2", "compatible_versions": ["0.0.2"],
-                 "skill_revision": "1.0.5", "contracts_revision": "1.1.0", "identity": identity(metadata["packages"]),
+    framework = {"framework_version": "0.0.3", "compatible_versions": ["0.0.3"],
+                 "skill_revision": "1.0.7", "contracts_revision": "1.2.0", "identity": identity(metadata["packages"]),
                  "features": ["default", "runtime", "eventhub", "scheduler", "config-toml", "observability"],
                  "required_features": ["runtime"], "hash_algorithm": "sha256(sorted UTF-8 path + NUL + lowercase file sha256 + LF)"}
     result = {}
@@ -50,14 +50,14 @@ def generated(root=ROOT):
                 # This is a controlled-source locator, not an installed required file.
                 return f"{label}（源码定位：`{link}`；从匹配框架源码查询）"
             text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", replace_link, data.decode())
-            rendered = f"> Generated snapshot; source: {source}; source sha256: {hashlib.sha256(data).hexdigest()}; revision 1.0.5. Do not edit.\n\n{text}"
+            rendered = f"> Generated snapshot; source: {source}; source sha256: {hashlib.sha256(data).hexdigest()}; revision 1.0.7. Do not edit.\n\n{text}"
             result[base / target] = rendered.encode()
             records.append({"target": target, "source": source, "source_sha256": hashlib.sha256(data).hexdigest(), "snapshot_sha256": hashlib.sha256(rendered.encode()).hexdigest()})
         for filename in ("preflight.py", "init-template.py", "validate-report.py"):
             result[base / "scripts" / filename] = (root / "tools/skill-packaging" / filename).read_bytes()
         result[base / "references/result.schema.json"] = (root / "tools/skill-packaging/result.schema.json").read_bytes()
         result[base / "references/framework-identity.json"] = (json.dumps(framework, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode()
-        result[base / "references/sources.json"] = (json.dumps({"revision": "1.0.5", "sources": records}, ensure_ascii=False, indent=2) + "\n").encode()
+        result[base / "references/sources.json"] = (json.dumps({"revision": "1.0.7", "sources": records}, ensure_ascii=False, indent=2) + "\n").encode()
         template = "module-template" if name == "modorch-module-development" else "minimal-app"
         source_template = "modular-service" if template == "module-template" else "minimal-app"
         for path in sorted((root / "templates" / source_template).rglob("*")):

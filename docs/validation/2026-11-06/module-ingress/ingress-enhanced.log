@@ -1,0 +1,17 @@
+   Compiling modorch v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.22s
+     Running tests/ingress.rs (target/debug/deps/ingress-dd475ce0622d5e85)
+
+running 9 tests
+test connection_task_limit_rejects_without_losing_listener_or_leaking_work ... ok
+test cancelled_start_wait_still_compensates_activated_module ... ok
+test real_bind_failure_in_activation_retains_source_and_compensates_previous_ingress ... ok
+test slow_connection_retains_resources_until_checked_shutdown_can_finish ... ok
+test partial_activation_error_and_panic_preserve_cause_and_release_all_ports ... ok
+test both_roles_wait_for_all_ready_before_tcp_listen_and_build_has_no_side_effects ... ok
+test context_hubs_share_routing_and_different_applications_remain_isolated ... ok
+test activation_retry_budget_exhaustion_closes_all_ingress_and_reports_activation_phase ... ok
+test restart_activation_failure_compensates_before_retry_and_preserves_application_hub ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+

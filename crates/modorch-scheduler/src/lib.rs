@@ -24,7 +24,7 @@
 //! ```
 //!
 //! # Stability
-//! Development API 0.0.2. TaskGroup is a TaskScheduler alias. No implicit global runtime
+//! Development API 0.0.3. TaskGroup is a TaskScheduler alias. No implicit global runtime
 //! or safe force-kill of external synchronous side effects is provided.
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]
@@ -48,18 +48,18 @@ use tracing::Instrument;
 
 /// Owned, Send asynchronous task returning a framework result.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type TaskFuture = Pin<Box<dyn Future<Output = FrameworkResult<()>> + Send>>;
 /// Repeatable factory producing one future per timer tick, with a cancellation token.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type TaskFactory = Arc<dyn Fn(CancellationToken) -> TaskFuture + Send + Sync>;
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 /// Task progress; CancelRequested is not a terminal state.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum TaskState {
     /// Bounded admission succeeded; business completion is not implied.
@@ -83,7 +83,7 @@ impl TaskState {
 #[derive(Clone)]
 /// Cloneable task status, cancellation and result observer.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct TaskHandle {
     id: OperationId,
@@ -106,13 +106,13 @@ fn request_cancel(cancel: &CancellationToken, state: &watch::Sender<TaskState>) 
 impl TaskHandle {
     /// Return the tracked operation identity.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn operation_id(&self) -> OperationId {
         self.id
     }
     /// Read current task progress; CancelRequested does not prove termination.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn state(&self) -> TaskState {
         *self.state.borrow()
     }
@@ -122,7 +122,7 @@ impl TaskHandle {
     }
     /// Wait for the task result without an implicit timeout; captures and permits may finish releasing afterward.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub async fn wait(&self) -> FrameworkResult<()> {
         let mut result = self.result.clone();
         loop {
@@ -147,7 +147,7 @@ impl TaskHandle {
 #[derive(Clone, Copy, Debug)]
 /// Explicit bounded behavior when a timer tick overlaps running work.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum TickPolicy {
     /// Skip ticks that overlap existing work.
@@ -166,7 +166,7 @@ pub enum TickPolicy {
 #[derive(Clone, Copy, Debug)]
 /// Nonzero period and overlap policy for a managed interval.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct IntervalSpec {
     /// Positive interval; the first tick occurs after one period.
@@ -214,13 +214,13 @@ struct Inner {
 #[derive(Clone)]
 /// Application-scoped task controls, timer drivers and isolated bounded executors.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct SchedulerRuntime(Arc<Inner>);
 #[derive(Clone)]
 /// Owner- and generation-bound task submission capability.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct TaskScheduler {
     runtime: SchedulerRuntime,
@@ -231,7 +231,7 @@ pub struct TaskScheduler {
 }
 /// Alias for the owner-bound TaskScheduler, not a separate task tracker.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type TaskGroup = TaskScheduler;
 struct TaskGuard {
@@ -283,7 +283,7 @@ impl<F> Drop for OwnedTask<F> {
 #[derive(Clone)]
 /// Cooperative timer cancellation and driver-exit acknowledgement.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct TimerHandle {
     cancel: CancellationToken,
@@ -292,7 +292,7 @@ pub struct TimerHandle {
 impl TimerHandle {
     /// Request cooperative cancellation; running work remains tracked until it actually exits.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn cancel(&self) {
         self.cancel.cancel();
     }
@@ -322,7 +322,7 @@ impl Drop for TimerGuard {
 impl SchedulerRuntime {
     /// Create application task resources with default independent CPU/I/O limits.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn new(
         tracker: OperationTracker,
         failures: FailureReporter,
@@ -339,7 +339,7 @@ impl SchedulerRuntime {
     }
     /// Construct bounded application resources; invalid task/timer or executor limits return InvalidConfig.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn with_resources(
         tracker: OperationTracker,
         failures: FailureReporter,
@@ -388,7 +388,7 @@ impl SchedulerRuntime {
     }
     /// Create an owner-generation-bound scheduler sharing application and per-owner quotas.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn for_owner(&self, owner: ComponentRef) -> TaskScheduler {
         let slots = {
             let mut owners = self.0.owner_slots.lock().unwrap();
@@ -424,7 +424,7 @@ impl SchedulerRuntime {
     }
     /// Close new production and request cooperative cancellation while preserving admitted work.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn begin_shutdown(&self) {
         for timer in self.0.timers.lock().unwrap().values() {
             timer.cancel.cancel();
@@ -435,7 +435,7 @@ impl SchedulerRuntime {
     }
     /// Snapshot tracked operations associated with the specified owners.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn pending_owners(&self) -> BTreeMap<ComponentRef, usize> {
         let mut result = BTreeMap::new();
         for task in self.0.tasks.lock().unwrap().values() {
@@ -445,7 +445,7 @@ impl SchedulerRuntime {
     }
     /// Request cancellation and abort asynchronous futures; synchronous closures remain tracked until actual exit.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn force_cancel(&self) {
         self.begin_shutdown();
         for timer in self.0.timers.lock().unwrap().values() {
@@ -461,13 +461,13 @@ impl SchedulerRuntime {
 impl TaskScheduler {
     /// Return the component bound to this scheduler capability.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn owner(&self) -> &ComponentRef {
         &self.owner
     }
     /// Admit owned Send asynchronous work; global/owner quota or closed generation returns an error.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn spawn<F, Fut>(&self, task: F) -> FrameworkResult<TaskHandle>
     where
         F: FnOnce(CancellationToken) -> Fut + Send + 'static,
@@ -594,13 +594,13 @@ impl TaskScheduler {
     }
     /// Create one bounded timer driver; dispatch after the delay may fail if task capacity is saturated.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn delay(&self, delay: Duration, task: TaskFactory) -> FrameworkResult<TimerHandle> {
         self.timer(delay, None, TickPolicy::SkipIfRunning, task)
     }
     /// Create a managed timer with an explicit overlap bound; zero/overflow periods are InvalidConfig.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn interval(&self, spec: IntervalSpec, task: TaskFactory) -> FrameworkResult<TimerHandle> {
         if spec.period.is_zero() {
             return Err(FrameworkError::InvalidConfig("zero timer period".into()));
@@ -719,7 +719,7 @@ impl TaskScheduler {
 #[derive(Clone, Debug)]
 /// Independently sampled task, timer and execution-resource counters.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct TaskMetrics {
     /// Isolated application identity attached to this snapshot.
@@ -748,7 +748,7 @@ pub struct TaskMetrics {
 impl SchedulerRuntime {
     /// Capture independently sampled counters; this snapshot is not a transactional view.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn metrics(&self) -> TaskMetrics {
         let owners = self.pending_owners();
         TaskMetrics {
@@ -778,7 +778,7 @@ impl SchedulerRuntime {
 impl SchedulerRuntime {
     /// Cancel producers belonging to a recovery closure without stopping unrelated owners.
     ///
-    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: SCH-001 / SCH-003. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn stop_owners(&self, owners: &std::collections::BTreeSet<ComponentRef>) {
         for timer in self.0.timers.lock().unwrap().values() {
             if owners.contains(&timer.owner) {

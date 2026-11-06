@@ -26,4 +26,4 @@ async-trait.workspace = true
 [dev-dependencies]
 tracing.workspace = true
 tracing-subscriber = { version = "0.3", default-features = false, features = ["registry"] }
-tokio = { workspace = true, features = ["rt-multi-thread", "test-util"] }
+tokio = { workspace = true, features = ["rt-multi-thread", "test-util", "net", "io-util"] }

@@ -25,7 +25,7 @@ struct Entry {
 #[derive(Clone)]
 /// Application-scoped typed services with tracked resource leases.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ServiceRegistry {
     entries: Arc<Mutex<HashMap<Key, Entry>>>,
@@ -34,7 +34,7 @@ pub struct ServiceRegistry {
 impl ServiceRegistry {
     /// Create an isolated service registry sharing this operation tracker.
     ///
-    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn new(tracker: OperationTracker) -> Self {
         Self {
             entries: Arc::default(),
@@ -43,7 +43,7 @@ impl ServiceRegistry {
     }
     /// Create an Initiator-bound publisher; Module owners receive AccessDenied.
     ///
-    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn publisher(&self, owner: ComponentRef) -> FrameworkResult<ServicePublisher> {
         if owner.kind != ComponentKind::Initiator {
             return Err(FrameworkError::AccessDenied(owner));
@@ -55,7 +55,7 @@ impl ServiceRegistry {
     }
     /// Create a generation-bound reader restricted to itself and declared dependencies.
     ///
-    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn reader(
         &self,
         owner: ComponentRef,
@@ -73,7 +73,7 @@ impl ServiceRegistry {
     }
     /// Revoke new service availability for this owner; existing leases remain tracked.
     ///
-    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn retire(&self, owner: &ComponentRef) {
         let mut entries = self.entries.lock().unwrap();
         for ((component, _, _), entry) in entries.iter_mut() {
@@ -84,7 +84,7 @@ impl ServiceRegistry {
     }
     /// Remove the owner's registry entries after its resource barrier has completed.
     ///
-    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn remove(&self, owner: &ComponentRef) {
         self.entries
             .lock()
@@ -94,7 +94,7 @@ impl ServiceRegistry {
 }
 /// An Initiator-bound capability to publish owned or borrowed service interfaces.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ServicePublisher {
     registry: ServiceRegistry,
@@ -103,7 +103,7 @@ pub struct ServicePublisher {
 impl ServicePublisher {
     /// Publish a typed owned service; duplicate owner/name/type keys return InvalidConfig.
     ///
-    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn publish<T: Send + Sync + 'static>(
         &mut self,
         name: impl Into<String>,
@@ -113,7 +113,7 @@ impl ServicePublisher {
     }
     /// Publish a host-owned service; the host remains responsible for final resource closure.
     ///
-    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn publish_borrowed<T: Send + Sync + 'static>(
         &mut self,
         name: impl Into<String>,
@@ -123,7 +123,7 @@ impl ServicePublisher {
     }
     /// Publish with explicit ownership; duplicate owner/name/type keys return InvalidConfig.
     ///
-    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn publish_with_ownership<T: Send + Sync + 'static>(
         &mut self,
         name: impl Into<String>,
@@ -153,7 +153,7 @@ impl ServicePublisher {
 #[derive(Clone)]
 /// Dependency-scoped access to typed services, bound to the borrower generation.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ServiceReader {
     registry: ServiceRegistry,
@@ -164,7 +164,7 @@ pub struct ServiceReader {
 impl ServiceReader {
     /// Locate a declared dependency's typed service; access, availability or generation failures return an error.
     ///
-    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn get<T: Send + Sync + 'static>(
         &self,
         owner: &ComponentRef,
@@ -198,7 +198,7 @@ impl ServiceReader {
 }
 /// Generation-bound service locator; acquire a tracked lease before use.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ServiceHandle<T> {
     registry: ServiceRegistry,
@@ -225,13 +225,13 @@ impl<T> Clone for ServiceHandle<T> {
 impl<T: Send + Sync + 'static> ServiceHandle<T> {
     /// Return the ownership policy recorded when this handle was created.
     ///
-    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn ownership(&self) -> ResourceOwnership {
         self.ownership
     }
     /// Acquire a generation-checked lease protecting borrower and resource owner until dropped.
     ///
-    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: RES-001 / DEP-001. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn acquire(&self) -> FrameworkResult<ServiceLease<T>> {
         let entries = self.registry.entries.lock().unwrap();
         let entry = entries

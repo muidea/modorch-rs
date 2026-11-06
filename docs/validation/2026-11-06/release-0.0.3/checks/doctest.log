@@ -1,0 +1,67 @@
+$ ["cargo", "test", "--doc", "--workspace", "--all-features", "--locked", "--offline"]
+    Blocking waiting for file lock on artifact directory
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.81s
+   Doc-tests modorch
+
+running 1 test
+test crates/modorch/src/lib.rs - (line 19) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+all doctests ran in 2.67s; merged doctests compilation took 2.64s
+   Doc-tests modorch_config
+
+running 1 test
+test crates/modorch-config/src/lib.rs - (line 11) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+all doctests ran in 0.89s; merged doctests compilation took 0.86s
+   Doc-tests modorch_core
+
+running 1 test
+test crates/modorch-core/src/lib.rs - (line 11) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+all doctests ran in 1.05s; merged doctests compilation took 1.03s
+   Doc-tests modorch_eventhub
+
+running 1 test
+test crates/modorch-eventhub/src/lib.rs - (line 18) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+all doctests ran in 1.03s; merged doctests compilation took 0.98s
+   Doc-tests modorch_observe
+
+running 1 test
+test crates/modorch-observe/src/lib.rs - (line 11) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+all doctests ran in 0.82s; merged doctests compilation took 0.81s
+   Doc-tests modorch_registry
+
+running 1 test
+test crates/modorch-registry/src/lib.rs - (line 16) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+all doctests ran in 0.71s; merged doctests compilation took 0.69s
+   Doc-tests modorch_runtime
+
+running 1 test
+test crates/modorch-runtime/src/lib.rs - (line 18) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+all doctests ran in 1.05s; merged doctests compilation took 1.04s
+   Doc-tests modorch_scheduler
+
+running 1 test
+test crates/modorch-scheduler/src/lib.rs - (line 18) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+all doctests ran in 0.82s; merged doctests compilation took 0.81s

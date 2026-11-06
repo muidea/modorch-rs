@@ -1,0 +1,4 @@
+   Compiling modorch-modular-template v0.0.2 (/tmp/modorch-cleanroom-ypx8geg4/AE-002)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.29s
+     Running `/home/rangh/aispace/modorch-rs/target/debug/modorch-modular-template`
+modular-service: hello 42, ticks>=2, drained

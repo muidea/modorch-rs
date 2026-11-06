@@ -1,6 +1,6 @@
 # 依赖与启用闭包
 
-适用 0.0.2；规范见 [Dependency Contract](../../contracts/dependency-contract.md)。
+适用 0.0.3；规范见 [Dependency Contract](../../contracts/dependency-contract.md)。
 
 requires 表示必须存在且启用；optional 表示已启用时参与顺序，不隐式启用。默认 RequireSelected；需要框架显式补齐 requires 时设置 IncludeRequired。未知组件不能被自动创造。Initiator 的 requires 与 optional 都不能指向 Module。
 

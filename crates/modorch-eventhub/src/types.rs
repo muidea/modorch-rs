@@ -3,23 +3,23 @@ use std::{any::Any, collections::BTreeMap, sync::Arc, time::Instant};
 
 /// Shared in-process payload; not a serialized or durable transport representation.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type MessagePayload = Arc<dyn Any + Send + Sync>;
 /// Type-erased shared handler result, downcast by typed RequestHandle.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type HandlerReply = MessagePayload;
 /// Hub-local unique subscription identity.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub type SubscriptionId = u64;
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 /// Delivery intent: Event, Command or Request.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum MessageKind {
     /// Independent fanout admission report without a business reply.
@@ -32,7 +32,7 @@ pub enum MessageKind {
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 /// Routing selector combined with the actual topic.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum Destination {
     /// Match all topic-compatible subscribed destinations.
@@ -45,7 +45,7 @@ pub enum Destination {
 #[derive(Clone, Debug, PartialEq, Eq)]
 /// Destination constraint on a subscription.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum DestinationPattern {
     /// Accept any destination selector.
@@ -56,7 +56,7 @@ pub enum DestinationPattern {
 #[derive(Clone)]
 /// Framework-generated message identity, causality, routing and shared payload.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct MessageEnvelope {
     /// Framework-generated tracked operation identity.
@@ -85,7 +85,7 @@ pub struct MessageEnvelope {
 impl MessageEnvelope {
     /// Clone and downcast the shared payload; an incompatible type returns TypeMismatch.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn payload<T: Send + Sync + 'static>(&self) -> FrameworkResult<Arc<T>> {
         self.payload
             .clone()
@@ -96,7 +96,7 @@ impl MessageEnvelope {
 #[derive(Clone, Debug)]
 /// A target component, topic pattern and optional destination constraint.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct SubscriptionSpec {
     /// Identity local to its component or subscription scope.
@@ -111,7 +111,7 @@ pub struct SubscriptionSpec {
 impl SubscriptionSpec {
     /// Create a topic subscription accepting any destination.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn new(id: SubscriptionId, target: ComponentRef, pattern: impl Into<String>) -> Self {
         Self {
             id,
@@ -124,7 +124,7 @@ impl SubscriptionSpec {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 /// Acknowledges that a subscription control-plane change already took effect.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct SubscriptionReceipt {
     /// Identity local to its component or subscription scope.
@@ -135,7 +135,7 @@ pub struct SubscriptionReceipt {
 #[derive(Clone, Debug)]
 /// Acknowledges queue acceptance only; does not acknowledge handler completion.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct AdmissionReceipt {
     /// Tracked operation identity for diagnostics and causal accounting.
@@ -146,7 +146,7 @@ pub struct AdmissionReceipt {
 #[derive(Clone, Debug)]
 /// One fanout target and its admission outcome.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct Delivery {
     /// Resolved destination component.
@@ -157,7 +157,7 @@ pub struct Delivery {
 #[derive(Clone, Debug)]
 /// Independent per-target admission outcomes; fanout is not atomic.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct PublishReport {
     /// Independent per-target admission results.
@@ -166,19 +166,19 @@ pub struct PublishReport {
 impl PublishReport {
     /// Count successful per-target admissions, not completed handler executions.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn accepted(&self) -> usize {
         self.deliveries.iter().filter(|d| d.result.is_ok()).count()
     }
     /// Return true if at least one target accepted and at least one rejected.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn is_partial(&self) -> bool {
         self.accepted() > 0 && self.accepted() < self.deliveries.len()
     }
     /// Count per-target admission rejections.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn rejected(&self) -> usize {
         self.deliveries.len() - self.accepted()
     }
@@ -186,7 +186,7 @@ impl PublishReport {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 /// Explicit nonblocking rejection/drop policy, preserving per-target outcomes.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum PublishPolicy {
     /// Explicitly report rejected admissions without waiting.
@@ -197,7 +197,7 @@ pub enum PublishPolicy {
 #[derive(Clone, Debug, Default)]
 /// Caller metadata and declared payload cost; causal identity is framework-owned.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct MessageOptions {
     /// Declared retained payload cost; required when byte budgets are configured.
@@ -212,7 +212,7 @@ pub struct MessageOptions {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 /// Execution progress independent of whether the caller is still waiting.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum RequestStatus {
     /// Accepted but business execution has not started.

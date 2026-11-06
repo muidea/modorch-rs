@@ -19,7 +19,7 @@ pub(crate) struct Metrics {
 #[derive(Clone, Copy, Debug, Default)]
 /// Handler execution counters and logarithmic microsecond latency estimates.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct ExecutionMetrics {
     /// Currently active executions or drains.
@@ -117,7 +117,7 @@ pub const MESSAGE_METRIC_LABEL_LIMIT: usize = 1024;
 #[repr(usize)]
 /// Classification of a routing/admission attempt, not a business outcome.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub enum RouteOutcome {
     /// Bounded admission succeeded; business completion is not implied.
@@ -169,7 +169,7 @@ impl RouteOutcome {
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
 /// Bounded message metric identity; overflow aggregates excess label sets.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct MessageMetricLabels {
     /// None for routing failures before a target is known, or for overflow.
@@ -182,7 +182,7 @@ pub struct MessageMetricLabels {
 #[derive(Clone, Debug)]
 /// Per-label routing attempts and handler execution snapshot.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct MessageMetrics {
     /// Isolated application identity attached to this snapshot.

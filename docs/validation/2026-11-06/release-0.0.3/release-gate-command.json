@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python3",
+    "tools/doc-validation/release-gate.py",
+    "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-06/release-0.0.3/verification.json"
+  ],
+  "exit_code": 1,
+  "status": "Failed",
+  "release_status": "Candidate",
+  "reason": "Independent Agent evidence NotRun; all local checks Passed"
+}

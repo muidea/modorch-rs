@@ -1,0 +1,493 @@
+[
+  {
+    "id": "versions",
+    "command": [
+      [
+        "rustc",
+        "--version",
+        "--verbose"
+      ],
+      [
+        "cargo",
+        "--version"
+      ],
+      [
+        "python3",
+        "--version"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/versions.log",
+    "sha256": "ceb03bd9ac5baf0de406cfd299bb8035c5e560e0e5bc2201c35da0e44afa3a1a"
+  },
+  {
+    "id": "fmt",
+    "command": [
+      [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/fmt.log",
+    "sha256": "645a0cf09b7ddac9e017edef0748e8b7fe7ea9a44118d74f631475af5398d130"
+  },
+  {
+    "id": "check",
+    "command": [
+      [
+        "cargo",
+        "check",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--offline"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/check.log",
+    "sha256": "3b01c13f8c39e49964f7b0c46538066e14f9f6e0bd0cd49cf5ab6f0b64e7d11b"
+  },
+  {
+    "id": "clippy",
+    "command": [
+      [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--offline",
+        "--",
+        "-D",
+        "warnings"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/clippy.log",
+    "sha256": "7852ce2aad01d764b16cee0e18a9ec1e82b1469865a7fc315c3e4f2a26297d3f"
+  },
+  {
+    "id": "test",
+    "command": [
+      [
+        "cargo",
+        "test",
+        "--workspace",
+        "--all-features",
+        "--locked",
+        "--offline"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/test.log",
+    "sha256": "96c83d83a628bfce99eca58592d3fc8df196b2286a1f4567acb8eeb8cbaf0cb7"
+  },
+  {
+    "id": "doctest",
+    "command": [
+      [
+        "cargo",
+        "test",
+        "--doc",
+        "--workspace",
+        "--all-features",
+        "--locked",
+        "--offline"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/doctest.log",
+    "sha256": "ce4fb54428c34732bd4271d733c21b055f9baa016519d4a6afecf2b7beda8893"
+  },
+  {
+    "id": "rustdoc",
+    "command": [
+      [
+        "cargo",
+        "doc",
+        "--workspace",
+        "--all-features",
+        "--no-deps",
+        "--locked",
+        "--offline"
+      ]
+    ],
+    "environment": {
+      "RUSTDOCFLAGS": "-D warnings"
+    },
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/rustdoc.log",
+    "sha256": "d26f076696c0e11a90d706e6f5f16d63a7ec388b21b85d575e11fe9e7a8269ae"
+  },
+  {
+    "id": "msrv",
+    "command": [
+      [
+        "cargo",
+        "+1.85.0",
+        "check",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--offline"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/msrv.log",
+    "sha256": "888213a3e53359a8f55aa4bd7a206ddcca7dfa3649561ec24577d28fc4dde9ba"
+  },
+  {
+    "id": "features",
+    "command": [
+      [
+        "cargo",
+        "check",
+        "-p",
+        "modorch",
+        "--no-default-features",
+        "--features",
+        "",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "check",
+        "-p",
+        "modorch",
+        "--no-default-features",
+        "--features",
+        "eventhub",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "check",
+        "-p",
+        "modorch",
+        "--no-default-features",
+        "--features",
+        "scheduler",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "check",
+        "-p",
+        "modorch",
+        "--no-default-features",
+        "--features",
+        "runtime",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "check",
+        "-p",
+        "modorch",
+        "--no-default-features",
+        "--features",
+        "config-toml",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "check",
+        "-p",
+        "modorch",
+        "--no-default-features",
+        "--features",
+        "observability",
+        "--locked",
+        "--offline"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/features.log",
+    "sha256": "11aba2526ffb05ab8bd85522d9e5217f78c035d673603971d84606e781bb8b74"
+  },
+  {
+    "id": "examples",
+    "command": [
+      [
+        "cargo",
+        "run",
+        "-p",
+        "basic-app",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "run",
+        "-p",
+        "shared-service",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "run",
+        "-p",
+        "event-messaging",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "run",
+        "-p",
+        "request-response",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "run",
+        "-p",
+        "scheduled-tasks",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "run",
+        "-p",
+        "lifecycle",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "run",
+        "-p",
+        "minimal-app",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "run",
+        "-p",
+        "stateful-initiator",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "run",
+        "-p",
+        "multi-module",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "run",
+        "-p",
+        "graceful-http",
+        "--locked",
+        "--offline",
+        "--",
+        "--once"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/examples.log",
+    "sha256": "7b2ee882615f6f4ae0fb113d481bf473de7c5632104b059b14bdee97a666769b"
+  },
+  {
+    "id": "templates",
+    "command": [
+      [
+        "cargo",
+        "fmt",
+        "--manifest-path",
+        "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml",
+        "--",
+        "--check"
+      ],
+      [
+        "cargo",
+        "check",
+        "--manifest-path",
+        "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "run",
+        "--manifest-path",
+        "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "fmt",
+        "--manifest-path",
+        "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml",
+        "--",
+        "--check"
+      ],
+      [
+        "cargo",
+        "check",
+        "--manifest-path",
+        "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml",
+        "--locked",
+        "--offline"
+      ],
+      [
+        "cargo",
+        "run",
+        "--manifest-path",
+        "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml",
+        "--locked",
+        "--offline"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/templates.log",
+    "sha256": "57cf5a1368cf9b77f4640123a0aa55dc284bc3123bb1e84686a453a6bde6edcc"
+  },
+  {
+    "id": "external",
+    "command": [
+      [
+        "cargo",
+        "run",
+        "--manifest-path",
+        "tests/fixtures/external-app/Cargo.toml",
+        "--locked",
+        "--offline"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/external.log",
+    "sha256": "e3a3295ece21fca4f43efabcb3788b161d1baadfd82cfc620c197f30172c3bcd"
+  },
+  {
+    "id": "tooling-tests",
+    "command": [
+      [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/agent-evals",
+        "-p",
+        "test_*.py",
+        "-v"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/tooling-tests.log",
+    "sha256": "8a1199ac78da19931465321a8f5cca9aab42aed6cb18481ca4b1986a6f471405"
+  },
+  {
+    "id": "skills-format",
+    "command": [
+      [
+        "skill-hub",
+        "validate",
+        "--pattern",
+        "modorch-*",
+        "--links"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/skills-format.log",
+    "sha256": "0d70263411dad6fb165ddf672a896159b294617d4cb3a18161796f866967874e"
+  },
+  {
+    "id": "bundle-install",
+    "command": [
+      [
+        "python3",
+        "tests/agent-evals/fixture-replay.py",
+        "--output",
+        "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-06/release-0.0.3/fixtures"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/bundle-install.log",
+    "sha256": "b2efd24b247abb128b03bda1399555dda3a7246dbcdb79239649ba4dee200c7f"
+  },
+  {
+    "id": "static",
+    "command": [
+      [
+        "/usr/bin/python3",
+        "tools/doc-validation/run.py",
+        "--results",
+        "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-06/release-0.0.3/checks/test.log",
+        "--tooling-results",
+        "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-06/release-0.0.3/checks/tooling-tests.log"
+      ]
+    ],
+    "environment": {},
+    "status": "Passed",
+    "exit_code": 0,
+    "evidence": "docs/validation/2026-11-06/release-0.0.3/checks/static.log",
+    "sha256": "8c1cbdc7cb1357a777b8b78bbeeab6210b67e02d8b8b516723600de0465609e8"
+  }
+]

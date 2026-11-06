@@ -1,0 +1,733 @@
+{
+  "recorded_at": "2026-11-06T03:53:36.980761+00:00",
+  "framework_sha256": "dd4b8349a1e726db00584d0f6e7cb9c857033d58dc19ba8c8235e337fd810e9f",
+  "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+  "checks": [
+    {
+      "id": "versions",
+      "command": [
+        [
+          "rustc",
+          "--version",
+          "--verbose"
+        ],
+        [
+          "cargo",
+          "--version"
+        ],
+        [
+          "python3",
+          "--version"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/checks/versions.log",
+      "sha256": "ceb03bd9ac5baf0de406cfd299bb8035c5e560e0e5bc2201c35da0e44afa3a1a"
+    },
+    {
+      "id": "fmt",
+      "command": [
+        [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/checks/fmt.log",
+      "sha256": "645a0cf09b7ddac9e017edef0748e8b7fe7ea9a44118d74f631475af5398d130"
+    },
+    {
+      "id": "check",
+      "command": [
+        [
+          "cargo",
+          "check",
+          "--workspace",
+          "--all-targets",
+          "--all-features",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/checks/check.log",
+      "sha256": "934222bbaa3ad1110aad290d67b97e033e39822e1022a23facb6498011679502"
+    },
+    {
+      "id": "clippy",
+      "command": [
+        [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--all-targets",
+          "--all-features",
+          "--locked",
+          "--offline",
+          "--",
+          "-D",
+          "warnings"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/clippy-initial.log",
+      "sha256": "6081ab65bbeb7101fd65e74909060adf75c6b3eabf1e1445d053f702c65757e3"
+    },
+    {
+      "id": "test",
+      "command": [
+        [
+          "cargo",
+          "test",
+          "--workspace",
+          "--all-features",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/checks/test.log",
+      "sha256": "e21be262fa5f0c4f01b6e6ba3594038c295cfc5761261d3c008d2d49013a1f1f"
+    },
+    {
+      "id": "doctest",
+      "command": [
+        [
+          "cargo",
+          "test",
+          "--doc",
+          "--workspace",
+          "--all-features",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/checks/doctest.log",
+      "sha256": "c32d812080e035775071008b70cb3634622911d167b8ba2a7ae65b753a8193d5"
+    },
+    {
+      "id": "rustdoc",
+      "command": [
+        [
+          "cargo",
+          "doc",
+          "--workspace",
+          "--all-features",
+          "--no-deps",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {
+        "RUSTDOCFLAGS": "-D warnings"
+      },
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/checks/rustdoc.log",
+      "sha256": "f50dce0e95f76fb2991a5bbe4c5f8499a7f07b5f2b5e1e55c6dc2d0880972b76"
+    },
+    {
+      "id": "msrv",
+      "command": [
+        [
+          "cargo",
+          "+1.85.0",
+          "check",
+          "--workspace",
+          "--all-targets",
+          "--all-features",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/checks/msrv.log",
+      "sha256": "6a731b180031c84369518c757a40d977a11d80eb53ec7b5e03f6761d5d7c6f12"
+    },
+    {
+      "id": "features",
+      "command": [
+        [
+          "cargo",
+          "check",
+          "-p",
+          "modorch",
+          "--no-default-features",
+          "--features",
+          "",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "check",
+          "-p",
+          "modorch",
+          "--no-default-features",
+          "--features",
+          "eventhub",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "check",
+          "-p",
+          "modorch",
+          "--no-default-features",
+          "--features",
+          "scheduler",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "check",
+          "-p",
+          "modorch",
+          "--no-default-features",
+          "--features",
+          "runtime",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "check",
+          "-p",
+          "modorch",
+          "--no-default-features",
+          "--features",
+          "config-toml",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "check",
+          "-p",
+          "modorch",
+          "--no-default-features",
+          "--features",
+          "observability",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/checks/features.log",
+      "sha256": "1228e3e51d4e8540bdaa59223bed9dfbf8e81d780de19b1e385cc71a33ba67f9"
+    },
+    {
+      "id": "examples",
+      "command": [
+        [
+          "cargo",
+          "run",
+          "-p",
+          "basic-app",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "shared-service",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "event-messaging",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "request-response",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "scheduled-tasks",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "lifecycle",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "minimal-app",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "stateful-initiator",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "multi-module",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "-p",
+          "graceful-http",
+          "--locked",
+          "--offline",
+          "--",
+          "--once"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/checks/examples.log",
+      "sha256": "4996b76cde3aa843eb595428e29f5c6d0af043a205c5a65af80f1d572bf25f1f"
+    },
+    {
+      "id": "templates",
+      "command": [
+        [
+          "cargo",
+          "fmt",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml",
+          "--",
+          "--check"
+        ],
+        [
+          "cargo",
+          "check",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "test",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/minimal-app/Cargo.toml",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "fmt",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml",
+          "--",
+          "--check"
+        ],
+        [
+          "cargo",
+          "check",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "test",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml",
+          "--locked",
+          "--offline"
+        ],
+        [
+          "cargo",
+          "run",
+          "--manifest-path",
+          "/home/rangh/aispace/modorch-rs/templates/modular-service/Cargo.toml",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/checks/templates.log",
+      "sha256": "8921c30b06be4788d1800070be52b1bb1ec51368e9b7c9faabe94eedabbf1fac"
+    },
+    {
+      "id": "external",
+      "command": [
+        [
+          "cargo",
+          "run",
+          "--manifest-path",
+          "tests/fixtures/external-app/Cargo.toml",
+          "--locked",
+          "--offline"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/checks/external.log",
+      "sha256": "535a236a5c72476189750c677e7e80076c5974114a6f6120750735d1f06e4ba1"
+    },
+    {
+      "id": "tooling-tests",
+      "command": [
+        [
+          "/usr/bin/python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/agent-evals",
+          "-p",
+          "test_*.py",
+          "-v"
+        ]
+      ],
+      "environment": {},
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/checks/tooling-tests.log",
+      "sha256": "b3bb3ca95c8764258d3683ce68641f6fbbb26d2d3b7f77758ad1986dac3c9a2f"
+    },
+    {
+      "id": "static",
+      "command": [
+        "python3",
+        "tools/doc-validation/run.py",
+        "--results",
+        "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-06/module-ingress/checks/test.log",
+        "--tooling-results",
+        "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-06/module-ingress/checks/tooling-tests.log"
+      ],
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/static-final.log",
+      "sha256": "a24191797b72314b4dfa599573b98b8484638bb4693bbcbfb570006d6b30d60a"
+    },
+    {
+      "id": "bundle-install",
+      "command": [
+        "python3",
+        "tests/agent-evals/fixture-replay.py",
+        "--output",
+        "/home/rangh/aispace/modorch-rs/docs/validation/2026-11-06/module-ingress/final-fixtures"
+      ],
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/final-fixtures/summary.json",
+      "sha256": "0d5831901b8049b1163f2dca9b2187e8fe021d8e585b71509dfb64d22e89f229"
+    },
+    {
+      "id": "skills-format",
+      "command": [
+        "skill-hub",
+        "validate",
+        "--pattern",
+        "modorch-*",
+        "--links"
+      ],
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/skill-validate-final.log",
+      "sha256": "c45e5bd4963bd80329d9d24721752f371064832305cd97d079673f5351fca304"
+    },
+    {
+      "id": "preflight",
+      "command": [
+        "python3",
+        ".agents/skills/modorch-framework-maintenance/scripts/preflight.py",
+        "--manifest-path",
+        "Cargo.toml"
+      ],
+      "status": "Passed",
+      "exit_code": 0,
+      "evidence": "docs/validation/2026-11-06/module-ingress/preflight-final.json",
+      "sha256": "82e467d046b142d14b60c153738fb10aedca07d57a8b366763addca18091da28"
+    }
+  ],
+  "agent_evals": [
+    {
+      "case_id": "AE-001",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "54d886c4c7943d9b636c21e6d953ab79fb24ed6a2a1ed4e4885f22216bb1dd7a",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "54d886c4c7943d9b636c21e6d953ab79fb24ed6a2a1ed4e4885f22216bb1dd7a"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-001/record.json",
+      "sha256": "ccbf2a1964f3ce149d5426a4faa5c2e7db89949e83a97abe63d5a0378f5c6358"
+    },
+    {
+      "case_id": "AE-002",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "194791cedf7ed16497af8f156169aaa81ba4e946bbfab1e8e2aa3f0c9dd46ad0",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "194791cedf7ed16497af8f156169aaa81ba4e946bbfab1e8e2aa3f0c9dd46ad0"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-002/record.json",
+      "sha256": "e4498d13a56bf1d06045dff32a1ce9ea135dfa01a34bd8a5d67a166be79ac228"
+    },
+    {
+      "case_id": "AE-003",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "2c3d63e41f7d2aed188edf470010ab0d18a0d5b3328faf4c50ec826d1fdfbf53",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "2c3d63e41f7d2aed188edf470010ab0d18a0d5b3328faf4c50ec826d1fdfbf53"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-003/record.json",
+      "sha256": "1906305468a01a1e4c835da3b672955d895b6ad25d03a05a4352c5a44a3ad969"
+    },
+    {
+      "case_id": "AE-004",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "da96e5d104c3b768c5ab65ac25594b3c3f102f0de72b69e9abd6878c0a05cd59",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "da96e5d104c3b768c5ab65ac25594b3c3f102f0de72b69e9abd6878c0a05cd59"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-004/record.json",
+      "sha256": "1bd3e9a5197f5d9015cc06b84b194852067d5f00faeadc65679d104f8ab7f7fe"
+    },
+    {
+      "case_id": "AE-005",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "da96f99698c3be81eb57c3401ba82fde74aa9d15f3f8b4615da9716a385eb5d3",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "da96f99698c3be81eb57c3401ba82fde74aa9d15f3f8b4615da9716a385eb5d3"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-005/record.json",
+      "sha256": "ac9fb245074767336324f04a184316d88e9cc5a8096448dc491e53ee4affe2d3"
+    },
+    {
+      "case_id": "AE-006",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "dcc57940bb3a9881c05127ac77e7651b830543690d098729f470e645b6ad1cbe",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "dcc57940bb3a9881c05127ac77e7651b830543690d098729f470e645b6ad1cbe"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-006/record.json",
+      "sha256": "0bb456e499e647af2746b404daa243e9b0c62d3b8dc79ab5fc0602949e86e738"
+    },
+    {
+      "case_id": "AE-007",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "28c116ab3dced00c47e426698829230eef2fd1d297498b6ace4d4eb799b683d4",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "28c116ab3dced00c47e426698829230eef2fd1d297498b6ace4d4eb799b683d4"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-007/record.json",
+      "sha256": "62c3b8ccc59dadcb8582c41cf6d06267d8cca25cf3c07bbd58986b967ec0c331"
+    },
+    {
+      "case_id": "AE-008",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "c918b1cd5dc53d93ae7f8a9353964d91b89464180d4aa9cd56fb744609a167e4",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "c918b1cd5dc53d93ae7f8a9353964d91b89464180d4aa9cd56fb744609a167e4"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-008/record.json",
+      "sha256": "f49b3ff979a61046c499baebd8060542aa6b2d9b8fafd0147286206d5f88b1c9"
+    },
+    {
+      "case_id": "AE-009",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "d9ae28ab1d5373612bc97bce06fb356ff9854979288f002f57c260f54d1ccdd3",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "d9ae28ab1d5373612bc97bce06fb356ff9854979288f002f57c260f54d1ccdd3"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-009/record.json",
+      "sha256": "f8a78eddc96a07f5665fee36f5921c4e54a43eeaa9f39d69d07a4d27de73c2d7"
+    },
+    {
+      "case_id": "AE-010",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "f06293bbe18b986beb0fa941b53c8d9fc2825a831a707e54fc4a0532f7de0d56",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "f06293bbe18b986beb0fa941b53c8d9fc2825a831a707e54fc4a0532f7de0d56"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-010/record.json",
+      "sha256": "68a80cbc017eb07abde937fdeeb7d290b2d0ef2d4508df5a4688663caeba78b4"
+    },
+    {
+      "case_id": "AE-011",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "a9a68569d472ae8d33bc6cf72a5f0b21c571dddc6bd4e38194ab559283fa3842",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "a9a68569d472ae8d33bc6cf72a5f0b21c571dddc6bd4e38194ab559283fa3842"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-011/record.json",
+      "sha256": "f10f01b73c9dfd058cc8a1540c9fdbc79e72758556a0198e477960fc4fa9c257"
+    },
+    {
+      "case_id": "AE-012",
+      "status": "NotRun",
+      "mode": "agent",
+      "host": null,
+      "delivery_sha256": "24b16c31b24700e117a326d7e39eea330e4bc7c304c2485bca0e8e917313530d",
+      "agent_version": null,
+      "goal_sha256": "285225c0a0647e3012c11773bf6538547b349883869442379eda76e8458f7179",
+      "review": {
+        "status": "NotRun",
+        "notes": "Independent semantic review is required"
+      },
+      "reason": "No actual Agent command was selected; fixture replay is separate",
+      "artifacts": {
+        "goal.json": "285225c0a0647e3012c11773bf6538547b349883869442379eda76e8458f7179"
+      },
+      "evidence": "docs/validation/2026-11-06/module-ingress/agent-plan/AE-012/record.json",
+      "sha256": "270211dbecaae83ce4489f6ab53b1af0c114c0df1c4c011903895f43f1119eba"
+    }
+  ],
+  "claimed_hosts": []
+}

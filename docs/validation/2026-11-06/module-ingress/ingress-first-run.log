@@ -1,0 +1,70 @@
+   Compiling modorch v0.0.2 (/home/rangh/aispace/modorch-rs/crates/modorch)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.56s
+     Running tests/ingress.rs (target/debug/deps/ingress-dd475ce0622d5e85)
+
+running 8 tests
+test activation_retry_budget_exhaustion_closes_all_ingress_and_reports_activation_phase ... FAILED
+test context_hubs_share_routing_and_different_applications_remain_isolated ... FAILED
+test partial_activation_error_and_panic_preserve_cause_and_release_all_ports ... FAILED
+test restart_activation_failure_compensates_before_retry_and_preserves_application_hub ... FAILED
+test slow_connection_retains_resources_until_checked_shutdown_can_finish ... ok
+test both_roles_wait_for_all_ready_before_tcp_listen_and_build_has_no_side_effects ... FAILED
+test cancelled_start_wait_still_compensates_activated_module ... FAILED
+test connection_task_limit_rejects_without_losing_listener_or_leaking_work ... FAILED
+
+failures:
+
+---- activation_retry_budget_exhaustion_closes_all_ingress_and_reports_activation_phase stdout ----
+
+thread 'activation_retry_budget_exhaustion_closes_all_ingress_and_reports_activation_phase' (1249758) panicked at crates/modorch/tests/ingress.rs:590:10:
+called `Result::unwrap()` on an `Err` value: StartupError { source: ExecutionFailed { component: ComponentRef { kind: Module, id: "b" }, operation_id: None, phase: Setup, detail: "invalid configuration: invalid subscription target or duplicate ID", source: Some(InvalidConfig("invalid subscription target or duplicate ID")) }, cleanup: Ok(GracefullyStopped), .. }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- context_hubs_share_routing_and_different_applications_remain_isolated stdout ----
+
+thread 'context_hubs_share_routing_and_different_applications_remain_isolated' (1249762) panicked at crates/modorch/tests/ingress.rs:491:10:
+called `Result::unwrap()` on an `Err` value: StartupError { source: ExecutionFailed { component: ComponentRef { kind: Module, id: "mqtt" }, operation_id: None, phase: Setup, detail: "invalid configuration: invalid subscription target or duplicate ID", source: Some(InvalidConfig("invalid subscription target or duplicate ID")) }, cleanup: Ok(GracefullyStopped), .. }
+
+---- partial_activation_error_and_panic_preserve_cause_and_release_all_ports stdout ----
+
+thread 'partial_activation_error_and_panic_preserve_cause_and_release_all_ports' (1249763) panicked at crates/modorch/tests/ingress.rs:402:9:
+assertion `left == right` failed
+  left: Some(Setup)
+ right: Some(ActivateIngress)
+
+---- restart_activation_failure_compensates_before_retry_and_preserves_application_hub stdout ----
+
+thread 'restart_activation_failure_compensates_before_retry_and_preserves_application_hub' (1249764) panicked at crates/modorch/tests/ingress.rs:534:10:
+called `Result::unwrap()` on an `Err` value: StartupError { source: ExecutionFailed { component: ComponentRef { kind: Module, id: "b" }, operation_id: None, phase: Setup, detail: "invalid configuration: invalid subscription target or duplicate ID", source: Some(InvalidConfig("invalid subscription target or duplicate ID")) }, cleanup: Ok(GracefullyStopped), .. }
+
+---- both_roles_wait_for_all_ready_before_tcp_listen_and_build_has_no_side_effects stdout ----
+
+thread 'both_roles_wait_for_all_ready_before_tcp_listen_and_build_has_no_side_effects' (1249759) panicked at crates/modorch/tests/ingress.rs:311:6:
+condition did not become true: Elapsed(())
+
+---- cancelled_start_wait_still_compensates_activated_module stdout ----
+
+thread 'cancelled_start_wait_still_compensates_activated_module' (1249760) panicked at crates/modorch/tests/ingress.rs:311:6:
+condition did not become true: Elapsed(())
+
+---- connection_task_limit_rejects_without_losing_listener_or_leaking_work stdout ----
+
+thread 'connection_task_limit_rejects_without_losing_listener_or_leaking_work' (1249761) panicked at crates/modorch/tests/ingress.rs:171:21:
+assertion failed: matches!(error, FrameworkError::ResourceLimit(_) | FrameworkError::Closed)
+
+thread 'connection_task_limit_rejects_without_losing_listener_or_leaking_work' (1249761) panicked at crates/modorch/tests/ingress.rs:311:6:
+condition did not become true: Elapsed(())
+
+
+failures:
+    activation_retry_budget_exhaustion_closes_all_ingress_and_reports_activation_phase
+    both_roles_wait_for_all_ready_before_tcp_listen_and_build_has_no_side_effects
+    cancelled_start_wait_still_compensates_activated_module
+    connection_task_limit_rejects_without_losing_listener_or_leaking_work
+    context_hubs_share_routing_and_different_applications_remain_isolated
+    partial_activation_error_and_panic_preserve_cause_and_release_all_ports
+    restart_activation_failure_compensates_before_retry_and_preserves_application_hub
+
+test result: FAILED. 1 passed; 7 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.13s
+
+error: test failed, to rerun pass `-p modorch --test ingress`

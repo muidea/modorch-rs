@@ -49,7 +49,7 @@ impl Default for HubLimits {
 impl HubLimits {
     /// Reject invalid or overflowing resource limits before any work is created.
     ///
-    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.2; see crate-level examples and ownership limits.
+    /// Contract: MSG-CMD-001 / MSG-REQ-004. Development API: modorch 0.0.3; see crate-level examples and ownership limits.
     pub fn validate(&self) -> FrameworkResult<()> {
         if [
             self.max_waiters,
@@ -142,7 +142,7 @@ impl HubLimits {
 #[derive(Clone, Copy, Debug, Default)]
 /// Current admission waiters and declared retained payload costs.
 ///
-/// Development API for modorch 0.0.2. Ownership, errors and runnable examples
+/// Development API for modorch 0.0.3. Ownership, errors and runnable examples
 /// are documented at crate level and in the matching behavior Contracts.
 pub struct AdmissionMetrics {
     /// Current bounded resource/admission waiters.
